@@ -4,6 +4,12 @@ OnlineTutoringApp::Application.routes.draw do
   get "static_pages/about"
 
   resources :users
+  resources :sessions, only: [:new, :create, :destory]
+
+  match '/signup', to: 'users#new'
+  match '/signin', to: 'sessions#new', via: :get
+  match '/signin', to: 'sessions#create', via: :post
+  match '/signout', to: 'sessions#destroy', via: :delete
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
