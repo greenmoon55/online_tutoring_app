@@ -1,4 +1,8 @@
 OnlineTutoringApp::Application.routes.draw do
+  root to: "static_pages#home"
+
+  get "static_pages/about"
+
   get "users/new"
 
   # The priority is based upon order of creation:
