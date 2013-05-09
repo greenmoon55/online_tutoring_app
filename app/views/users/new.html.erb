@@ -18,6 +18,25 @@
       <%= f.label :password_confirmation, "Confirmation" %>
       <%= f.password_field :password_confirmation %>
 
+      <%= f.label :is_teacher %>
+      <%= f.select :is_teacher, [['是', 1],['否', 0]] %>
+
+      <%= f.label :gender %>
+      <%= f.select :gender, [['男', 1],['女', 2],['保密', 3]] %>
+
+      <%= f.label :district_id %>
+      <%= f.text_field :district_id %>
+
+
+      <%= f.label :degree_id %>
+      <%= f.text_field :degree_id %>
+
+      <%= f.label :description %>
+      <%= f.text_field :description %>
+
+      <%= f.label :visible %>
+      <%= f.check_box :visible %>
+
       <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>
