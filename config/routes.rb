@@ -6,7 +6,8 @@ OnlineTutoringApp::Application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destory]
 
-  match '/signup', to: 'users#new'
+  match '/signup/', to: 'users#new'
+  match '/signup/teacher', to: 'users#new_teacher'
   match '/signin', to: 'sessions#new', via: :get
   match '/signin', to: 'sessions#create', via: :post
   match '/signout', to: 'sessions#destroy', via: :delete

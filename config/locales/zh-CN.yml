@@ -199,6 +199,7 @@ zh-CN:
     errors:
       <<: *errors
   activerecord:
+    models:
     errors:
       <<: *errors
     attributes:
@@ -206,3 +207,9 @@ zh-CN:
         name: "用户名"
         password: "密码"
         password_confirmation: "密码确认"
+        is_student: "是否是学生"
+        gender: "性别"
+        district_id: "区域"
+        degree_id: "学历"
+        description: "自我介绍"
+        visible: "可见"
