@@ -4,8 +4,12 @@
       <%= link_to "良师在线", root_path, id: "logo" %>
       <nav>
         <ul class="nav pull-right">
-            <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
-            <li><%= link_to "Sign in", signin_path %></li>
+          <% if signed_in? %>
+            <li><%= link_to t("common.logout"), signout_path, method: "delete" %></li>
+          <% else %>
+            <li><%= link_to t("common.login"), signin_path %></li>
+            <li><%= link_to t("common.register"), signup_path %></li>
+          <% end %>
         </ul>
       </nav>
     </div>

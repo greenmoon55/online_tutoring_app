@@ -1,4 +1,8 @@
 zh-CN:
+  common:
+    login: "登录"
+    logout: "退出"
+    register: "注册"
   date:
     abbr_day_names:
     - 日
@@ -197,3 +201,8 @@ zh-CN:
   activerecord:
     errors:
       <<: *errors
+    attributes:
+      user:
+        name: "用户名"
+        password: "密码"
+        password_confirmation: "密码确认"
