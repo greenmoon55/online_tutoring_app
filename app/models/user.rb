@@ -18,7 +18,7 @@
 
 class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation,
-                  :is_teacher, :gender, :district_id, :description,
+                  :is_student, :gender, :district_id, :description,
                   :visible, :degree_id
   has_secure_password
 
@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, 
                     format: { with: VALID_EMAIL_REGEX },
-                    uniqueness: {case_sensitive: false, scope: :is_teacher}
+                    uniqueness: {case_sensitive: false, scope: :is_student}
 
   validates :password, presence: true, length: { minimum: 7 }
   validates :password_confirmation, presence: true
