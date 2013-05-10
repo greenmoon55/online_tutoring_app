@@ -1,0 +1,21 @@
+<% provide(:title, "搜索 #{@content}") %>
+<h1>Sign in</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(:search_content, url: search_contents_path) do |f| %>
+    <%= f.text_field :content, :value => @content %>
+    <%= f.submit "搜索", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+<ul class="users">
+  <% if @users %>
+    <% @users.each do |user| %>
+      <li><%= user.name%> </li>
+     <% end %>
+  <% end %>
+</ul>
+
+
