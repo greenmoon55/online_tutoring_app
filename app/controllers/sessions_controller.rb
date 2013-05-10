@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by_email(params[:email].downcase)
+    user = User.find_by_email_and_is_student(params[:email].downcase, params[:type] == 'student')
     if user && user.authenticate(params[:password])
 #      if params[:remember_me]
 #        cookies.permanent[:remember_token] = user.remember_token

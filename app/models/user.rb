@@ -2,17 +2,25 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  email      :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id              :integer          not null, primary key
+#  name            :string(255)      not null
+#  email           :string(255)      not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  password_digest :string(255)      not null
+#  is_student      :boolean          default(TRUE), not null
+#  gender          :integer
+#  district_id     :integer
+#  description     :string(255)
+#  visible         :boolean
+#  degree_id       :integer
 #
 
 class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation,
                   :is_student, :gender, :district_id, :description,
                   :visible, :degree_id
+  belongs_to :district
   has_secure_password
 
   before_save { |user| user.email = email.downcase }
