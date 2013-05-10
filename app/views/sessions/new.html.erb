@@ -10,6 +10,13 @@
     <%= label_tag :password, "密码"%>
     <%= password_field_tag :password , params[:password] , class:"login-box"%>
 
+    </br>
+    <%= radio_button_tag :type, "teacher" %>
+    <%= label_tag :type_teacher, "教师" %>
+    <%= radio_button_tag :type, "student" %>
+    <%= label_tag :type_student, "学生" %>
+    
+
     <div class="login-rem">
      <%= label_tag :remember_me,params[:remember_me], class:"login-left" %>
      <div class="login-right"><%= check_box_tag :remember_me %></div>
