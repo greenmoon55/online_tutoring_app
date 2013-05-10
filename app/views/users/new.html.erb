@@ -25,7 +25,7 @@
       <%= f.select :gender, [['男', 1],['女', 2],['保密', 3]] %>
 
       <%= f.label :district_id %>
-      <%= f.text_field :district_id %>
+      <%= f.select :district_id, @districts %>
 
 
       <%= f.label :degree_id %>

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def new
     @user = User.new
+    @districts = District.all.collect {|x| [x.name, x.id]}
   end
 
   def create
