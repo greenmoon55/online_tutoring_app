@@ -3,6 +3,7 @@ zh-CN:
     login: "登录"
     logout: "退出"
     register: "注册"
+    teacher-register: "教师注册"
   date:
     abbr_day_names:
     - 日
