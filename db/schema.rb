@@ -11,7 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130510125817) do
+ActiveRecord::Schema.define(:version => 20130511134017) do
+
+  create_table "Users", :force => true do |t|
+    t.string   "name",                              :null => false
+    t.string   "email",                             :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.string   "password_digest",                   :null => false
+    t.boolean  "type",            :default => true, :null => false
+    t.integer  "gender"
+    t.integer  "district_id"
+    t.string   "description"
+    t.boolean  "visible"
+    t.integer  "degree_id"
+  end
+
+  add_index "Users", ["email", "type"], :name => "index_users_on_email_and_is_student", :unique => true
 
   create_table "districts", :force => true do |t|
     t.string "name", :null => false
@@ -20,21 +36,5 @@ ActiveRecord::Schema.define(:version => 20130510125817) do
   create_table "subjects", :force => true do |t|
     t.string "name", :null => false
   end
-
-  create_table "users", :force => true do |t|
-    t.string   "name",                              :null => false
-    t.string   "email",                             :null => false
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
-    t.string   "password_digest",                   :null => false
-    t.boolean  "is_student",      :default => true, :null => false
-    t.integer  "gender"
-    t.integer  "district_id"
-    t.string   "description"
-    t.boolean  "visible"
-    t.integer  "degree_id"
-  end
-
-  add_index "users", ["email", "is_student"], :name => "index_users_on_email_and_is_student", :unique => true
 
 end
