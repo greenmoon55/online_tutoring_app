@@ -1,18 +1,45 @@
 <% provide(:title, "搜索 #{@content}") %>
 <h1>Sign in</h1>
 
-<%= render  'shared/search_form' %>                       
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_tag(search_contents_path, :method=>'post', :multipart => true) do  %>
+    <%= radio_button_tag :gender, 0, :checked => true%>
+    <%= label_tag :gender_both, "都可" %>
+    <%= radio_button_tag :gender, 1 %>
+    <%= label_tag :gender_male, "男" %> 
+    <%= radio_button_tag :gender, 2 %>
+    <%= label_tag :gender_female, "女" %>
+
+    <%= radio_button_tag :role, 0,:checked => true %>
+    <%= label_tag  "学生" %>
+    <%= radio_button_tag :role, 1 %>
+    <%= label_tag  "老师" %> 
+    <% @degrees.each do |degree| %>
+      <%= check_box_tag 'degree[]', degree[:id],false %>
+      <%= label_tag degree[:name] %>
+    <% end %>
+
+
+
+    <% @districts.each do |district| %>
+      <%= check_box_tag 'district[]', district[:id],false %>
+      <%= label_tag district[:name] %>
+    <% end %>
+   
+
+
+
+    <%= text_field_tag :content, @content %>
+    <%= submit_tag "搜索", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
 <ul class="users">
-  <% if @students %>
-  <p><%= @students.count %>个学生</p>
-    <% @students.each do |student| %>
-      <li><%= student.name%> </li>
-     <% end %>
-  <% end %>
-  <% if @teachers %>
-  <p><%= @teachers.count %>个老师</p>
-    <% @teachers.each do |teacher| %>
-      <li><%= teacher.name%> </li>
+  <% if @users %>
+    <% @users.each do |user| %>
+      <li><%= user.name%> <%=user.gender %> <%= user.role%> </li>
      <% end %>
   <% end %>
 </ul>
