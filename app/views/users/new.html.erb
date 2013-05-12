@@ -18,6 +18,15 @@
       <%= f.label :password_confirmation %>
       <%= f.password_field :password_confirmation %>
 
+      <fieldset>
+        <div class="role-select">
+          <%= f.radio_button :role, "teacher" %>
+          <%= f.label :role_teacher, "教师" %>
+          <%= f.radio_button :role, "student", checked: true %>
+          <%= f.label :role_student, "学生" %>
+        </div>
+      </fieldset>
+
       <%= f.submit t("common.register"), class: "btn btn-large btn-primary" %>
     <% end %>
   </div>

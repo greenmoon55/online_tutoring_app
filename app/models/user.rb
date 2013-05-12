@@ -19,7 +19,7 @@
 class User < ActiveRecord::Base
   has_secure_password
   attr_accessible :email, :name, :password, :password_confirmation,
-                  :role, :gender, :district_id, :description,
+                  :gender, :district_id, :description,
                   :visible, :degree_id
   belongs_to :district
 

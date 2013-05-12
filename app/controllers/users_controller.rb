@@ -16,6 +16,10 @@ class UsersController < ApplicationController
   end
 
   def create
+    role = (params[:user][:role] == "student")
+    params[:user].except(:name, :email, :password, 
+                          :password_confirmation)
+    params[:user][:role] = (role ? 1 : 0)
     @user = User.new(params[:user])
     if @user.save
       redirect_to @user
