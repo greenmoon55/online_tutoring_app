@@ -16,6 +16,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.role = (role ? 1 : 0)
     if @user.save
+      sign_in @user
       redirect_to @user
     else
       initialize_districts
