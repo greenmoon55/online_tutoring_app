@@ -6,14 +6,14 @@ class SearchContentsController < ApplicationController
     self.get_district
     @gender_number = Integer( params[:gender] )
     gender_array = []
-    if(@gender_number == 0)
+    if(@gender_number == 2)
       gender_array = [0,1]
     else 
       gender_array.push(Integer(@gender_number))
-      gender_array[0] -= 1
     end
 
     @role_number = Integer(params[:role])
+    role_array = [Integer(params[:role]),2]
   
     @degree_selected = []
     if(params[:degree])
@@ -21,7 +21,7 @@ class SearchContentsController < ApplicationController
         @degree_selected.push( Integer(single_degree))
       end    
     else 
-      @degree_selected = (0..1).to_a
+      @degree_selected = (0..5).to_a
     end
 
     @district_selected = []
@@ -30,15 +30,18 @@ class SearchContentsController < ApplicationController
         @district_selected.push( Integer(single_district))
       end    
     else 
-      @district_selected = (0..1).to_a
+      @district_selected = (0..17).to_a
     end
-
-    @users = User.find(:all,:conditions => ["name LIKE ? and gender IN (?) and role<>? and degree_id IN (?) and district_id IN (?)","%#{@content}%",gender_array,@role_number,@degree_selected,@district_selected])
+    @users = User.find(:all,:conditions => ["name LIKE ? and gender IN (?) and role IN (?) and degree_id IN (?) and district_id IN (?)","%#{@content}%",gender_array,role_array,@degree_selected,@district_selected])
     render 'search'
   end
   
   def search
     @content = nil
+    @gender_number = 2
+    @role_number = 1
+    @degree_selected = []
+    @district_selected = []
     self.get_degree   
     self.get_district 
   end
@@ -48,19 +51,16 @@ class SearchContentsController < ApplicationController
     @degrees = []
     @degrees.push({name: "小学",id:0})
     @degrees.push({name: "初中",id:1})
-=begin
     @degrees.push({name: "高中",id:2})
     @degrees.push({name: "本科",id:3})
     @degrees.push({name: "硕士",id:4})
     @degrees.push({name: "博士",id:5})
-=end
   end
   
   def get_district
     @districts = []
     @districts.push({name: "黄浦区",id:0})
     @districts.push({name: "卢湾区",id:1})
-=begin
     @districts.push({name: "长宁区",id:2})
     @districts.push({name: "普陀区",id:3})
     @districts.push({name: "虹口区",id:4})
@@ -77,6 +77,5 @@ class SearchContentsController < ApplicationController
     @districts.push({name: "奉贤区",id:15})
     @districts.push({name: "崇明县",id:16})
     @districts.push({name: "浦东新区",id:17})
-=end
   end
 end

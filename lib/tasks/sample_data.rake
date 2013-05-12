@@ -7,21 +7,30 @@ namespace :db do
       password = "forever"
       password_confirmation = "forever"
       if(n%2 == 1)
-	is_student = true
-	gender = false
-      else is_student = false
-	gender = true
+	role = 1
+	if(n%4 == 1)
+	  gender = 1
+	else
+	  gender = 0
+	end
+      else 
+	role = 0
+	if(n%4 == 0)
+	  gender = 1
+	else
+	  gender = 0
+	end
       end
-      district_id = n%3
+      district_id = n%18
       description = "description"
       visible = true
-      degree_id = (n+1)%3
+      degree_id = n%6
       
       User.create!(name: name,
                    email: email,
                    password: password,
                    password_confirmation: password,
-		   is_student: is_student,
+		   role: role,
 		   gender: gender,
 		   district_id: district_id,
 		   description: description,
