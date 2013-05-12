@@ -34,5 +34,6 @@ module SessionsHelper
   def sign_out
     self.current_user = nil
     session.delete(:user_id)
+    session.delete(:role)
   end
 end

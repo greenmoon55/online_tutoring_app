@@ -3,7 +3,7 @@ zh-CN:
     login: "登录"
     logout: "退出"
     register: "注册"
-    teacher-register: "教师注册"
+    teacher_register: "教师注册"
   date:
     abbr_day_names:
     - 日
@@ -208,7 +208,7 @@ zh-CN:
         name: "用户名"
         password: "密码"
         password_confirmation: "密码确认"
-        is_student: "是否是学生"
+        role: "身份"
         gender: "性别"
         district_id: "区域"
         degree_id: "学历"

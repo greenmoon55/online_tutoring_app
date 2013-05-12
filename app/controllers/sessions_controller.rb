@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
       #logger.info user
       redirect_to root_url
     else
-      flash.now[:error] = "Email或密码错误"
+      flash.now[:error] = "Email、密码或角色错误"
       render "new"
     end
   end
