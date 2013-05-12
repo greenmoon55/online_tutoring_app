@@ -1,5 +1,5 @@
 <% provide(:title, t("common.register")) %>
-<h1>Sign up</h1>
+<h1><%= t("common.register") %></h1>
 <div class="row">
   <div class="span6 offset3">
     <%= link_to "教师注册", teacher_signup_path %>
@@ -18,19 +18,14 @@
       <%= f.label :password_confirmation %>
       <%= f.password_field :password_confirmation %>
 
-      <%= f.hidden_field :is_student, value: 1 %>
-
-      <%= f.label :gender %>
-      <%= f.select :gender, [['男', 1],['女', 2],['保密', 3]] %>
-
-      <%= f.label :district_id %>
-      <%= f.select :district_id, @districts %>
-
-      <%= f.label :description %>
-      <%= f.text_field :description %>
-
-      <%= f.label :visible %>
-      <%= f.check_box :visible %>
+      <fieldset>
+        <div class="role-select">
+          <%= f.radio_button :role, "teacher" %>
+          <%= f.label :role_teacher, "教师" %>
+          <%= f.radio_button :role, "student", checked: true %>
+          <%= f.label :role_student, "学生" %>
+        </div>
+      </fieldset>
 
       <%= f.submit t("common.register"), class: "btn btn-large btn-primary" %>
     <% end %>

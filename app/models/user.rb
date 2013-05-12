@@ -17,11 +17,15 @@
 #
 
 class User < ActiveRecord::Base
+  has_secure_password
   attr_accessible :email, :name, :password, :password_confirmation,
+<<<<<<< HEAD
                   :role, :gender, :district_id, :description,
+=======
+                  :gender, :district_id, :description,
+>>>>>>> 700ae80b2f400f9a38cf42d7eb24f280010f035c
                   :visible, :degree_id
   belongs_to :district
-  has_secure_password
 
   before_save { |user| user.email = email.downcase }
 
@@ -33,4 +37,13 @@ class User < ActiveRecord::Base
 
   validates :password, presence: true, length: { minimum: 7 }
   validates :password_confirmation, presence: true
+
+  def find_by_email_and_role(email, role)
+    return nil unless [0, 1].include?(role)
+    user = User.find_by_email(email)
+    if user && (user.role == role || user.role == 2)
+      return user
+    end
+    return nil
+  end
 end
