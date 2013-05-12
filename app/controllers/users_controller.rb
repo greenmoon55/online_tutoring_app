@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  before_filter :require_signin, only: [:edit, :update, :destroy]
+  before_filter :correct_user,   only: [:edit, :update, :destroy]
+
   def initialize_districts
     @districts = District.all.collect {|x| [x.name, x.id]}
   end
@@ -46,5 +49,12 @@ class UsersController < ApplicationController
     
   end
 
+  private
+    def correct_user
+      @user = User.find(params[:id])
+      unless current_user?(@user)
+        redirect_to root_path, notice: "非法操作"
+      end
+    end
 
 end

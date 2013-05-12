@@ -8,6 +8,12 @@ module SessionsHelper
     !current_user.nil?
   end
 
+  def require_signin
+    unless signed_in?
+      redirect_to signin_path, notice: "请先登录"
+    end
+  end
+
   # setter
   def current_user=(user)
     @current_user = user
@@ -19,6 +25,10 @@ module SessionsHelper
       @current_user ||= User.find_by_id(session[:user_id])
     end
     @current_user
+  end
+
+  def current_user?(user)
+    user == current_user
   end
 
   def sign_out

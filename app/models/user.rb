@@ -33,4 +33,13 @@ class User < ActiveRecord::Base
 
   validates :password, presence: true, length: { minimum: 7 }
   validates :password_confirmation, presence: true
+
+  def find_by_email_and_role(email, role)
+    return nil unless [0, 1].include?(role)
+    user = User.find_by_email(email)
+    if user && (user.role == role || user.role == 2)
+      return user
+    end
+    return nil
+  end
 end
