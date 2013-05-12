@@ -25,6 +25,22 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
   end
+
+  def edit
+    initialize_districts
+    @user = User.find(params[:id])
+  end
+
+  def update
+    initialize_districts
+    @user = User.find(params[:id])
+    params[:user].delete :current_password
+    if @user.update_attributes(params[:user])
+      redirect_to @user, notice: 'User was successfully updated.'
+    else
+      render 'edit'
+    end
+  end
   
   def search
     
