@@ -10,17 +10,11 @@ class UsersController < ApplicationController
     initialize_districts
   end
 
-  def new_teacher
-    @user = User.new
-    initialize_districts
-  end
-
   def create
     role = (params[:user][:role] == "student")
-    params[:user].except(:name, :email, :password, 
-                          :password_confirmation)
-    params[:user][:role] = (role ? 1 : 0)
+    params[:user].delete :role
     @user = User.new(params[:user])
+    @user.role = (role ? 1 : 0)
     if @user.save
       redirect_to @user
     else

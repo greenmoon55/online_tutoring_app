@@ -1,8 +1,7 @@
 <% provide(:title, t("common.register")) %>
 <h1><%= t("common.register") %></h1>
 <div class="row">
-  <div class="span6 offset3">
-    <%= link_to "教师注册", teacher_signup_path %>
+  <div class="span6">
     <%= form_for(@user) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
 
