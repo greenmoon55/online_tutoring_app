@@ -4,6 +4,7 @@ zh-CN:
     logout: "退出"
     register: "注册"
     teacher_register: "教师注册"
+    search: "搜索"
   date:
     abbr_day_names:
     - 日

@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
 
   def create
     role = (params[:role] == "student")
-    user = User.find_by_email_and_role(params[:email].downcase, role)
+    user = User.find_by_email_and_role(params[:email].downcase, role ? 1 : 0)
     if user && user.authenticate(params[:password])
 #      if params[:remember_me]
 #        cookies.permanent[:remember_token] = user.remember_token

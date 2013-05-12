@@ -19,9 +19,7 @@
 class User < ActiveRecord::Base
   has_secure_password
   attr_accessible :email, :name, :password, :password_confirmation,
-
                   :gender, :district_id, :description,
-
                   :visible, :degree_id
   belongs_to :district
 
@@ -36,7 +34,7 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 7 }
   validates :password_confirmation, presence: true
 
-  def find_by_email_and_role(email, role)
+  def self.find_by_email_and_role(email, role)
     return nil unless [0, 1].include?(role)
     user = User.find_by_email(email)
     if user && (user.role == role || user.role == 2)
