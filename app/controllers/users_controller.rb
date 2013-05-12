@@ -31,6 +31,14 @@ class UsersController < ApplicationController
   def edit
     initialize_districts
     @user = User.find(params[:id])
+    logger.info current_role
+    logger.info "in edit"
+    if current_teacher?
+      logger.info "here"
+      render "edit_teacher"
+      return
+    end
+    logger.info current_role
   end
 
   def update

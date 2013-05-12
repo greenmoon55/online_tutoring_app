@@ -6,6 +6,7 @@
         <ul class="nav pull-right">
             <li><%= link_to t("common.search"), search_path %></li>
           <% if signed_in? %>
+            <li><%= link_to "编辑个人资料", edit_user_path(current_user) %> </li>
             <li><%= link_to t("common.logout"), signout_path, method: "delete" %></li>
           <% else %>
             <li><%= link_to t("common.login"), signin_path %></li>

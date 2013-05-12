@@ -1,6 +1,8 @@
+# encoding: utf-8
 module SessionsHelper
   def sign_in(user)
     session[:user_id] = user.id
+    session[:role] = (user.role == 1)
     self.current_user = user
   end
 
@@ -29,6 +31,27 @@ module SessionsHelper
 
   def current_user?(user)
     user == current_user
+  end
+
+  # setter
+  def current_role=(role)
+    @current_role = role
+  end
+
+  # getter
+  def current_role
+    if session.has_key?(:role)
+      @current_role ||= session[:role]
+    end
+    return @current_role
+  end
+
+  def current_teacher?
+    self.current_role == false
+  end
+
+  def current_student?
+    self.current_role == true
   end
 
   def sign_out
