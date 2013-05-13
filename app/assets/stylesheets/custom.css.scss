@@ -1,5 +1,5 @@
 @import "bootstrap";
-$grayMediumLight: #eaeaea;
+
 body {
   padding-top: 70px; // 勿删，因为固定header
 }
@@ -8,16 +8,11 @@ body {
   display: inline;
 }
 
-.users {
-  list-style: none;
-  margin: 0;
-  li {
-    overflow: auto;
-    padding: 10px 0;
-    border-top: 1px solid $grayLighter;
-    &:last-child {
-      border-bottom: 1px solid $grayLighter;
-    }
-  }
+.img-rounded {
+  border-radius: 2px; // 把默认的6px变小
+}
+
+nav .avatar {
+  margin-right: 5px;
 }
 

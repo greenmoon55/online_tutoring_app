@@ -46,6 +46,14 @@ module SessionsHelper
     return @current_role
   end
 
+  def current_role_to_s
+    unless current_role
+      return "教师"
+    else
+      return "学生" 
+    end
+  end
+
   def current_teacher?
     self.current_role == false
   end
@@ -58,5 +66,9 @@ module SessionsHelper
     self.current_user = nil
     session.delete(:user_id)
     session.delete(:role)
+  end
+
+  def districts
+    @districts ||= District.all.collect {|x| [x.name, x.id]}
   end
 end

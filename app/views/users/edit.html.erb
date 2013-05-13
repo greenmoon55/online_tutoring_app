@@ -14,29 +14,21 @@
       <%= f.select :gender, [['男', 1],['女', 0]], include_blank: true %>
 
       <%= f.label :district_id %>
-      <%= f.select :district_id, @districts, include_blank: true %>
+      <%= f.select :district_id, districts, include_blank: true %>
 
       <%= f.label :description %>
       <%= f.text_field :description %>
 
-      <%= f.label :visible %>
-      <%= f.check_box :visible %>
+      <div class="role-select">
+        <%= f.label :student_visible %>
+        <%= f.check_box :student_visible %>
+      </div>
 
-      <%= f.submit t("common.register"), class: "btn btn-large btn-primary" %>
+      <%= f.submit t("common.update"), class: "btn btn-primary" %>
     <% end %>
+    <%= link_to("我也想当老师", full_role_user_path(@user), method: :delete, confirm: :"你确定吗？") unless current_user.full_role? %>
   </div>
   <div class="span6">
-    <%= form_for(@user) do |f| %>
-      <%= f.label :current_password %>
-      <%= f.password_field :current_password %>
-
-      <%= f.label :password %>
-      <%= f.password_field :password %>
-
-      <%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation %>
-      
-      <%= f.submit "修改密码", class: "btn btn-large btn-primary" %>
-    <% end %>
+    <%= render "edit_password" %>
   </div>
 </div>

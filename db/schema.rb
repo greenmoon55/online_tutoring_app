@@ -11,30 +11,45 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130512085133) do
-
-  create_table "Users", :force => true do |t|
-    t.string   "name",                           :null => false
-    t.string   "email",                          :null => false
-    t.datetime "created_at",                     :null => false
-    t.datetime "updated_at",                     :null => false
-    t.string   "password_digest",                :null => false
-    t.integer  "role",            :default => 1, :null => false
-    t.integer  "gender"
-    t.integer  "district_id"
-    t.string   "description"
-    t.boolean  "visible"
-    t.integer  "degree_id"
-  end
-
-  add_index "Users", ["email"], :name => "index_users_on_email", :unique => true
+ActiveRecord::Schema.define(:version => 20130513112034) do
 
   create_table "districts", :force => true do |t|
     t.string "name", :null => false
   end
 
+  create_table "student_relationships", :force => true do |t|
+    t.integer "user_id",    :null => false
+    t.integer "subject_id", :null => false
+  end
+
+  add_index "student_relationships", ["user_id", "subject_id"], :name => "index_student_relationships_on_user_id_and_subject_id", :unique => true
+
   create_table "subjects", :force => true do |t|
     t.string "name", :null => false
   end
+
+  create_table "teacher_relationships", :force => true do |t|
+    t.integer "user_id",    :null => false
+    t.integer "subject_id", :null => false
+  end
+
+  add_index "teacher_relationships", ["user_id", "subject_id"], :name => "index_teacher_relationships_on_user_id_and_subject_id", :unique => true
+
+  create_table "users", :force => true do |t|
+    t.string   "name",                              :null => false
+    t.string   "email",                             :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.string   "password_digest",                   :null => false
+    t.integer  "role",            :default => 1,    :null => false
+    t.integer  "gender"
+    t.integer  "district_id"
+    t.string   "description"
+    t.integer  "degree_id"
+    t.boolean  "teacher_visible", :default => true, :null => false
+    t.boolean  "student_visible", :default => true, :null => false
+  end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
 
 end

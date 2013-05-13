@@ -20,8 +20,12 @@ class User < ActiveRecord::Base
   has_secure_password
   attr_accessible :email, :name, :password, :password_confirmation,
                   :gender, :district_id, :description,
-                  :visible, :degree_id
+                  :student_visible, :teacher_visible, :degree_id
   attr_accessor :updating_password
+  has_many :student_relationships
+  has_many :student_subjects, through: :student_relationships, source: :subject
+  has_many :teacher_relationships
+  has_many :teacher_subjects, through: :student_relationships, source: :subject
   belongs_to :district
 
   before_save { |user| user.email = email.downcase }
@@ -48,5 +52,9 @@ class User < ActiveRecord::Base
 
   def should_validate_password?
     updating_password || new_record?
+  end
+
+  def full_role?
+    self.role == 2
   end
 end
