@@ -1,5 +1,5 @@
 @import "bootstrap";
-
+$grayMediumLight: #eaeaea;
 body {
   padding-top: 70px; // 勿删，因为固定header
 }
@@ -7,3 +7,17 @@ body {
 .role-select label {
   display: inline;
 }
+
+.users {
+  list-style: none;
+  margin: 0;
+  li {
+    overflow: auto;
+    padding: 10px 0;
+    border-top: 1px solid $grayLighter;
+    &:last-child {
+      border-bottom: 1px solid $grayLighter;
+    }
+  }
+}
+
