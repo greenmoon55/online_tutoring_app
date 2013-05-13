@@ -1,3 +1,4 @@
+# encoding: utf-8
 class UsersController < ApplicationController
   before_filter :require_signin, only: [:edit, :update, :destroy]
   before_filter :correct_user,   only: [:edit, :update, :destroy]
@@ -44,7 +45,18 @@ class UsersController < ApplicationController
   def update
     initialize_districts
     @user = User.find(params[:id])
-    params[:user].delete :current_password
+    if params[:user][:current_password] 
+      if @user.authenticate(params[:user][:current_password])
+        @user.updating_password = true # RailsCasts #41
+        params[:user].delete :current_password
+      else
+        flash.now[:notice] = "error"
+        render 'edit' and return
+      end
+    else
+      params[:user].delete :password
+      params[:user].delete :password_confirmation
+    end
     if @user.update_attributes(params[:user])
       redirect_to @user, notice: 'User was successfully updated.'
     else

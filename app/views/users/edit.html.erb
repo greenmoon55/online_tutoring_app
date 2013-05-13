@@ -1,7 +1,6 @@
-<% provide(:title, t("user.edit")) %>
-<h1>Sign up</h1>
+<% provide(:title, "编辑个人资料") %>
 <div class="row">
-  <div class="span6 offset3">
+  <div class="span6">
     <%= form_for(@user) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
 
@@ -11,20 +10,11 @@
       <%= f.label :email %>
       <%= f.text_field :email %>
       
-      <%= f.label :current_password %>
-      <%= f.password_field :current_password %>
-
-      <%= f.label :password %>
-      <%= f.password_field :password %>
-
-      <%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation %>
-
       <%= f.label :gender %>
-      <%= f.select :gender, [['男', 1],['女', 2],['保密', 3]] %>
+      <%= f.select :gender, [['男', 1],['女', 0]], include_blank: true %>
 
       <%= f.label :district_id %>
-      <%= f.select :district_id, @districts %>
+      <%= f.select :district_id, @districts, include_blank: true %>
 
       <%= f.label :description %>
       <%= f.text_field :description %>
@@ -33,6 +23,20 @@
       <%= f.check_box :visible %>
 
       <%= f.submit t("common.register"), class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+  <div class="span6">
+    <%= form_for(@user) do |f| %>
+      <%= f.label :current_password %>
+      <%= f.password_field :current_password %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation %>
+      
+      <%= f.submit "修改密码", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>
 </div>

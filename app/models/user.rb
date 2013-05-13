@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation,
                   :gender, :district_id, :description,
                   :visible, :degree_id
+  attr_accessor :updating_password
   belongs_to :district
 
   before_save { |user| user.email = email.downcase }
@@ -31,8 +32,10 @@ class User < ActiveRecord::Base
                     format: { with: VALID_EMAIL_REGEX },
                     uniqueness: {case_sensitive: false, scope: :role}
 
-  validates :password, presence: true, length: { minimum: 7 }
-  validates :password_confirmation, presence: true
+  validates :password, presence: true, length: { minimum: 7 },
+            if: :should_validate_password?
+  validates :password_confirmation, presence: true,
+            if: :should_validate_password?
 
   def self.find_by_email_and_role(email, role)
     return nil unless [0, 1].include?(role)
@@ -41,5 +44,9 @@ class User < ActiveRecord::Base
       return user
     end
     return nil
+  end
+
+  def should_validate_password?
+    updating_password || new_record?
   end
 end
