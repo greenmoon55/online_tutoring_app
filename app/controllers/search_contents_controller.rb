@@ -5,7 +5,7 @@ class SearchContentsController < ApplicationController
     @gender_number = Integer( params[:gender] )
     gender_array = []
     if(@gender_number == 2)
-      gender_array = [0,1]
+      gender_array = [0,1,2]
     else 
       gender_array.push(Integer(@gender_number))
     end
@@ -33,7 +33,7 @@ class SearchContentsController < ApplicationController
     if @district_selected.empty?
       @district_selected = (0..17).to_a
     end
-    @users = User.find(:all,:conditions => ["name LIKE ? and gender IN (?) and role IN (?) and degree_id IN (?) and district_id IN (?)","%#{@content}%",gender_array,role_array,@degree_selected,@district_selected])
+    @users = User.find(:all,:conditions => ["name LIKE ? and gender IN (?) and role IN (?) and degree_id IN (?) and district_id IN (?) and visible = ?","%#{@content}%",gender_array,role_array,@degree_selected,@district_selected,true])
     render 'search'
   end
   
