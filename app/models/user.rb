@@ -20,7 +20,8 @@ class User < ActiveRecord::Base
   has_secure_password
   attr_accessible :email, :name, :password, :password_confirmation,
                   :gender, :district_id, :description,
-                  :student_visible, :teacher_visible, :degree_id
+                  :student_visible, :teacher_visible, :degree_id,
+                  :student_subject_ids, :teacher_subject_ids
   attr_accessor :updating_password
   has_many :student_relationships
   has_many :student_subjects, through: :student_relationships, source: :subject
@@ -28,13 +29,15 @@ class User < ActiveRecord::Base
   has_many :teacher_subjects, through: :teacher_relationships, source: :subject
   belongs_to :district
 
+  accepts_nested_attributes_for :student_subjects
+
   before_save { |user| user.email = email.downcase }
 
   validates :name, presence: true, length: { maximum: 20 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, 
                     format: { with: VALID_EMAIL_REGEX },
-                    uniqueness: {case_sensitive: false, scope: :role}
+                    uniqueness: {case_sensitive: false}
 
   validates :password, presence: true, length: { minimum: 7 },
             if: :should_validate_password?

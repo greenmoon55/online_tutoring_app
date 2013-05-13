@@ -13,6 +13,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.role = (role ? 1 : 0)
     if @user.save
+      flash[:success] = "注册成功，请完善个人资料!"
       sign_in @user
       redirect_to @user
     else

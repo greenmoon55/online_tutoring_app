@@ -11,3 +11,6 @@ districts = ["嘉定区","杨浦区"]
 districts.each do |x| 
   District.create(name: x)
 end
+Subject.destroy_all
+subjects = ["高中语文","高中英语"]
+subjects.each {|x| Subject.create(name: x) }
