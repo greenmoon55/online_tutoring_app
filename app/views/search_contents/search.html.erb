@@ -6,25 +6,26 @@
     <%= form_tag(search_contents_path, :method=>'post', :multipart => true) do  %>
     <p>性别</p>
     <div class="role-select">
-    <%= radio_button_tag "gender", 2,:checked => true %>
+    <%= radio_button_tag :gender, 2,@gender_number == 2 %>
     <%= label_tag :gender_both, "都可" %>
-    <%= radio_button_tag :gender, 1 %>
+    <%= radio_button_tag :gender, 1,@gender_number == 1 %>
     <%= label_tag :gender_male, "男" %> 
-    <%= radio_button_tag :gender, 0 %>
+    <%= radio_button_tag :gender, 0,@gender_number == 0 %>
     <%= label_tag :gender_female, "女" %>
     </div>
     <p>身份</p>
     <div class="role-select">
-    <%= radio_button_tag :role, 1,:checked => true %>
+    <%= radio_button_tag :role, 1,@role_number == 1 %>
     <%= label_tag  "学生" %>
-    <%= radio_button_tag :role, 0 %>
+    <%= radio_button_tag :role, 0,@role_number == 0 %>
     <%= label_tag  "老师" %> 
     </div>
+
 
     <p>学位</p>
     <div class="role-select">
     <% @degrees.each do |degree| %>
-      <%= check_box_tag 'degree[]', degree[:id],false %>
+      <%= check_box_tag 'degree[]', degree[:id],degree[:checked] %>
       <%= label_tag degree[:name] %>
     <% end %>
     </div>
@@ -33,14 +34,13 @@
     <p>地区</p>
     <div class="role-select">
     <% @districts.each do |district| %>
-      <%= check_box_tag 'district[]', district[:id],false %>
+      <%= check_box_tag 'district[]', district[:id],district[:checked] %>
       <%= label_tag district[:name] %>
     <% end %>
     </div>
 
-
     <%= text_field_tag :content, @content %>
-    <%= submit_tag "搜索", class: "btn btn-large btn-primary" %>
+    <%= submit_tag "搜索", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>
