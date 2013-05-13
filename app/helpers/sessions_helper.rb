@@ -67,4 +67,8 @@ module SessionsHelper
     session.delete(:user_id)
     session.delete(:role)
   end
+
+  def districts
+    @districts ||= District.all.collect {|x| [x.name, x.id]}
+  end
 end

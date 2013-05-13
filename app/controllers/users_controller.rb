@@ -3,12 +3,8 @@ class UsersController < ApplicationController
   before_filter :require_signin, only: [:edit, :update, :destroy, :full_role]
   before_filter :correct_user,   only: [:edit, :update, :destroy, :full_role]
 
-  def initialize_districts
-    @districts = District.all.collect {|x| [x.name, x.id]}
-  end
   def new
     @user = User.new
-    initialize_districts
   end
 
   def create
@@ -20,7 +16,6 @@ class UsersController < ApplicationController
       sign_in @user
       redirect_to @user
     else
-      initialize_districts
       render 'new'
     end
   end
@@ -30,7 +25,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    initialize_districts
     @user = User.find(params[:id])
     logger.info current_role
     logger.info "in edit"
@@ -43,7 +37,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    initialize_districts
     @user = User.find(params[:id])
     if params[:user][:current_password] 
       if @user.authenticate(params[:user][:current_password])

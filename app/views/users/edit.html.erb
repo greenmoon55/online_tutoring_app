@@ -14,17 +14,19 @@
       <%= f.select :gender, [['男', 1],['女', 0]], include_blank: true %>
 
       <%= f.label :district_id %>
-      <%= f.select :district_id, @districts, include_blank: true %>
+      <%= f.select :district_id, districts, include_blank: true %>
 
       <%= f.label :description %>
       <%= f.text_field :description %>
 
-      <%= f.label :student_visible %>
-      <%= f.check_box :student_visible %>
+      <div class="role-select">
+        <%= f.label :student_visible %>
+        <%= f.check_box :student_visible %>
+      </div>
 
-      <%= f.submit t("common.update"), class: "btn btn-large btn-primary" %>
+      <%= f.submit t("common.update"), class: "btn btn-primary" %>
     <% end %>
-    <%= link_to("我也想当老师", full_role_user_path(@user), method: :delete, confirm: :"sure?") unless current_user.full_role? %>
+    <%= link_to("我也想当老师", full_role_user_path(@user), method: :delete, confirm: :"你确定吗？") unless current_user.full_role? %>
   </div>
   <div class="span6">
     <%= render "edit_password" %>
