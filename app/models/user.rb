@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
                   :gender, :district_id, :description,
                   :student_visible, :teacher_visible, :degree_id
   attr_accessor :updating_password
+  has_many :student_relationships
+  has_many :student_subjects, through: :student_relationships, source: :subject
+  has_many :teacher_relationships
+  has_many :teacher_subjects, through: :student_relationships, source: :subject
   belongs_to :district
 
   before_save { |user| user.email = email.downcase }

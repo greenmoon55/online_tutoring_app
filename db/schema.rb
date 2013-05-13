@@ -11,15 +11,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130513072146) do
+ActiveRecord::Schema.define(:version => 20130513112034) do
 
   create_table "districts", :force => true do |t|
     t.string "name", :null => false
   end
 
+  create_table "student_relationships", :force => true do |t|
+    t.integer "user_id",    :null => false
+    t.integer "subject_id", :null => false
+  end
+
+  add_index "student_relationships", ["user_id", "subject_id"], :name => "index_student_relationships_on_user_id_and_subject_id", :unique => true
+
   create_table "subjects", :force => true do |t|
     t.string "name", :null => false
   end
+
+  create_table "teacher_relationships", :force => true do |t|
+    t.integer "user_id",    :null => false
+    t.integer "subject_id", :null => false
+  end
+
+  add_index "teacher_relationships", ["user_id", "subject_id"], :name => "index_teacher_relationships_on_user_id_and_subject_id", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "name",                              :null => false
