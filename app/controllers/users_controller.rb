@@ -66,7 +66,7 @@ class UsersController < ApplicationController
 
   def full_role
     @user = User.find(params[:id])
-    @user.role = 2
+    @user.role = 2 #0老师 1学生 2既是老师也是学生
     @user.save!
     redirect_to @user
   end

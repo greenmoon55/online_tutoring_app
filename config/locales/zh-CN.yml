@@ -5,6 +5,9 @@ zh-CN:
     register: "注册"
     teacher_register: "教师注册"
     search: "搜索"
+  user:
+    edit: 编辑个人资料
+    new.success: 注册成功
   date:
     abbr_day_names:
     - 日
