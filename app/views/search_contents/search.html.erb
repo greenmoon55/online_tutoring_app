@@ -41,6 +41,14 @@
           <%= label_tag district[:name] %>
         <% end %>
       </div>
+
+      <p>科目</p>
+      <div class="role-select">
+        <% @subjects.each do |subject| %>
+          <%= check_box_tag 'subject[]', subject[:id],subject[:checked] %>
+          <%= label_tag subject[:name] %>
+        <% end %>
+      </div>
     </div>
     <div class = "span7 offset2">
       <%= text_field_tag :content, @content,class: "input-large search-query" %>

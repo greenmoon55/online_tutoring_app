@@ -24,6 +24,7 @@ namespace :db do
       district_id = n%18
       description = "description"
       visible = true
+      
       degree_id = n%6
       
       User.create!(name: name,

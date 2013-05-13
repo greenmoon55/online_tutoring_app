@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
   has_many :student_relationships
   has_many :student_subjects, through: :student_relationships, source: :subject
   has_many :teacher_relationships
-  has_many :teacher_subjects, through: :student_relationships, source: :subject
+  has_many :teacher_subjects, through: :teacher_relationships, source: :subject
   belongs_to :district
 
   before_save { |user| user.email = email.downcase }
