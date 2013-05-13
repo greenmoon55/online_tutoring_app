@@ -21,12 +21,12 @@ class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation,
                   :gender, :district_id, :description,
                   :student_visible, :teacher_visible, :degree_id,
-                  :student_subject_ids
+                  :student_subject_ids, :teacher_subject_ids
   attr_accessor :updating_password
   has_many :student_relationships
   has_many :student_subjects, through: :student_relationships, source: :subject
   has_many :teacher_relationships
-  has_many :teacher_subjects, through: :student_relationships, source: :subject
+  has_many :teacher_subjects, through: :teacher_relationships, source: :subject
   belongs_to :district
 
   accepts_nested_attributes_for :student_subjects

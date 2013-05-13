@@ -16,7 +16,17 @@
       <%= f.label :district_id %>
       <%= f.select :district_id, districts, include_blank: true %>
 
-      <%= f.select :student_subject_ids, Subject.all.collect {|x| [x.name, x.id]}, {}, :multiple => true %>
+      <%# f.select :student_subject_ids, Subject.all.collect {|x| [x.name, x.id]}, {}, :multiple => true %>
+      <%= f.label "想学习的科目" %>
+      <div class="role-select">
+      <% Subject.all.each do |subject| %>
+        <label>
+          <%= check_box_tag("user[student_subject_ids][]", subject.id, @user.student_subject_ids.include?(subject.id)) %>
+          <%= subject.name %>
+        </label>
+        <%= hidden_field_tag "user[student_subject_ids][]" %>
+      <% end %>
+      </div>
 
       <%= f.label :description %>
       <%= f.text_field :description %>
