@@ -19,12 +19,12 @@
       <%= f.label :description %>
       <%= f.text_field :description %>
 
-      <%= f.label :visible %>
-      <%= f.check_box :visible %>
+      <%= f.label :student_visible %>
+      <%= f.check_box :student_visible %>
 
-      <%= f.submit t("common.register"), class: "btn btn-large btn-primary" %>
+      <%= f.submit t("common.update"), class: "btn btn-large btn-primary" %>
     <% end %>
-    <%= link_to "我也想当老师", full_role_user_path(@user) %>
+    <%= link_to("我也想当老师", full_role_user_path(@user), method: :delete, confirm: :"sure?") unless current_user.full_role? %>
   </div>
   <div class="span6">
     <%= render "edit_password" %>

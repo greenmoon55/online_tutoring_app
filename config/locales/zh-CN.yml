@@ -5,6 +5,7 @@ zh-CN:
     register: "注册"
     teacher_register: "教师注册"
     search: "搜索"
+    update: 更新
   user:
     edit: 编辑个人资料
     new.success: 注册成功
@@ -212,9 +213,11 @@ zh-CN:
         name: "用户名"
         password: "密码"
         password_confirmation: "密码确认"
+        current_password: 当前密码
         role: "身份"
         gender: "性别"
         district_id: "区域"
         degree_id: "学历"
         description: "自我介绍"
-        visible: "可见"
+        student_visible: "作为学生可见"
+        teacher_visible: "作为教师可见"

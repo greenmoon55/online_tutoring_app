@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   has_secure_password
   attr_accessible :email, :name, :password, :password_confirmation,
                   :gender, :district_id, :description,
-                  :visible, :degree_id
+                  :student_visible, :teacher_visible, :degree_id
   attr_accessor :updating_password
   belongs_to :district
 
@@ -48,5 +48,9 @@ class User < ActiveRecord::Base
 
   def should_validate_password?
     updating_password || new_record?
+  end
+
+  def full_role?
+    self.role == 2
   end
 end
