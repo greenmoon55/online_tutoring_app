@@ -1,7 +1,7 @@
 # encoding: utf-8
 class UsersController < ApplicationController
-  before_filter :require_signin, only: [:edit, :update, :destroy]
-  before_filter :correct_user,   only: [:edit, :update, :destroy]
+  before_filter :require_signin, only: [:edit, :update, :destroy, :full_role]
+  before_filter :correct_user,   only: [:edit, :update, :destroy, :full_role]
 
   def initialize_districts
     @districts = District.all.collect {|x| [x.name, x.id]}
@@ -62,6 +62,13 @@ class UsersController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def full_role
+    @user = User.find(params[:id])
+    @user.role = 2
+    @user.save!
+    redirect_to @user
   end
   
   def search

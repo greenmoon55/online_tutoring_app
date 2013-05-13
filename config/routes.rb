@@ -7,6 +7,7 @@ OnlineTutoringApp::Application.routes.draw do
   resources :search_contents, only: [:create]
   match '/signup', to: 'users#new'
   #match '/signup/teacher', to: 'users#new_teacher', as: :teacher_signup
+  match '/users/:id/full_role', to: 'users#full_role', via: :get, as: :full_role_user
   match '/signin', to: 'sessions#new', via: :get
   match '/signin', to: 'sessions#create', via: :post
   match '/signout', to: 'sessions#destroy', via: :delete

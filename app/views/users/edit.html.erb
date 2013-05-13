@@ -24,19 +24,9 @@
 
       <%= f.submit t("common.register"), class: "btn btn-large btn-primary" %>
     <% end %>
+    <%= link_to "我也想当老师", full_role_user_path(@user) %>
   </div>
   <div class="span6">
-    <%= form_for(@user) do |f| %>
-      <%= f.label :current_password %>
-      <%= f.password_field :current_password %>
-
-      <%= f.label :password %>
-      <%= f.password_field :password %>
-
-      <%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation %>
-      
-      <%= f.submit "修改密码", class: "btn btn-large btn-primary" %>
-    <% end %>
+    <%= render "edit_password" %>
   </div>
 </div>
