@@ -44,7 +44,7 @@ class UsersController < ApplicationController
         @user.updating_password = true # RailsCasts #41
         params[:user].delete :current_password
       else
-        flash.now[:notice] = "error"
+        flash.now[:error] = "当前密码错误"
         render 'edit' and return
       end
     else
@@ -52,7 +52,7 @@ class UsersController < ApplicationController
       params[:user].delete :password_confirmation
     end
     if @user.update_attributes(params[:user])
-      redirect_to @user, notice: 'User was successfully updated.'
+      redirect_to @user, notice: '编辑成功'
     else
       render 'edit'
     end
