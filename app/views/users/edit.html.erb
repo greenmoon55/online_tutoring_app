@@ -16,6 +16,8 @@
       <%= f.label :district_id %>
       <%= f.select :district_id, districts, include_blank: true %>
 
+      <%= f.select :student_subject_ids, Subject.all.collect {|x| [x.name, x.id]}, {}, :multiple => true %>
+
       <%= f.label :description %>
       <%= f.text_field :description %>
 
