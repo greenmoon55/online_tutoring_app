@@ -1,2 +1,51 @@
 <% provide(:title, @user.name) %>
-<h1><%=@user.name%></h1>
+<div>
+  <h1><%=@user.name%></h1>
+  <% if @user.role == 1%>
+  <p class="text-info">
+  学生： 想要学习 
+  <% subjects=@user.student_subjects%>
+  <% subjects.each do |subject|%>
+    <%= subject[:name]%>  
+  <% end%>
+  </p>
+  <%end%>
+  <% if @user.role == 0%>
+  <p class="text-info">
+  老师： 想要讲授 
+  <% subjects=@user.teacher_subjects%>
+  <% subjects.each do |subject|%>
+    <%= subject[:name]%>   
+  <% end%>
+  <%end%>
+  </p>
+  <div>
+<p class="text-info">
+  性别： 
+  <% if @user.gender == 0%>
+    女
+  <% elsif @user.gender == 1%>
+    男
+  <% else %>
+    保密
+  <% end %>
+  </p>
+  </div>
+  <div>
+  <p class="text-info">
+  地区：
+  <%= District.find(@user.district_id)[:name]%> 
+  </div>
+  <div>
+  <p class="text-info">
+  学位： 
+  <%= Degree.find(@user.degree_id)[:name]%> 
+  </p>
+  </div>
+  <div>
+  <p class="text-info">
+    个人简介： 
+    <%= @user.description%> 
+  </p>
+  </div>
+</div>
