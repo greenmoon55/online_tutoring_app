@@ -21,7 +21,10 @@ class SearchContentsController < ApplicationController
     end
     self.get_degree
     if @degree_selected.empty?
-      @degree_selected = (0..5).to_a
+      degrees = Degree.all
+      degrees.each do |single_degree|
+        @degree_selected.push(single_degree[:id])
+      end
     end
 
     @district_selected = []
@@ -32,7 +35,10 @@ class SearchContentsController < ApplicationController
     end
     self.get_district
     if @district_selected.empty?
-      @district_selected = (0..17).to_a
+      districts = District.all
+      districts.each do |single_district|
+        @district_selected.push(single_district[:id])
+      end
     end
 
     @subject_selected = []
@@ -47,21 +53,22 @@ class SearchContentsController < ApplicationController
       subjects.each do |subject|
         @subject_selected.push(subject[:id])
       end
+      
     end
 
     if @role_number == 0
-      visible = "student_visible"
-      relationship = "student_subjects"
-    else 
       visible = "teacher_visible"
-      relationship = "teacher_subjects"
+    else 
+      visible = "student_visible"
     end 
       @users = User.find(:all,:conditions => ["name LIKE ? and gender IN (?) and role IN (?) and degree_id IN (?) and district_id IN (?) and #{visible} = ?  ","%#{@content}%",gender_array,role_array,@degree_selected,@district_selected,true])
+
     if(@role_number == 0)
       @users.delete_if{|user|self.help_function?( user.teacher_relationships,@subject_selected)}  
     else
       @users.delete_if{|user|self.help_function?( user.student_relationships,@subject_selected)}  
     end
+
     render 'search'
   end
   
@@ -85,26 +92,20 @@ class SearchContentsController < ApplicationController
         return false
       end
     end
-    return true
+   return true
   end
 
   def get_degree
-    @degrees = []
-    name = ["小学","初中","高中","本科","硕士","博士"]
-    i = 0
-    6.times do
-      @degrees.push(name: name[i],id:i,checked:@degree_selected.include?(i))
-      i = i + 1
+    @degrees = Degree.all
+    @degrees.collect do|degree|
+      degree[:checked] = @degree_selected.include?(degree[:id])
     end
   end
   
   def get_district
-    @districts = []
-    name = ["黄浦区","卢湾区","长宁区","普陀区","虹口区","闵行区","徐汇区","匣北区","杨浦区","静安区","嘉定区","宝山区","青浦区","松江区","金山区", "奉贤区", "崇明县","浦东新区"]
-    i = 0
-    18.times do 
-      @districts.push(name: name[i],id:i,checked:@district_selected.include?(i))
-      i = i + 1
+    @districts =District.all
+    @districts.collect do |district| 
+      district[:checked] = @district_selected.include?(district[:id])
     end
   end
 

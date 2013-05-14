@@ -8,12 +8,13 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  password_digest :string(255)      not null
-#  is_student      :boolean          default(TRUE), not null
+#  role            :integer          default(1), not null
 #  gender          :integer
 #  district_id     :integer
 #  description     :string(255)
-#  visible         :boolean
 #  degree_id       :integer
+#  teacher_visible :boolean          default(TRUE), not null
+#  student_visible :boolean          default(TRUE), not null
 #
 
 require 'test_helper'

@@ -8,18 +8,19 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  password_digest :string(255)      not null
-#  is_student      :boolean          default(TRUE), not null
+#  role            :integer          default(1), not null
 #  gender          :integer
 #  district_id     :integer
 #  description     :string(255)
-#  visible         :boolean
 #  degree_id       :integer
+#  teacher_visible :boolean          default(TRUE), not null
+#  student_visible :boolean          default(TRUE), not null
 #
 
 class User < ActiveRecord::Base
   has_secure_password
   attr_accessible :email, :name, :password, :password_confirmation,
-                  :gender, :district_id, :description,
+                  :gender, :district_id, :description,:role,
                   :student_visible, :teacher_visible, :degree_id,
                   :student_subject_ids, :teacher_subject_ids
   attr_accessor :updating_password
@@ -28,7 +29,7 @@ class User < ActiveRecord::Base
   has_many :teacher_relationships
   has_many :teacher_subjects, through: :teacher_relationships, source: :subject
   belongs_to :district
-
+  belongs_to :degree
   accepts_nested_attributes_for :student_subjects
 
   before_save { |user| user.email = email.downcase }

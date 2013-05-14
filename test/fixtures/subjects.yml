@@ -1,3 +1,11 @@
+# == Schema Information
+#
+# Table name: subjects
+#
+#  id   :integer          not null, primary key
+#  name :string(255)      not null
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:

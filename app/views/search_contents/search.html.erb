@@ -24,7 +24,6 @@
         <%= label_tag  "老师" %> 
       </div>
 
-
       <p>学位</p>
       <div class="role-select">
         <% @degrees.each do |degree| %>
@@ -55,6 +54,7 @@
       <%= submit_tag "搜索", class: "btn" %>
        <ul class="users">
         <% if @users %>
+          <%= @users.count %>
           <% @users.each do |user| %>
             <li>
               <%= link_to image_tag("user.png",:border => 0,:alt => '', :title=>''),user %>

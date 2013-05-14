@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: student_relationships
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer          not null
+#  subject_id :integer          not null
+#
+
 class StudentRelationship < ActiveRecord::Base
   attr_accessible :subject_id, :user_id
 
