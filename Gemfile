@@ -12,6 +12,7 @@ group :development do
   gem 'faker', '1.0.1'
   gem 'annotate'
   gem 'sqlite3'
+  gem 'railroady'
 end
 
 group :production do
