@@ -5,7 +5,7 @@ class SearchContentsController < ApplicationController
     @gender_number = Integer( params[:gender] )
     gender_array = []
     if(@gender_number == 2)
-      gender_array = [0,1,2]
+      gender_array = [0,1,nil]
     else 
       gender_array.push(Integer(@gender_number))
     end
@@ -20,8 +20,11 @@ class SearchContentsController < ApplicationController
       end    
     end
     self.get_degree
+
+    degree_need_care = true
     if @degree_selected.empty?
       degrees = Degree.all
+      degree_need_care = false
       degrees.each do |single_degree|
         @degree_selected.push(single_degree[:id])
       end
@@ -33,8 +36,10 @@ class SearchContentsController < ApplicationController
         @district_selected.push( Integer(single_district))
       end    
     end
+    district_need_care = true
     self.get_district
     if @district_selected.empty?
+      district_need_care = false
       districts = District.all
       districts.each do |single_district|
         @district_selected.push(single_district[:id])
@@ -48,27 +53,48 @@ class SearchContentsController < ApplicationController
       end    
     end
     self.get_subject
+    subject_need_care = true
     if @subject_selected.empty?
+      subject_need_care = false
       subjects = Subject.all
       subjects.each do |subject|
         @subject_selected.push(subject[:id])
       end
       
     end
+    condition = ""
 
     if @role_number == 0
-      visible = "teacher_visible"
-    else 
-      visible = "student_visible"
-    end 
-      @users = User.find(:all,:conditions => ["name LIKE ? and gender IN (?) and role IN (?) and degree_id IN (?) and district_id IN (?) and #{visible} = ?  ","%#{@content}%",gender_array,role_array,@degree_selected,@district_selected,true])
-
-    if(@role_number == 0)
-      @users.delete_if{|user|self.help_function?( user.teacher_relationships,@subject_selected)}  
+      condition += "role IN (0,2)"
     else
-      @users.delete_if{|user|self.help_function?( user.student_relationships,@subject_selected)}  
+      condition += "role IN (1,2)"
+    end
+    if @gender_number != 2
+      condition += " and gender = #{@gender_number}"
+    end 
+    if degree_need_care
+      condition += " and degree_id IN (#{@degree_selected.join(', ')})"
+    end
+    if district_need_care
+      condition += " and district_id IN (#{@district_selected.join(', ')})"
+    end
+    if @role_number == 0
+      condition += " and teacher_visible = ? "
+    else 
+      condition += " and student_visible = ? "
     end
 
+    condition += " and name LIKE ?"
+    @users = User.find(:all,:conditions => [condition,true,"%#{@content}%"])
+# @users = User.find(:all,:conditions => ["name LIKE ? and gender IN (?) and role IN (?) and degree_id IN (#{@degree_selected.join(', ')}) and district_id IN (?) and #{visible} = ?  ","%#{@content}%",gender_array,role_array,@district_selected,true])
+    
+    if subject_need_care = true
+      if(@role_number == 0)
+        @users.delete_if{|user|self.help_function?( user.teacher_relationships,@subject_selected)}  
+      else
+        @users.delete_if{|user|self.help_function?( user.student_relationships,@subject_selected)}  
+      end
+    end 
     render 'search'
   end
   

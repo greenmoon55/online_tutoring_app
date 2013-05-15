@@ -34,12 +34,16 @@
   <div>
   <p class="text-info">
   地区：
-  <%= District.find(@user.district_id)[:name]%> 
+  <% if @user.district %>
+  <%= @user.district[:name]%>  
+  <% end %>
   </div>
   <div>
   <p class="text-info">
   学位： 
-  <%= Degree.find(@user.degree_id)[:name]%> 
+  <% if @user.degree %>
+  <%= @user.degree[:name]%> 
+  <% end %>
   </p>
   </div>
   <div>
