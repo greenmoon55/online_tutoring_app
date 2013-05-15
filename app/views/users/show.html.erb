@@ -1,7 +1,7 @@
 <% provide(:title, @user.name) %>
 <div>
   <h1><%=@user.name%></h1>
-  <% if @user.role == 1%>
+  <% if @user.role == 1 || @user.role == 2%>
   <p class="text-info">
   学生： 想要学习 
   <% subjects=@user.student_subjects%>
@@ -10,7 +10,7 @@
   <% end%>
   </p>
   <%end%>
-  <% if @user.role == 0%>
+  <% if @user.role == 0 || @user.role == 2%>
   <p class="text-info">
   老师： 想要讲授 
   <% subjects=@user.teacher_subjects%>
@@ -41,9 +41,11 @@
   <div>
   <p class="text-info">
   学位： 
+
   <% if @user.degree %>
   <%= @user.degree[:name]%> 
   <% end %>
+
   </p>
   </div>
   <div>
