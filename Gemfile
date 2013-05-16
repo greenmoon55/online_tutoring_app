@@ -9,6 +9,7 @@ gem 'bcrypt-ruby'
 gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'private_pub'
+gem 'thin'
 
 group :development do
   gem 'faker', '1.0.1'
