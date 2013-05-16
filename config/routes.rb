@@ -14,6 +14,8 @@ OnlineTutoringApp::Application.routes.draw do
   match '/signout', to: 'sessions#destroy', via: :delete
   match '/search', to: 'search_contents#search'
   match '/search', to: 'search_contents#create', via: :post
+
+  resources :messages # temp
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

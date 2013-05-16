@@ -11,16 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130516045705) do
+ActiveRecord::Schema.define(:version => 20130516064650) do
 
   create_table "degrees", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string "name"
   end
 
   create_table "districts", :force => true do |t|
     t.string "name", :null => false
+  end
+
+  create_table "messages", :force => true do |t|
+    t.string   "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "relationships", :force => true do |t|

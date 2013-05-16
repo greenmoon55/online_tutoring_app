@@ -6,7 +6,9 @@ gem 'rails', '3.2.13'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'bcrypt-ruby'
+gem 'jquery-rails'
 gem 'bootstrap-sass'
+gem 'private_pub'
 
 group :development do
   gem 'faker', '1.0.1'
@@ -31,8 +33,6 @@ group :assets do
 
   gem 'uglifier', '>= 1.0.3'
 end
-
-gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
