@@ -38,6 +38,8 @@ class User < ActiveRecord::Base
   has_many :reverse_relationships, foreign_key: "teacher_id",class_name:"Relationship", dependent: :destroy
   has_many :students, through: :reverse_relationships
 
+  has_many :requests, foreign_key:"receiver_id", dependent: :destroy
+
   accepts_nested_attributes_for :student_subjects
 
   before_save { |user| user.email = email.downcase }
