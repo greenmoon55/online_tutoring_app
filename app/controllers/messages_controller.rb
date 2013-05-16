@@ -7,4 +7,6 @@ class MessagesController < ApplicationController
     PrivatePub.publish_to("/messages/#{message.receiver_id}",
       "alert('#{message.content}');")
   end
+  def get_conversation(user1, user2)
+  end
 end
