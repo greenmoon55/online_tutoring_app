@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
   has_many :student_subjects, through: :student_relationships, source: :subject
   has_many :teacher_relationships
   has_many :teacher_subjects, through: :teacher_relationships, source: :subject
+  has_many :sent_messages, class_name: "Message", foreign_key: "sender_id"
+  has_many :received_messages, class_name: "Message", foreign_key: "receiver_id"
   belongs_to :district
   belongs_to :degree
   

@@ -3,10 +3,12 @@ OnlineTutoringApp::Application.routes.draw do
 
   get "static_pages/about"
   resources :users
+  match '/users/:id/messages', to: 'users#messages', via: :get
   resources :sessions, only: [:new, :create, :destroy]
   resources :search_contents, only: [:create]
   resources :relationships, only: [:create, :destroy]
   resources :requests, only: [:create, :destroy]
+  resources :messages, only: :create
 
   match '/signup', to: 'users#new'
   #match '/signup/teacher', to: 'users#new_teacher', as: :teacher_signup
