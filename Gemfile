@@ -14,6 +14,7 @@ gem 'thin'
 
 # online status
 gem 'redis'
+gem 'whenever', :require => false
 
 group :development do
   gem 'faker', '1.0.1'
