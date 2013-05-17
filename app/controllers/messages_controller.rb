@@ -5,9 +5,12 @@ class MessagesController < ApplicationController
     message.sender_id = current_user.id
     message.save!
     PrivatePub.publish_to("/messages/#{message.receiver_id}",
-      "$(\"#chat\").append(\"#{message.content}\");");
+        :chat_message => message.content)
+#  "$(\"#chat\").append(\"#{message.content}\");");
     PrivatePub.publish_to("/messages/#{message.sender_id}",
-      "$(\"#chat\").append(\"#{message.content}\");");
+        :chat_message => message.content)
+#      "$(\"#chat\").append(\"#{message.content}\");");
+    return
   end
   def get_conversation(user1, user2)
     Message.find_by_sender_id_and_receiver_id(user1, user2)

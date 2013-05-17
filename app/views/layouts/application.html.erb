@@ -21,6 +21,11 @@
   <div class="chat-popup-button">
     <button class="btn btn-info">聊天</button>
   </div>
-  <% subscribe_to "/messages/#{current_user.id}" if signed_in?%>
+  <%= subscribe_to "/messages/#{current_user.id}" if signed_in?%>
+  <script>
+    PrivatePub.subscribe("/messages/<%= current_user.id %>", function(data, channel) {
+      $("#chat").append(data.chat_message);
+    });
+  </script>
 </body>
 </html>
