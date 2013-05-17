@@ -69,6 +69,11 @@ class UsersController < ApplicationController
     
   end
 
+  def messages
+    user = User.find(params[:id])
+    @messages = user.received_messages
+  end
+
   private
     def correct_user
       @user = User.find(params[:id])

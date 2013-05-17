@@ -15,4 +15,4 @@ online_tutoring_app
 
 > bundle exec rake db:migrate
 
-
+> rackup private_pub.ru -s thin -E production

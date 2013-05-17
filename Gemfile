@@ -7,6 +7,8 @@ gem 'rails', '3.2.13'
 
 gem 'bcrypt-ruby'
 gem 'bootstrap-sass'
+gem 'private_pub'
+gem 'thin'
 
 group :development do
   gem 'faker', '1.0.1'
