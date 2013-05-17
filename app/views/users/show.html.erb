@@ -1,6 +1,11 @@
 <% provide(:title, @user.name) %>
 <div>
   <h1><%=@user.name%></h1>
+  <% if @user.online? %>
+  在线
+  <% else %>
+  离线
+  <% end %>
   <% if @user.role == 1 || @user.role == 2%>
   <p class="text-info">
   学生： 想要学习 
