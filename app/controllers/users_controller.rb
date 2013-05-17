@@ -23,6 +23,10 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @messages = Message.get_conversation(@user.id, current_user.id)
+    logger.info "show"
+    logger.info @user.id
+    logger.info current_user.id
   end
 
   def edit

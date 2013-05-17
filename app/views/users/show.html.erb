@@ -55,6 +55,9 @@
   </p>
   </div>
 
+  <div id="chat">
+    <%= render @messages if @messages %>
+  </div>
   <%= form_for Message.new, remote: true do |f| %>
     <%= f.hidden_field :receiver_id, value: @user.id %>
     <%= f.text_field :content %>
