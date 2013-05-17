@@ -16,7 +16,6 @@
 #  teacher_visible :boolean          default(TRUE), not null
 #  student_visible :boolean          default(TRUE), not null
 #
-
 class User < ActiveRecord::Base
   has_secure_password
   attr_accessible :email, :name, :password, :password_confirmation,
@@ -33,10 +32,10 @@ class User < ActiveRecord::Base
   
 #as a student
   has_many :relationships, foreign_key: "student_id", dependent: :destroy
-  has_many :teachers, through: :relationships
+  has_many :teachers, through: :relationships,dependent: :destroy
 #as a teacher
   has_many :reverse_relationships, foreign_key: "teacher_id",class_name:"Relationship", dependent: :destroy
-  has_many :students, through: :reverse_relationships
+  has_many :students, through: :reverse_relationships,dependent: :destroy
 
   has_many :requests, foreign_key:"receiver_id", dependent: :destroy
 
@@ -71,4 +70,77 @@ class User < ActiveRecord::Base
   def full_role?
     self.role == 2
   end
+
+  def is_student?
+    self.role == 1 || self.role == 2 
+  end
+
+  def is_teacher?
+    self.role == 0 || self.role == 2
+  end
+
+  def current_student?
+    SessionsController.helpers.current_student?
+  end
+
+  def following?(other_user)
+    if current_student?
+      self.relationships.find_by_teacher_id(other_user.id)
+    else 
+      self.reverse_relationships.find_by_student_id(other_user.id)
+    end
+  end
+
+  def follow!(other_user)
+    if current_student?
+      self.relationships.create!(teacher_id: other_user.id)
+    else
+      self.reverse_relationships.create!(student_id: other_user.id)
+    end
+  end
+
+  def unfollow!(other_user)
+    if current_student?
+      self.relationships.find_by_teacher_id(other_user.id).destroy
+    else
+      self.reverse_relationships.find_by_student_id(other_user.id).destroy
+    end
+  end
+
+  def send_add_request?(other_user)
+    if current_student?
+      other_user.requests.find_by_sender_id_and_type(self.id,1)
+    else
+      other_user.requests.find_by_sender_id_and_type(self.id,3)
+    end
+  end
+
+
+  def send_refuse_request?(other_user)
+    if current_student?
+      other_user.requests.find_by_sender_id_and_type(self.id,2)
+    else
+      other_user.requests.find_by_sender_id_and_type(self.id,4)
+    end
+  end
+
+  def send_add_request!(other_user,content)
+    if current_student?
+      other_user.requests.create!(sender_id: self.id, type:1, content:content)
+    else
+      other_user.requests.create!(sender_id: self.id, type:3, content:content)
+    end
+  end
+
+  def send_refuse_request!(other_user,content)
+    if current_student?
+      other_user.requests.create!(sender_id: self.id, type:2, content:content)
+    else
+      other_user.requests.create!(sender_id: self.id, type:4, content:content)
+    end
+  end
+
+
+
+
 end
