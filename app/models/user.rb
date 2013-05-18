@@ -1,6 +1,5 @@
 # == Schema Information
-#
-# Table name: users
+# # Table name: users
 #
 #  id              :integer          not null, primary key
 #  name            :string(255)      not null
@@ -83,6 +82,12 @@ class User < ActiveRecord::Base
   def is_teacher?
     self.role == 0 || self.role == 2
   end
+
+
+  def online?
+    SessionsController.helpers.online_users.include?(self.id.to_s)
+  end
+
 
 
 #create 

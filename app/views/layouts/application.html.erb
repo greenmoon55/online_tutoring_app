@@ -18,6 +18,9 @@
     <% debug(session) if Rails.env.development? %>
     <% debug(params) if Rails.env.development? %>
   </div>
-  <%= subscribe_to "/messages/#{current_user.id}" if signed_in?%>
+  <div class="chat-popup-button">
+    <button class="btn btn-info">聊天</button>
+  </div>
+  <%= render 'layouts/subscription' if signed_in? %>
 </body>
 </html>

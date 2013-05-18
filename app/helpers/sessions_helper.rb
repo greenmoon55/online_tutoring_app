@@ -71,4 +71,11 @@ module SessionsHelper
   def districts
     @districts ||= District.all.collect {|x| [x.name, x.id]}
   end
+
+  # 最近五分钟活跃的用户
+  def online_users
+    now = Time.now.strftime("%M").to_i
+    keys = now.downto(now - 4).collect {|x| (x + 60 % 60)}
+    $redis.sunion(keys)
+  end
 end
