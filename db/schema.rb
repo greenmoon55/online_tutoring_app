@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130517091309) do
+ActiveRecord::Schema.define(:version => 20130518120757) do
 
   create_table "Requests", :force => true do |t|
     t.integer  "kind",                           :null => false
