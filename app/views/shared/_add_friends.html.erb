@@ -1,0 +1,7 @@
+
+  <%= form_tag(requests_path, :method=>'post', :multipart => true) do  %>
+  <div><%= hidden_field_tag :receiver_id, user.id %></div>
+  <div><%= text_field_tag :content %></div>
+  <%= submit_tag "加为好友", class: "btn  btn-primary" %>
+  <% end %>	
+

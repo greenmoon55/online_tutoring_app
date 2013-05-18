@@ -1,0 +1,8 @@
+<% provide(:title, @title)%>
+<% if @requests.any? %>
+<% @requests.each do |request|%>
+<%=request[:sender_id]%>
+<% end%>
+<% else %>
+无未处理请求
+<% end%>

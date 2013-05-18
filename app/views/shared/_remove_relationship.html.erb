@@ -1,0 +1,3 @@
+<%= form_tag(relationships_path(user), method:'delete')%>
+<%= hidden_field_tag :user_id,user.id%>
+<%= submit_tag "解除关系", class: "btn btn-primary"%>

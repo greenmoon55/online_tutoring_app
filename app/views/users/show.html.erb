@@ -62,3 +62,10 @@
   <% end %>
 
 </div>
+
+<div>
+  <% if signed_in?%>
+  <%= render "shared/request_form",:user => @user%>
+  <% end%>
+</div>
+

@@ -2,7 +2,12 @@ OnlineTutoringApp::Application.routes.draw do
   root to: "static_pages#home"
 
   get "static_pages/about"
-  resources :users
+  resources :users do
+    member do
+      get :friends, :requests
+    end
+  end
+
   match '/users/:id/messages', to: 'users#messages', via: :get
   resources :sessions, only: [:new, :create, :destroy]
   resources :search_contents, only: [:create]

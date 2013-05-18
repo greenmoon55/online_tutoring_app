@@ -73,6 +73,34 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
     @messages = user.received_messages
   end
+  
+  def friends
+    @title = "所有朋友"
+    @user = User.find(params[:id])
+    if current_student?
+      @users = @user.teachers
+    else
+      @users = @user.students
+    end
+    render 'show_friends'
+  end
+
+  def requests
+    @title = "所用请求"
+    @user = User.find(params[:id])
+    if current_student?
+      @requests = @user.requests.find_all_by_kind([2,4,6])
+    else
+      @requests = @user.requests.find_all_by_kind([1,3,5])
+    end
+    render 'show_requests'
+  end
+
+
+  
+
+
+
 
   private
     def correct_user
