@@ -15,6 +15,8 @@ OnlineTutoringApp::Application.routes.draw do
   resources :requests, only: [:create, :destroy]
   resources :messages, only: :create
 
+  match '/refresh', to: 'sessions#refresh', via: :get
+
   match '/signup', to: 'users#new'
   #match '/signup/teacher', to: 'users#new_teacher', as: :teacher_signup
   match '/users/:id/full_role', to: 'users#full_role', via: :get, as: :full_role_user

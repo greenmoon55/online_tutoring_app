@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_filter :update_online_status
+#  before_filter :update_online_status
   protect_from_forgery
   include SessionsHelper
 

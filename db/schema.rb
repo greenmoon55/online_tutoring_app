@@ -14,22 +14,20 @@
 ActiveRecord::Schema.define(:version => 20130517091309) do
 
   create_table "Requests", :force => true do |t|
-    t.integer  "kind",                                          :null => false
-    t.integer  "receiver_id",                                   :null => false
-    t.integer  "sender_id",                                     :null => false
-    t.boolean  "content",     :limit => 255, :default => false, :null => false
-    t.boolean  "read",                       :default => false, :null => false
-    t.datetime "created_at",                                    :null => false
-    t.datetime "updated_at",                                    :null => false
+    t.integer  "kind",                           :null => false
+    t.integer  "receiver_id",                    :null => false
+    t.integer  "sender_id",                      :null => false
+    t.string   "content"
+    t.boolean  "read",        :default => false, :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   add_index "Requests", ["kind"], :name => "index_requests_on_type"
   add_index "Requests", ["receiver_id"], :name => "index_requests_on_receiver_id"
 
   create_table "degrees", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string "name"
   end
 
   create_table "districts", :force => true do |t|
