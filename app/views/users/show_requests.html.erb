@@ -1,7 +1,11 @@
 <% provide(:title, @title)%>
-<% if @requests.any? %>
+<% if @requests %>
 <% @requests.each do |request|%>
-<%=request[:sender_id]%>
+<%=request.sender_id %>
+<li>
+<%= render 'shared/agree_form', user: User.find(request.sender_id) %>
+<%= render 'shared/refuse_form', user: User.find(request.sender_id)%>
+</li>
 <% end%>
 <% else %>
 无未处理请求

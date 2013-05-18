@@ -11,16 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130517091309) do
+ActiveRecord::Schema.define(:version => 20130518120757) do
 
   create_table "Requests", :force => true do |t|
-    t.integer  "kind",                                          :null => false
-    t.integer  "receiver_id",                                   :null => false
-    t.integer  "sender_id",                                     :null => false
-    t.boolean  "content",     :limit => 255, :default => false, :null => false
-    t.boolean  "read",                       :default => false, :null => false
-    t.datetime "created_at",                                    :null => false
-    t.datetime "updated_at",                                    :null => false
+    t.integer  "kind",                           :null => false
+    t.integer  "receiver_id",                    :null => false
+    t.integer  "sender_id",                      :null => false
+    t.string   "content",     :default => "f",   :null => false
+    t.boolean  "read",        :default => false, :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   add_index "Requests", ["kind"], :name => "index_requests_on_type"

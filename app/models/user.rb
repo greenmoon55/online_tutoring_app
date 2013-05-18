@@ -1,5 +1,6 @@
 # == Schema Information
-# # Table name: users
+#
+# Table name: users
 #
 #  id              :integer          not null, primary key
 #  name            :string(255)      not null
@@ -118,19 +119,16 @@ class User < ActiveRecord::Base
 # create
   def have_send_add_request?(other_user,current_student)
     if current_student
-      other_user.is_student?
-#      other_user.requests.find_by_sender_id_and_kind(self.id,1)
-#     other_user.requests
-       false
+      other_user.requests.find_by_sender_id_and_kind(self.id,1)
     else
-#      other_user.requests.find_by_sender_id_and_kind(self.id,2)
+      other_user.requests.find_by_sender_id_and_kind(self.id,2)
     end
   end
   def update_send_add_request!(other_user,content,current_student)
     if current_student
-      other_user.requests.find_by_sender_id_and_kind(self.id,1).update_attributes(content: content, read: false)
+      other_user.requests.find_by_sender_id_and_kind(self.id,1).update_attributes(read: false,content: content)
     else
-      other_user.requests.find_by_sender_id_and_kind(self.id,2).update_attributes(content: content, read: false)
+      other_user.requests.find_by_sender_id_and_kind(self.id,2).update_attributes(read: false,content: content)
     end
   end
 #create
@@ -144,6 +142,7 @@ class User < ActiveRecord::Base
 
 #create  
   def have_add_request?(other_user,current_student)
+logger.info other_user
     if current_student
       self.requests.find_by_sender_id_and_kind(other_user.id,2)
     else
@@ -169,9 +168,9 @@ class User < ActiveRecord::Base
 
   def delete_add_request!(other_user,current_student)
     if current_student
-      self.requests.find_by_sender_id_and_kind(other_user.id,2)
+      self.requests.find_by_sender_id_and_kind(other_user.id,2).destroy
     else
-      self.requests.find_by_sender_id_and_kind(other_user.id,1)
+      self.requests.find_by_sender_id_and_kind(other_user.id,1).destroy
     end
   end
 

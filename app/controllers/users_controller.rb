@@ -1,7 +1,7 @@
 # encoding: utf-8
 class UsersController < ApplicationController
   before_filter :require_signin, only: [:edit, :update, :destroy, :full_role]
-  before_filter :correct_user,   only: [:edit, :update, :destroy, :full_role]
+  before_filter :correct_user,   only: [:edit, :update, :destroy, :full_role,:requests]
 
   def new
     @user = User.new
@@ -93,18 +93,15 @@ class UsersController < ApplicationController
     @title = "所用请求"
     @user = User.find(params[:id])
     if current_student?
-      @requests = @user.requests.find_all_by_kind([2,4,6])
+      @requests = @user.requests.find_all_by_kind(2)
     else
-      @requests = @user.requests.find_all_by_kind([1,3,5])
+      @requests = @user.requests.find_all_by_kind(1)
     end
     render 'show_requests'
   end
 
 
-  
-
-
-
+ 
 
   private
     def correct_user
