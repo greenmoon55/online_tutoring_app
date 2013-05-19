@@ -71,4 +71,16 @@ module SessionsHelper
   def districts
     @districts ||= District.all.collect {|x| [x.name, x.id]}
   end
+
+  # 最近五分钟活跃的用户
+=begin
+  def online_users
+    now = Time.now.strftime("%M").to_i
+    keys = now.downto(now - 4).collect {|x| (x + 60 % 60)}
+    $redis.sunion(keys)
+  end
+=end
+  def online_users
+    $redis.zrangebyscore("online-users", 20.seconds.ago.to_i, '+inf')
+  end
 end

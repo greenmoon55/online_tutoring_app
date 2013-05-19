@@ -128,10 +128,14 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.7)
+<<<<<<< HEAD
+    sqlite3 (1.3.7-x86-mingw32)
+=======
     thin (1.5.1)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
+>>>>>>> 328324a335f786089353cf21a812c53be7c455cc
     thor (0.18.1)
     tilt (1.4.0)
     treetop (1.4.12)

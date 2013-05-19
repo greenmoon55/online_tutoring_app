@@ -1,0 +1,29 @@
+# == Schema Information
+#
+# Table name: requests
+#
+#  id          :integer          not null, primary key
+#  kind        :integer          not null
+#  receiver_id :integer          not null
+#  sender_id   :integer          not null
+#  content     :boolean          default(FALSE), not null
+#  read        :boolean          default(FALSE), not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  type: 1
+  receiver_id: 1
+  sender_id: 1
+  content: MyString
+  read: false
+
+two:
+  type: 1
+  receiver_id: 1
+  sender_id: 1
+  content: MyString
+  read: false

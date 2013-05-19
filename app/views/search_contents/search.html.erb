@@ -55,12 +55,7 @@
        <ul class="users">
         <% if @users %>
           <%= @users.count %>
-          <% @users.each do |user| %>
-            <li>
-              <%= link_to image_tag("user.png",:border => 0,:alt => '', :title=>''),user %>
-              <%= link_to  user.name,user%>
-            </li>
-          <% end %>
+          <%= render partial: 'shared/user', collection: @users%>
         <% end %>
       </ul>
     </div>

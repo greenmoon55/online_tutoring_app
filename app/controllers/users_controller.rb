@@ -1,7 +1,7 @@
 # encoding: utf-8
 class UsersController < ApplicationController
   before_filter :require_signin, only: [:edit, :update, :destroy, :full_role]
-  before_filter :correct_user,   only: [:edit, :update, :destroy, :full_role]
+  before_filter :correct_user,   only: [:edit, :update, :destroy, :full_role,:requests]
 
   def new
     @user = User.new
@@ -23,6 +23,10 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @messages = Message.get_conversation(@user.id, current_user.id)
+    logger.info "show"
+    logger.info @user.id
+    logger.info current_user.id
   end
 
   def edit
@@ -68,6 +72,36 @@ class UsersController < ApplicationController
   def search
     
   end
+
+  def messages
+    user = User.find(params[:id])
+    @messages = user.received_messages
+  end
+  
+  def friends
+    @title = "所有朋友"
+    @user = User.find(params[:id])
+    if current_student?
+      @users = @user.teachers
+    else
+      @users = @user.students
+    end
+    render 'show_friends'
+  end
+
+  def requests
+    @title = "所用请求"
+    @user = User.find(params[:id])
+    if current_student?
+      @requests = @user.requests.find_all_by_kind(2)
+    else
+      @requests = @user.requests.find_all_by_kind(1)
+    end
+    render 'show_requests'
+  end
+
+
+ 
 
   private
     def correct_user

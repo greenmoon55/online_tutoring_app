@@ -1,0 +1,18 @@
+@import "bootstrap";
+
+body {
+  padding-top: 70px; // 勿删，因为固定header
+}
+
+.role-select label {
+  display: inline;
+}
+
+.img-rounded {
+  border-radius: 2px; // 把默认的6px变小
+}
+
+nav .avatar {
+  margin-right: 5px;
+}
+

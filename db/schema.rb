@@ -11,17 +11,51 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130514122314) do
+ActiveRecord::Schema.define(:version => 20130518120757) do
+
+  create_table "Requests", :force => true do |t|
+    t.integer  "kind",                           :null => false
+    t.integer  "receiver_id",                    :null => false
+    t.integer  "sender_id",                      :null => false
+    t.string   "content"
+    t.boolean  "read",        :default => false, :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "Requests", ["kind"], :name => "index_requests_on_type"
+  add_index "Requests", ["receiver_id"], :name => "index_requests_on_receiver_id"
 
   create_table "degrees", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string "name"
   end
 
   create_table "districts", :force => true do |t|
     t.string "name", :null => false
   end
+
+  create_table "messages", :force => true do |t|
+    t.integer  "sender_id",   :null => false
+    t.integer  "receiver_id", :null => false
+    t.string   "content"
+    t.datetime "created_at",  :null => false
+  end
+
+  add_index "messages", ["sender_id", "receiver_id"], :name => "index_messages_on_sender_id_and_receiver_id"
+
+  create_table "relationships", :force => true do |t|
+    t.integer  "student_id",                        :null => false
+    t.integer  "teacher_id",                        :null => false
+    t.string   "evaluation"
+    t.boolean  "is_active",       :default => true, :null => false
+    t.datetime "evaluation_time"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+  end
+
+  add_index "relationships", ["student_id", "teacher_id"], :name => "index_relationships_on_student_id_and_teacher_id", :unique => true
+  add_index "relationships", ["student_id"], :name => "index_relationships_on_student_id"
+  add_index "relationships", ["teacher_id"], :name => "index_relationships_on_teacher_id"
 
   create_table "student_relationships", :force => true do |t|
     t.integer "user_id",    :null => false

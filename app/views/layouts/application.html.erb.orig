@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title><%= full_title(yield(:title)) %></title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+ <%= render 'layouts/header' %>
+  <div class="container">
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>">
+        <%= value %>
+      </div>
+    <% end %>
+<<<<<<< HEAD
+=======
+    <%= yield %>
+>>>>>>> 328324a335f786089353cf21a812c53be7c455cc
+    <% debug(session) if Rails.env.development? %>
+    <% debug(params) if Rails.env.development? %>
+  </div>
+  <div class="chat-popup-button">
+    <button class="btn btn-info">聊天</button>
+  </div>
+  <%= render 'layouts/subscription' if signed_in? %>
+<<<<<<< HEAD
+  <div class="container">
+  <div class="theme">
+    <h1>良师</h1>
+    <h2>在线</h2>
+    <img alt="pic2" src="/assets/res/pic2.png" width="281" height="245"/> <img alt="pic2" src="/assets/res/pic1.png" width="281" height="245"/> <img id="subtitle" src="/assets/res/subtitle.png"/>
+    <div id="clear"></div>
+  </div>
+  <div class="search">
+    <form>
+      <input type="text" name="search">
+      <input type="button" class="button_search">
+    </form>
+    </form>
+  </div>
+  <div class="bulletin">
+    <h1>公告栏</h1>
+    <table>
+      <tr>
+        <td class="title"><a href="#">[国学精品课程]孟子的历史形象及经学意义</a>
+          <p id="time">2013-01-09</p>
+          <img src="/assets/res/sample.png" width="570"></img>
+          <p>孟子是经学史上的亚圣，其历史形象，随着时代的变迁而产生不同的变化。本讲着重梳理这一变化产生的原因及其内在机理，并对孟子之经学意义予以揭示。</p></td>
+      </tr>
+      <tr>
+        <td class="title"><a href="#">[国学精品课程]孟子的历史形象及经学意义</a>
+          <p id="time">2013-01-09</p>
+          <img src="/assets/res/sample.png" width="570"></img>
+          <p>孟子是经学史上的亚圣，其历史形象，随着时代的变迁而产生不同的变化。本讲着重梳理这一变化产生的原因及其内在机理，并对孟子之经学意义予以揭示。</p></td>
+      </tr>
+    </table>
+    <a href="#">查看更多</a> </div>
+  <div class="intro"> <img src="/assets/res/selfintro.png"/>
+    <table>
+      <tr>
+        <td><div id="single">
+            <h2>来自:</h2>
+            <h2>阿诚</h2>
+            <div id="clear"/>
+            <p>我现在在大学二年级。马上就线性代数考试了，我想找一个能帮助我的解决问题的老师，每周末进行辅导...</p>
+          </div>
+      </tr>
+      <tr>
+        <td><div id="single">
+            <h2>来自:</h2>
+            <h2>阿诚</h2>
+            <div id="clear"/>
+            <p>我现在在大学二年级。马上就线性代数考试了，我想找一个能帮助我的解决问题的老师，每周末进行辅导...</p>
+          </div>
+      </tr>
+    </table>
+  </div>
+  <div id="clear"></div>
+  <div class="teacher">
+  <h2>热门讲师</h2>
+  <img src="/assets/res/head.png" width="137" height="137"/>
+  <img src="/assets/res/head.png" width="137" height="137"/>
+  </div>
+</div>
+<footer> </footer>
+=======
+>>>>>>> 328324a335f786089353cf21a812c53be7c455cc
+</body>
+</html>

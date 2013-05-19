@@ -1,0 +1,12 @@
+<% if (current_student? && user.is_teacher? && !current_user?(user)) || (current_teacher? && user.is_student? && !current_user?(user)) %> 
+  <% if current_user.have_been_friends?(user,current_student?)%>
+  <%= render'shared/remove_relationship', :user=>user%>
+  <% else %>
+  <%= render'shared/add_friends', :user => user%>
+  <% end %>
+<% end%>
+
+
+
+
+
