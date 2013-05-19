@@ -1,12 +1,38 @@
 <% provide(:title, @title)%>
-<% if @requests %>
-<% @requests.each do |request|%>
-<%=request.sender_id %>
-<li>
-<%= render 'shared/agree_form', user: User.find(request.sender_id) %>
-<%= render 'shared/refuse_form', user: User.find(request.sender_id)%>
-</li>
-<% end%>
+<% if @requests.count!= 0||@accept_requests.count != 0|| @refuse_requests.count != 0 %>
+  <% if @requests%>
+    <% @requests.each do |request|%>
+    <%=request.sender_id %>
+    <li>
+    理由：<%= request.content%>
+    <%= render 'shared/agree_form', user: User.find(request.sender_id) %>
+    <%= render 'shared/refuse_form', user: User.find(request.sender_id)%>
+    </li>
+    <% end%>
+  <% end%>
+
+  <% if @accept_requests%>
+    <% @accept_requests.each do |accept_request|%>
+      <li>
+      <%= User.find(accept_request.sender_id).name%> 接受了你的请求
+      <%= form_tag(:controller=>"requests", :action=> "delete_request",method:"delete") do%>
+      <%= hidden_field_tag :request_id, accept_request.id%>
+      <%= submit_tag "删除", class: "btn btn-primary"%>
+        <% end %>
+      </li>
+    <%end%>
+  <% end%>
+  <% if @refuse_requests%>
+    <% @refuse_requests.each do |refuse_request|%>
+      <li>
+      <%= User.find(refuse_request.sender_id).name%>拒绝了你的请求
+      <%= form_tag(:controller=>"requests", :action=> "delete_request",method:"delete") do%>
+      <%= hidden_field_tag :request_id, refuse_request.id%>
+      <%= submit_tag "删除", class: "btn btn-primary"%>
+        <% end %>
+      </li>
+    <%end%>
+  <% end%>
 <% else %>
-无未处理请求
+          无任何请求或消息
 <% end%>

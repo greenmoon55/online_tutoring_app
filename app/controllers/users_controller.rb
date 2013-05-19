@@ -90,13 +90,21 @@ class UsersController < ApplicationController
   end
 
   def requests
-    @title = "所用请求"
+    @title = "所有请求"
     @user = User.find(params[:id])
     if current_student?
+      @user.requests.find_all_by_kind_and_read([2,4,6],false).collect do |x| x.update_attributes(read: true) end
       @requests = @user.requests.find_all_by_kind(2)
+      @accept_requests = @user.requests.find_all_by_kind(4)
+      @refuse_requests = @user.requests.find_all_by_kind(6)
     else
       @requests = @user.requests.find_all_by_kind(1)
+      @user.requests.find_all_by_kind_and_read([1,3,5],false).collect do |x| x.update_attributes(read: true) end
+      
+      @accept_requests = @user.requests.find_all_by_kind(3)
+      @refuse_requests = @user.requests.find_all_by_kind(5)
     end
+    
     render 'show_requests'
   end
 

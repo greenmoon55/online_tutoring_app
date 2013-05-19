@@ -1,5 +1,6 @@
-<%= form_tag(requests_path(user), method:'delete')%>
+<%= form_tag(request_path(user), method:'delete', :multipart => true) do%>
 <%= hidden_field_tag :sender_id,user.id%>
 <%= submit_tag "拒绝", class: "btn btn-primary"%>
+<% end%>
 
 
