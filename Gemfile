@@ -7,7 +7,6 @@ gem 'rails', '3.2.13'
 
 gem 'bcrypt-ruby'
 gem 'bootstrap-sass'
-gem 'therubyracer'
 
 # messaging
 gem 'private_pub'
@@ -21,7 +20,6 @@ group :development do
   gem 'faker', '1.0.1'
   gem 'annotate'
   gem 'sqlite3'
-  gem 'railroady'
 end
 
 group :production do
@@ -57,3 +55,5 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
+
+gem 'therubyracer', :platform => :ruby
