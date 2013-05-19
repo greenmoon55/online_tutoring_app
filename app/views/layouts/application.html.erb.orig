@@ -14,6 +14,10 @@
         <%= value %>
       </div>
     <% end %>
+<<<<<<< HEAD
+=======
+    <%= yield %>
+>>>>>>> 328324a335f786089353cf21a812c53be7c455cc
     <% debug(session) if Rails.env.development? %>
     <% debug(params) if Rails.env.development? %>
   </div>
@@ -21,6 +25,7 @@
     <button class="btn btn-info">聊天</button>
   </div>
   <%= render 'layouts/subscription' if signed_in? %>
+<<<<<<< HEAD
   <div class="container">
   <div class="theme">
     <h1>良师</h1>
@@ -80,5 +85,7 @@
   </div>
 </div>
 <footer> </footer>
+=======
+>>>>>>> 328324a335f786089353cf21a812c53be7c455cc
 </body>
 </html>

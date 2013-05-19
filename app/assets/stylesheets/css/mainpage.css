@@ -1,0 +1,213 @@
+@charset "utf-8";
+/* CSS Document */
+<!--
+body {
+	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+	background-color: #42413C;
+	background: url(../res/bg.png) repeat-x;
+	background-size:contain;
+	margin: 0;
+	padding: 0;
+	color: #000;
+}
+/* ~~ 元素/标签选择器 ~~ */
+ul, ol, dl { /* 由于浏览器之间的差异，最佳做法是在列表中将填充和边距都设置为零。为了保持一致，您可以在此处指定所需的数值，也可以在列表包含的列表项（LI、DT 和 DD）中指定所需的数值。请记住，除非编写一个更具体的选择器，否则，在此处进行的设置将层叠到 .nav 列表。 */
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+	margin-top: 0;	 /* 删除上边距可以解决边距会超出其包含的块的问题。剩余的下边距可以使块与后面的任何元素保持一定距离。 */
+	padding-right: 15px;
+	padding-left: 15px;
+	font-weight: normal; /* 向块内的元素侧边（而不是块元素自身）添加填充可避免使用任何方框模型数学。此外，也可将具有侧边填充的嵌套块用作替代方法。 */
+}
+a img { /* 此选择器将删除某些浏览器中显示在图像周围的默认蓝色边框（当该图像包含在链接中时） */
+	border: none;
+}
+/* ~~ 站点链接的样式必须保持此顺序，包括用于创建悬停效果的选择器组在内。 ~~ */
+a:link {
+	color: #FFF;
+	text-decoration: none;
+}
+a:visited {
+	color: #FFF;
+	text-decoration: none;
+}
+a:hover, a:active, a:focus { /* 此组选择器将为键盘导航者提供与鼠标使用者相同的悬停体验。 */
+	text-decoration: none;
+}
+/* ~~ 标题未指定宽度。它将扩展到布局的完整宽度。 ~~ */
+header {
+	background-color: #313131;
+	color: #FFF;
+	box-shadow: 0px 3px 3px #888888;
+}
+.navibar {
+	width: 960px;
+	margin: 0 auto; /* 侧边的自动值与宽度结合使用，可以将布局居中对齐 */
+	font-family: Microsoft Yahei;
+	font-size: 14px;
+}
+.navibar #login {
+	float: left;
+}
+.navibar #navi {
+	float: right;
+}
+.navibar ul, li {
+	list-style: none;
+	float: left;
+	padding: 10px;
+	padding-right: 0px;
+}
+#clear {
+	clear: both;
+}
+/* ~~ 此固定宽度容器包含所有其它块 ~~ */
+.theme, .container {
+	width: 960px;
+	margin: 0 auto; /* 侧边的自动值与宽度结合使用，可以将布局居中对齐 */
+}
+.theme {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+.theme h1 {
+	color: #71b001;
+	font-size: 70px;
+	font-family: Microsoft Yahei;
+	float: left;
+	margin-top: 30px;
+}
+.theme h2 {
+	color: #313131;
+	font-size: 50px;
+	font-family: Microsoft Yahei;
+	float: left;
+	margin-top: 50px;
+	margin-left: -20px;
+}
+.theme img {
+	float: right;
+	margin-left: 4px;
+	margin-top: 60px;
+}
+.theme #subtitle {
+	margin-right: 5px;
+	margin-top: -30px;
+	float: left;
+}
+.search {
+	margin-left: -15px;
+	margin-bottom: 30px;
+	background: url(../res/bg_search.png) no-repeat;
+	background-size: auto;
+	width: 647px;
+	height: 74px;
+}
+.search input {
+	width: 550px;
+	height: 30px;
+	margin-top: 20px;
+	margin-left: 20px;
+	background-color: #e2e2e2;
+	font-size: 20px;
+	border-style: none;
+	outline: none;
+}
+.search input.button_search {
+	width: 35px;
+	height: 35px;
+	margin-top: 0px;
+	margin-left: 6px;
+	padding-top: 2px;
+	background: url(../res/search.png) no-repeat;
+	background-size: cover;
+	border-style: none;
+}
+.bulletin {
+	width: 588px;
+	margin-bottom: 30px;
+	color: #484944;
+	font-family: Microsoft Yahei;
+	font-weight: normal;
+	float: left;
+	border-bottom:thin solid #999;
+}
+
+.bulletin h1 {
+	font-size: 35px;
+}
+.bulletin .title a {
+	float: none;
+	font-size: 20px;
+	color: #484944;
+	font-weight: bold;
+	padding-left: 15px;
+	margin-bottom: 1px;
+}
+.bulletin #time {
+	color: #98bf42;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	margin-bottom:15px;
+}
+.bulletin img {
+	padding-left: 15px;
+}
+.bulletin p {
+	padding-top: 10px;
+	width: 570px;
+	margin-bottom:30px;
+}
+.bulletin a {
+	color: #98bf42;
+	font-size: 15px;
+	font-weight: bold;
+	float: right;
+	margin-bottom:10px;
+}
+.intro, .intro img, .intro #single, .intro h6 {
+	float: left;
+}
+.intro {
+	width: 372px;
+	font-family: Microsoft Yahei;
+	color: #f7eedf;
+}
+.intro img {
+	margin-left: 30px;
+	margin-right: 15px;
+}
+.intro h2 {
+	float: left;
+	font-size: 20px;
+	padding: 10px 5px 12px 12px;
+	margin: 0px;
+}
+.intro #single {
+	border: 2px solid #98c245;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	background: #98c245;
+	margin-bottom:15px;
+}
+
+.teacher{
+	font-family:Microsoft Yahei;
+	padding-left: 15px;
+	margin-bottom:30px;
+}
+.teacher img{
+	padding-left: 15px;
+}
+footer {
+	padding: 20px 0;
+	background-color: #a1a1a1;
+	position: relative;
+	clear: both;
+}
+/*HTML 5 支持 - 将新 HTML 5 标签设置为 display:block，以使浏览器知道如何正确呈现标签。 */
+header, section, footer, aside, article, figure {
+	display: block;
+}

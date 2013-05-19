@@ -11,6 +11,10 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+<<<<<<< HEAD
 //= require jquery_ujs.
+=======
+//= require jquery_ujs
 //= require private_pub
 //= require_tree .
+>>>>>>> 328324a335f786089353cf21a812c53be7c455cc

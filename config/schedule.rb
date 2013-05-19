@@ -18,6 +18,6 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-every 10.minutes do
+every 1.minute do
   command "ruby /home/greenmoon55/rails/online_tutoring_app/redis_clear_sets.rb"
 end

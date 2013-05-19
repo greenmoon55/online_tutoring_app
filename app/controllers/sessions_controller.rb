@@ -27,4 +27,9 @@ class SessionsController < ApplicationController
     redirect_to request.referer, :notice => "您已登出"
   end
 
+  def refresh
+    return unless signed_in?
+    # key, score, member
+    $redis.zadd('online-users', Time.now.to_i, current_user.id) 
+  end
 end
