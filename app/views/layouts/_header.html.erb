@@ -1,4 +1,4 @@
-<header class="navbar navbar-fixed-top">
+<!--header class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
       <%= link_to "良师在线", root_path, class: "brand" %>
@@ -18,5 +18,33 @@
         </ul>
       </nav>
     </div>
+  </div>
+</header-->
+<header>
+  <div class="navibar">
+    <div id="login">
+      <ul>
+        <% if signed_in? %>
+            <li>
+              <%= link_to gravatar_for(current_user, size:20) + "#{current_user.name}(#{current_role_to_s})", user_path(current_user) %>
+            </li>
+            <li><%= link_to t("user.edit"), edit_user_path(current_user) %> </li>
+            <li><%= link_to t("common.logout"), signout_path, method: "delete" %></li>
+          <% else %>
+            <li><%= link_to t("common.login"), signin_path %></li>
+            <li><%= link_to t("common.register"), signup_path %></li>
+          <% end %>
+      </ul>
+    </div>
+    <div id="navi">
+      <ul>
+        <li><a href="#">首页</a></li>
+        <li><a href="#">搜索导师</a></li>
+        <li><a href="#">搜索学生</a></li>
+        <li><a href="#">帮助</a></li>
+        <li><a href="#">联系客服</a></li>
+      </ul>
+    </div>
+    <div id="clear"/>
   </div>
 </header>
