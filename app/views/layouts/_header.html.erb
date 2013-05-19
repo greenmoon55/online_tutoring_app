@@ -32,6 +32,8 @@
             </li>
             <li><%= link_to t("user.edit"), edit_user_path(current_user) %> </li>
             <li><%= link_to t("common.logout"), signout_path, method: "delete" %></li>
+            <li><%= link_to t("user.friends"), friends_user_path(current_user) %> </li>
+            <li><%= link_to t("user.requests"), requests_user_path(current_user) %> </li>
           <% else %>
             <li><%= link_to t("common.login"), signin_path %></li>
             <li><%= link_to t("common.register"), signup_path %></li>
