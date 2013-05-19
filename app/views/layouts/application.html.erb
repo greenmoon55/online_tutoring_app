@@ -4,7 +4,6 @@
   <title><%= full_title(yield(:title)) %></title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
 </head>
 <body>
  <%= render 'layouts/header' %>
@@ -17,10 +16,11 @@
     <% debug(session) if Rails.env.development? %>
     <% debug(params) if Rails.env.development? %>
   </div>
-  <div class="chat-popup-button">
+
+ <div class="chat-popup-button">
     <button class="btn btn-info">聊天</button>
   </div>
-  <%= render 'layouts/subscription' if signed_in? %>
+ <%= render 'layouts/subscription' if signed_in? %>
   <div class="container">
   <div class="theme">
     <h1>良师</h1>
@@ -78,7 +78,12 @@
   <img src="/assets/res/head.png" width="137" height="137"/>
   <img src="/assets/res/head.png" width="137" height="137"/>
   </div>
+
 </div>
-<footer> </footer>
+<footer> </footer>  
+
+
+ 
+
 </body>
 </html>
