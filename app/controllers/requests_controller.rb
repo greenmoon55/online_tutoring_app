@@ -1,5 +1,5 @@
 class RequestsController < ApplicationController
-  before_filter :require_signin , only:[:create,:destroy]
+  before_filter :require_signin , only:[:create,:destroy,:delete_request]
   def create
     @content = params[:content]
     @receiver = User.find(params[:receiver_id])
@@ -48,6 +48,14 @@ class RequestsController < ApplicationController
       redirect_to current_user     and return 
   end
 
-
-
+  def delete_request
+    request_id = params[:request_id]
+    unless Request.find(request_id)
+      flash[:error] = "已删除该消息"
+      redirect_to current_user and return
+    end
+    current_user.requests.find(request_id).destroy
+    flash[:success] = "成功删除消息"
+    redirect_to current_user and return 
+  end
 end
