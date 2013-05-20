@@ -44,6 +44,8 @@ class User < ActiveRecord::Base
 
   has_many :requests, foreign_key:"receiver_id", dependent: :destroy
 
+  has_many :blocked_relationships,dependent: :destroy
+  has_many :blocked_users, through: :blocked_relationships, source: :blocked_user_id, dependent: :destroy
   accepts_nested_attributes_for :student_subjects
 
   before_save { |user| user.email = email.downcase }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130518120757) do
+ActiveRecord::Schema.define(:version => 20130520051039) do
 
   create_table "Requests", :force => true do |t|
     t.integer  "kind",                           :null => false
@@ -25,6 +25,14 @@ ActiveRecord::Schema.define(:version => 20130518120757) do
 
   add_index "Requests", ["kind"], :name => "index_requests_on_type"
   add_index "Requests", ["receiver_id"], :name => "index_requests_on_receiver_id"
+
+  create_table "blocked_relationships", :force => true do |t|
+    t.integer "user_id",         :null => false
+    t.integer "blocked_user_id", :null => false
+  end
+
+  add_index "blocked_relationships", ["blocked_user_id"], :name => "index_blocked_relationships_on_blocked_user_id"
+  add_index "blocked_relationships", ["user_id"], :name => "index_blocked_relationships_on_user_id"
 
   create_table "degrees", :force => true do |t|
     t.string   "name"

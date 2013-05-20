@@ -5,12 +5,14 @@
     <%=request.sender_id %>
     <li>
     理由：<%= request.content%>
+
     <%= render 'shared/agree_form', user: User.find(request.sender_id) %>
     <%= render 'shared/refuse_form', user: User.find(request.sender_id)%>
+
     </li>
     <% end%>
   <% end%>
-
+    
   <% if @accept_requests%>
     <% @accept_requests.each do |accept_request|%>
       <li>

@@ -10,7 +10,7 @@ class RelationshipsController < ApplicationController
     end
     if current_user.have_been_friends?(@sender,current_student?)
       flash[:error] ="已经加为好友"
-      redirect_to current_user and return
+       redirect_to current_user and return
        #have been friends
     end
 
@@ -32,9 +32,16 @@ class RelationshipsController < ApplicationController
       current_user.set_not_to_be_friends!(@user,current_student?)
       redirect_to current_user and return
     end
-
-
-
+  end
+  
+  def formatjs
+    redirect_to current_user and return
+=begin
+      respond_to do |format|
+        format.html { redirect_to current_user}
+        format.js
+      end  and return 
+=end
   end
 
 end

@@ -1,4 +1,6 @@
-<%= form_tag(relationships_path, method:'post' , :multipart => true) do %>
+<div id="agree_refuse_form">
+<%= form_tag(relationships_path, method:'post') do %>
 <%= hidden_field_tag :sender_id,user.id%>
 <%= submit_tag "同意", class: "btn btn-primary"%>
 <% end %>
+</div>

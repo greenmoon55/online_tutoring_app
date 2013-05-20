@@ -16,3 +16,5 @@ online_tutoring_app
 > bundle exec rake db:migrate
 
 > rackup private_pub.ru -s thin -E production
+
+> 运行redis，参考 redis 里的 README
