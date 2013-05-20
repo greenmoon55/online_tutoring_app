@@ -5,7 +5,6 @@ body {
 	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
 	background-color: #42413C;
 	background: url(../res/bg.png) repeat-x;
-	background-size:contain;
 	margin: 0;
 	padding: 0;
 	color: #000;
@@ -64,13 +63,14 @@ header {
 	clear: both;
 }
 /* ~~ 此固定宽度容器包含所有其它块 ~~ */
-.theme, .container {
+.theme, .container, .register {
 	width: 960px;
 	margin: 0 auto; /* 侧边的自动值与宽度结合使用，可以将布局居中对齐 */
 }
 .theme {
 	margin-top: 30px;
 	margin-bottom: 30px;
+	font-weight: normal;
 }
 .theme h1 {
 	color: #71b001;
@@ -78,6 +78,7 @@ header {
 	font-family: Microsoft Yahei;
 	float: left;
 	margin-top: 30px;
+	padding-bottom: 90px;
 }
 .theme h2 {
 	color: #313131;
@@ -108,19 +109,17 @@ header {
 .search input {
 	width: 550px;
 	height: 30px;
-	margin-top: 20px;
-	margin-left: 20px;
-	background-color: #e2e2e2;
+	margin-top: 21px;
+	margin-left: 22px;
+	padding:0px;
 	font-size: 20px;
-	border-style: none;
 	outline: none;
 }
 .search input.button_search {
 	width: 35px;
 	height: 35px;
-	margin-top: 0px;
-	margin-left: 6px;
-	padding-top: 2px;
+	margin-left: 0px;
+	margin-bottom:10px;
 	background: url(../res/search.png) no-repeat;
 	background-size: cover;
 	border-style: none;

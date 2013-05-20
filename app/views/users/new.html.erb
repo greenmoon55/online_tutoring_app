@@ -1,21 +1,27 @@
 <% provide(:title, t("common.register")) %>
-<h1><%= t("common.register") %></h1>
+<div class="register">
 <div class="row">
   <div class="span6">
     <%= form_for(@user) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
-
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-
-      <%= f.label :email %>
-      <%= f.text_field :email %>
-
-      <%= f.label :password %>
-      <%= f.password_field :password %>
-
-      <%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation %>
+ <table>
+          <tr>
+            <td><%= f.label :name %></td>
+            <td><%= f.text_field :name %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :email %></td>
+            <td><%= f.text_field :email %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :password %></td>
+            <td><%= f.password_field :password %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :password_confirmation %></td>
+            <td><%= f.password_field :password_confirmation %></td>
+          </tr>
+        </table>
 
       <fieldset>
         <div class="role-select">
@@ -23,10 +29,13 @@
           <%= f.label :role_teacher, "教师" %>
           <%= f.radio_button :role, "student", checked: true %>
           <%= f.label :role_student, "学生" %>
+		  <div id="clear"/>
         </div>
       </fieldset>
 
-      <%= f.submit t("common.register"), class: "btn btn-large btn-primary" %>
+      <%= f.submit t("common.register"), class: "btn btn-primary" %>
+	  <div id="clear"/>
     <% end %>
+  </div>
   </div>
 </div>
