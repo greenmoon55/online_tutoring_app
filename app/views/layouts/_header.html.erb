@@ -34,6 +34,7 @@
             <li><%= link_to t("common.logout"), signout_path, method: "delete" %></li>
             <li><%= link_to t("user.friends"), friends_user_path(current_user) %> </li>
             <li><%= link_to t("user.requests"), requests_user_path(current_user) %> </li>
+            <li><%= link_to t("user.blocked_users"), blocked_users_user_path(current_user) %> </li>
           <% else %>
             <li><a href="#" id="link" class="signin">登陆</a></li>
             <li><%= link_to t("common.register"), signup_path %></li>

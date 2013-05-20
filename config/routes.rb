@@ -4,7 +4,7 @@ OnlineTutoringApp::Application.routes.draw do
   get "static_pages/about"
   resources :users do
     member do
-      get :friends, :requests
+      get :friends, :requests,:blocked_users
     end
   end
 
@@ -12,6 +12,8 @@ OnlineTutoringApp::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :search_contents, only: [:create]
   resources :relationships, only: [:create, :destroy]
+  resources :blocked_relationships, only: [:create, :destroy]
+  
   resources :requests, only: [:create, :destroy]
   resources :messages, only: :create
 

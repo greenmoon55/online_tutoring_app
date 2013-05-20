@@ -1,7 +1,7 @@
 # encoding: utf-8
 class UsersController < ApplicationController
   before_filter :require_signin, only: [:edit, :update, :destroy, :full_role]
-  before_filter :correct_user,   only: [:edit, :update, :destroy, :full_role,:requests]
+  before_filter :correct_user,   only: [:edit, :update, :destroy, :full_role,:requests,:friends]
 
   def new
     @user = User.new
@@ -108,7 +108,12 @@ class UsersController < ApplicationController
     render 'show_requests'
   end
 
-
+  def blocked_users
+    @title = "黑名单列表"
+    @user = User.find(params[:id])
+    @blocked_users = @user.blocked_users
+    render 'show_blocked_users'
+  end
  
 
   private

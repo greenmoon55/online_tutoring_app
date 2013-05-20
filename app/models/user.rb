@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   has_many :requests, foreign_key:"receiver_id", dependent: :destroy
 
   has_many :blocked_relationships,dependent: :destroy
-  has_many :blocked_users, through: :blocked_relationships, source: :blocked_user_id, dependent: :destroy
+  has_many :blocked_users, through: :blocked_relationships, source: :blocked_user, dependent: :destroy
   accepts_nested_attributes_for :student_subjects
 
   before_save { |user| user.email = email.downcase }
@@ -175,6 +175,23 @@ logger.info other_user
       self.requests.find_by_sender_id_and_kind(other_user.id,1).destroy
     end
   end
+  def delete_relationship!(other_user)
+    if self.is_student? && other_user.is_teacher? && self.teachers.include?(other_user)
+      self.set_not_to_be_friends!(other_user,true)
+    end
+    if self.is_teacher? && other_user.is_student? && self.students.include?(other_user)
+      self.set_not_to_be_friends!(other_user,false) 
+    end
+  end
+  def delete_request!(other_user)
+    Request.find_all_by_receiver_id_and_sender_id(other_user.id,self.id).collect do |x| x.destroy end
+    Request.find_all_by_receiver_id_and_sender_id(self.id,other_user.id).collect do |x| x.destroy end
+  end
+  def delete_relationship_and_request!(other_user)
+    delete_relationship!(other_user)
+    delete_request!(other_user)
+  end
+
 
 
 end

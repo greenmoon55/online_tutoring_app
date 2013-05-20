@@ -1,11 +1,21 @@
-<% if (current_student? && user.is_teacher? && !current_user?(user)) || (current_teacher? && user.is_student? && !current_user?(user)) %> 
-  <% if current_user.have_been_friends?(user,current_student?)%>
-  <%= render'shared/remove_relationship', :user=>user%>
-  <% else %>
-  <%= render'shared/add_friends', :user => user%>
-  <% end %>
+<% if !current_user?(user) && user.blocked_users.include?(current_user)%>
+他已将你屏蔽
+<% else %>
+
+	<% if (current_student? && user.is_teacher? && !current_user?(user)) || (current_teacher? && user.is_student? && !current_user?(user)) %> 
+	  <% if current_user.have_been_friends?(user,current_student?)%>
+	  <%= render'shared/remove_relationship', :user=>user%>
+	  <% else %>
+	  <%= render'shared/add_friends', :user => user%>
+	  <% end %>
+	<% end%>
 <% end%>
 
+<% if current_user.blocked_users.include?(user)%>
+<%= render 'shared/unblocked_form', :user => user%>
+<% else%>
+<%= render 'shared/blocked_form', :user => user%>
+<% end%>
 
 
 

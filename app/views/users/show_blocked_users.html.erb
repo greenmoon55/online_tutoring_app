@@ -1,0 +1,12 @@
+<% provide(:title, @title)%>
+<%if @blocked_users.any?%>
+  <% @blocked_users.each do |user|%>
+  <li>
+  <%= link_to user[:name],user %>
+  <%= render 'shared/unblocked_form',user:user%>
+  </li>
+  <% end %>
+<%else%>
+<p>无黑名单</p>
+<%end%>
+

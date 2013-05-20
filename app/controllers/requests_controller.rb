@@ -3,6 +3,10 @@ class RequestsController < ApplicationController
   def create
     @content = params[:content]
     @receiver = User.find(params[:receiver_id])
+    if @receiver.blocked_users.include?(current_user)
+      flash[:error] = "#{@receiver.name}已将你屏蔽"
+      redirect_to @receiver and return
+    end
 
     if current_user.have_been_friends?(@receiver,current_student?)
       flash[:error] = "已经成为朋友"

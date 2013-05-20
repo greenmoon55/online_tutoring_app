@@ -1,0 +1,2 @@
+module BlockedRelationshipsHelper
+end

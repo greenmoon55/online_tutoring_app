@@ -1,0 +1,6 @@
+<div id="unblocked_form">
+<%= form_tag(blocked_relationship_path(user.id), method:'delete') do %>
+<%= hidden_field_tag :blocked_user_id,user.id%>
+<%= submit_tag "移出黒名单", class: "btn btn-primary"%>
+<% end %>
+</div>
