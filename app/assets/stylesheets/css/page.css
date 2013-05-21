@@ -1,0 +1,100 @@
+@charset "utf-8";
+/* CSS Document */
+
+.info_container {
+	padding-top: 40px;
+	margin-bottom:50px;
+}
+.page {
+	margin-left: auto;
+	margin-right: auto;
+	width: 660px;
+	padding: 50px 100px 50px 100px;
+	float: none;
+	background: #FFF;
+	border: thin solid #CCC;
+	border-radius: 10px;
+	-moz-border-radius: 10px; /* Old Firefox */
+	box-shadow: 5px 5px 5px #CCC;
+	font-family: Microsoft Yahei;
+}
+.page table {
+	width: 100%;
+	table-layout: fixed;
+	border-right: 50px;
+}
+.page table img, .page table label {
+	float: left;
+	font-size: 15px;
+	font-weight: bold;
+}
+.page h1 {
+	text-align: center;
+}
+.page h6 {
+	font-size:15px;
+	font-weight: bold;
+	padding-top:30px;
+	padding-left:0px;
+}
+.page table img {
+	margin-top: 10px;
+}
+.page .personal_edit {
+	border-top: 2px solid #CCC;
+}
+.page label {
+	padding: 15px 0px 20px 0px;
+}
+.page .btn_edit {
+	width: 100px;
+	height: 30px;
+	float: right;
+	color: #9ed951;
+	margin-top: -10px;
+	background-color: #FFF;
+	font-family: Microsoft Yahei;
+	border-color: #9ed951;
+	border: 2px solid;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+.page .btn_edit:hover {
+	color: #FFF;
+	background-color: #9ed951;
+}
+.info_left, .info_right {
+	width: 46%;
+	float: left;
+	border-top: 2px solid #CCC;
+	padding-left:20px;
+	padding-bottom:30px;
+	font-size:13px;
+}
+.info_right img{
+	padding-top:30px;
+	text-align:center;
+}
+.page ul li{
+	float:none;
+	padding-top:0px;
+}
+.info_left {
+	border-right: 2px solid #CCC;
+}
+.course ul li{
+	float:left;
+	color:#1f86b3;
+}
+.info_right a{
+	color:#666;
+}
+.info_right .comment{
+	border: 2px solid #9ed951;
+	border-radius: 5px;
+	background:#e4e2e0;
+	-moz-border-radius: 5px;
+	padding:10px;
+	padding-bottom:0px;
+	margin-bottom:20px;
+}
