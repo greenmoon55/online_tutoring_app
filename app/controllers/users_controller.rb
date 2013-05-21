@@ -1,6 +1,6 @@
 # encoding: utf-8
 class UsersController < ApplicationController
-  before_filter :require_signin, only: [:edit, :update, :destroy, :full_role]
+#  before_filter :require_signin, only: [:edit, :update, :destroy, :full_role]
   before_filter :correct_user,   only: [:edit, :update, :destroy, :full_role,:requests,:friends]
 
   def new
@@ -118,6 +118,7 @@ class UsersController < ApplicationController
 
   private
     def correct_user
+      require_signin
       @user = User.find(params[:id])
       unless current_user?(@user)
         redirect_to root_path, notice: "非法操作"

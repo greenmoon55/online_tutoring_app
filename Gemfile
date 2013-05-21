@@ -14,7 +14,6 @@ gem 'thin'
 
 # online status
 gem 'redis'
-gem 'whenever', :require => false
 
 group :development do
   gem 'faker', '1.0.1'
@@ -55,5 +54,3 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
-
-gem 'therubyracer', :platform => :ruby
