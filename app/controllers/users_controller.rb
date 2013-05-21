@@ -1,7 +1,8 @@
 # encoding: utf-8
 class UsersController < ApplicationController
 #  before_filter :require_signin, only: [:edit, :update, :destroy, :full_role]
-  before_filter :correct_user,   only: [:edit, :update, :destroy, :full_role,:requests,:friends]
+  before_filter :correct_user, only: [:edit, :update, :destroy, :full_role, :requests, :friends]
+  before_filter :require_signin, only: :correct_user
 
   def new
     @user = User.new
@@ -23,10 +24,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @messages = Message.get_conversation(@user.id, current_user.id)
-    logger.info "show"
-    logger.info @user.id
-    logger.info current_user.id
+    @messages = Message.get_conversation(@user.id, current_user.id) if signed_in?
   end
 
   def edit
@@ -70,7 +68,6 @@ class UsersController < ApplicationController
   end
   
   def search
-    
   end
 
   def messages
@@ -118,7 +115,6 @@ class UsersController < ApplicationController
 
   private
     def correct_user
-      require_signin
       @user = User.find(params[:id])
       unless current_user?(@user)
         redirect_to root_path, notice: "非法操作"

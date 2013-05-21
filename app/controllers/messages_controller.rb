@@ -1,5 +1,6 @@
 # encoding: utf-8
 class MessagesController < ApplicationController
+  before_filter :require_signin
   def create
     message = Message.new(params[:message])
     message.sender_id = current_user.id

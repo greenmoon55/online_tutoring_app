@@ -1,51 +1,26 @@
-<!--<header class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <%= link_to "良师在线", root_path, class: "brand" %>
-      <nav>
-        <ul class="nav pull-right">
-            <li><%= link_to t("common.search"), search_path %></li>
-          <% if signed_in? %>
-            <li>
-              <%= link_to gravatar_for(current_user, size:20) + "#{current_user.name}(#{current_role_to_s})", user_path(current_user) %>
-            </li>
-            <li><%= link_to t("user.friends"), friends_user_path(current_user) %> </li>
-            <li><%= link_to t("user.requests"), requests_user_path(current_user) %> </li>
-            <li><%= link_to t("user.edit"), edit_user_path(current_user) %> </li>
-            <li><%= link_to t("common.logout"), signout_path, method: "delete" %></li>
-          <% else %>
-            <li><%= link_to t("common.login"), signin_path %></li>
-            <li><%= link_to t("common.register"), signup_path %></li>
-          <% end %>
-        </ul>
-      </nav>
-    </div>
-  </div>
-</header-->
 <header>
   <div class="navibar">
     <div id="login">
       <ul>
         <% if signed_in? %>
-            <li>
-              <%= link_to gravatar_for(current_user, size:20) + "#{current_user.name}(#{current_role_to_s})", user_path(current_user) %>
-            </li>
-            <li><%= link_to t("user.edit"), edit_user_path(current_user) %> </li>
-            <li><%= link_to t("common.logout"), signout_path, method: "delete" %></li>
-            <li><%= link_to t("user.friends"), friends_user_path(current_user) %> </li>
-            <li><%= link_to t("user.requests"), requests_user_path(current_user) %> </li>
-            <li><%= link_to t("user.blocked_users"), blocked_users_user_path(current_user) %> </li>
-          <% else %>
-            <li><%= link_to t("common.login"), signup_path, id: "link", class: "signin" %></li>
-            <li><%= link_to t("common.register"), signup_path %></li>
-          <% end %>
+          <li>
+            <%= link_to gravatar_for(current_user, size: 20) + "#{current_user.name}(#{current_role_to_s})", user_path(current_user) %>
+          </li>
+          <li><%= link_to t("user.edit"), edit_user_path(current_user) %> </li>
+          <li><%= link_to t("common.logout"), signout_path, method: "delete" %></li>
+          <li><%= link_to t("user.friends"), friends_user_path(current_user) %> </li>
+          <li><%= link_to t("user.requests"), requests_user_path(current_user) %> </li>
+          <li><%= link_to t("user.blocked_users"), blocked_users_user_path(current_user) %> </li>
+        <% else %>
+          <li><%= link_to t("common.login"), signup_path, id: "link", class: "signin" %></li>
+          <li><%= link_to t("common.register"), signup_path %></li>
+        <% end %>
       </ul>
     </div>
     <div id="navi">
       <ul>
-        <li><a href="#">首页</a></li>
-        <li><a href="#">搜索导师</a></li>
-        <li><a href="#">搜索学生</a></li>
+        <li><%= link_to "首页", root_path %> </li>
+        <li><%= link_to "搜索", search_path %> </li> <!-- 两种搜索放在一起 -->
         <li><a href="#">帮助</a></li>
         <li><a href="#">联系客服</a></li>
       </ul>
@@ -54,7 +29,6 @@
   </div>
 </header>
 
-<%= provide(:title, t("common.login")) %>
 <%= form_tag signin_path do%>
 <ul class="drop">
   <li><%= label_tag :email %></li>
@@ -72,4 +46,4 @@
   </fieldset>
    <%= submit_tag t("common.login"), class: "btn btn-primary btn-info" %>
 <% end %>
-</ul>
+</ul> <!-- 这个要放到上面？ -->

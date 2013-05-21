@@ -12,7 +12,10 @@ module SessionsHelper
 
   def require_signin
     unless signed_in?
-      redirect_to signin_path, notice: "请先登录"
+      respond_to do |format|
+        format.html { redirect_to signin_path, notice: "请先登录" }
+        format.js {render :js => "alert('请先登录');"}
+      end
     end
   end
 
@@ -54,6 +57,7 @@ module SessionsHelper
     end
   end
 
+  # 当前登录的身份是否为教师
   def current_teacher?
     self.current_role == false
   end
@@ -68,6 +72,7 @@ module SessionsHelper
     session.delete(:role)
   end
 
+  # 这个在用吗？
   def districts
     @districts ||= District.all.collect {|x| [x.name, x.id]}
   end
