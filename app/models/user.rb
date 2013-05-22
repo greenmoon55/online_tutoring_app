@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
                   :student_visible, :teacher_visible, :degree_id,
                   :student_subject_ids, :teacher_subject_ids
   attr_accessor :updating_password
+#这里好乱啊...
   has_many :student_relationships
   has_many :student_subjects, through: :student_relationships, source: :subject
   has_many :teacher_relationships
@@ -91,7 +92,10 @@ class User < ActiveRecord::Base
     return last_seen && last_seen >= 1.minute.ago.to_i
   end
 
-
+  def has_blocked?(user)
+    return nil if user.nil? 
+    self.blocked_users.include?(user)
+  end
 
 #create 
   def have_been_friends?(other_user,current_student)

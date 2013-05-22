@@ -4,11 +4,17 @@ class MessagesController < ApplicationController
   def create
     message = Message.new(params[:message])
     message.sender_id = current_user.id
-    message.save!
-    PrivatePub.publish_to("/messages/#{message.receiver_id}",
-        message: message)
-    PrivatePub.publish_to("/messages/#{message.sender_id}",
-        message: message)
+    logger.info message.inspect
+    receiver = User.find(message.receiver_id)
+    if receiver && !receiver.has_blocked?(current_user)
+  ````message.save! 
+      PrivatePub.publish_to("/messages/#{message.receiver_id}",
+          message: message)
+      PrivatePub.publish_to("/messages/#{message.sender_id}",
+          message: message)
+    else
+      # 提醒发送消息的人被屏蔽啦
+    end
   end
   def get_conversation(user1, user2)
     Message.find_by_sender_id_and_receiver_id(user1, user2)
