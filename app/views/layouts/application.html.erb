@@ -18,9 +18,9 @@
     <% debug(params) if Rails.env.development? %>
   </div>
 
- <div class="chat-popup-button">
-    <button class="btn btn-info">聊天</button>
-  </div>
-  <%= render 'layouts/subscription' if signed_in? %>
+  <%= if signed_in? %>
+    <%= render 'layouts/subscription' %>
+    <button id="chat-popup-button" class="btn btn-info">聊天</button>
+  <% end %>
 </body>
 </html>

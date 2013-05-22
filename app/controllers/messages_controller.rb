@@ -7,7 +7,7 @@ class MessagesController < ApplicationController
     logger.info message.inspect
     receiver = User.find(message.receiver_id)
     if receiver && !receiver.has_blocked?(current_user)
-  ````message.save! 
+      message.save! 
       PrivatePub.publish_to("/messages/#{message.receiver_id}",
           message: message)
       PrivatePub.publish_to("/messages/#{message.sender_id}",
