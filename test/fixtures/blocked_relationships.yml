@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: blocked_relationships
+#
+#  id              :integer          not null, primary key
+#  user_id         :integer          not null
+#  blocked_user_id :integer          not null
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:

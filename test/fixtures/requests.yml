@@ -6,7 +6,7 @@
 #  kind        :integer          not null
 #  receiver_id :integer          not null
 #  sender_id   :integer          not null
-#  content     :boolean          default(FALSE), not null
+#  content     :string(255)
 #  read        :boolean          default(FALSE), not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null

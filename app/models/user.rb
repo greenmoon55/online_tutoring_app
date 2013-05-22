@@ -86,9 +86,9 @@ class User < ActiveRecord::Base
     self.role == 0 || self.role == 2
   end
 
-
   def online?
-    SessionsController.helpers.online_users.include?(self.id.to_s)
+    last_seen = $redis.zscore("online-users", self.id)
+    return last_seen && last_seen >= 1.minute.ago.to_i
   end
 
 
