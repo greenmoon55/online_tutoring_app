@@ -1,18 +1,19 @@
 <% provide(:title, @user.name) %>
-  <div id="chat">
-    <%= render @messages if @messages %>
-  </div>
-  <%= form_for Message.new, remote: true do |f| %>
-    <%= f.hidden_field :receiver_id, value: @user.id %>
-    <%= f.text_field :content %>
-    <%= f.submit %>
-  <% end %>
+<!-- 仅供测试 -->
+<div id="chat">
+  <%= render @messages if @messages %>
+  <button class="btn" id="chat-with-button">聊天</button>
 </div>
+<%= form_for Message.new, remote: true do |f| %>
+  <%= f.hidden_field :receiver_id, value: @user.id %>
+  <%= f.text_field :content %>
+  <%= f.submit %>
+<% end %>
 
 <div>
-  <% if signed_in?%>
-  <%= render "shared/request_form",:user => @user%>
-  <% end%>
+  <% if signed_in? %>
+  <%= render "shared/request_form",:user => @user %>
+  <% end %>
 </div>
 <div class="info_container">
   <div class="page">

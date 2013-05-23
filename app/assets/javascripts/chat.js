@@ -6,4 +6,7 @@ $(document).ready(function() {
     $("#chat-box").hide();
     return false;
   })
+  $("#chat-with-button").click(function() {
+    $("#chat-box").show();
+  });
 });
