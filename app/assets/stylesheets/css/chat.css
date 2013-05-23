@@ -15,13 +15,32 @@
 }
 
 #chat-left {
-  height: 320px;
-  width: 110px;
+  height: 367px;
+  width: 109px;
   border-right: 1px solid #afafaf;
-  background-color: #eaeaea
+  background-color: #eaeaea;
+  float: left;
 }
 
 #chat-close {
   float: right;  
 }
 
+#chat-right {
+}
+
+#chat-dialogue-list {
+  overflow-y: scroll;
+  height: 255px;
+}
+
+#chat-sendbox textarea {
+  width: 290px;
+  margin: 3px;
+  height: 65px;
+}
+
+#chat-sendbutton {
+  float: right;
+  margin-right: 3px;
+}
