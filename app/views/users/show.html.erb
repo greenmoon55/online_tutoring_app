@@ -4,11 +4,6 @@
   <%= render @messages if @messages %>
   <button class="btn" id="chat-with-button">聊天</button>
 </div>
-<%= form_for Message.new, remote: true do |f| %>
-  <%= f.hidden_field :receiver_id, value: @user.id %>
-  <%= f.text_field :content %>
-  <%= f.submit %>
-<% end %>
 
 <div>
   <% if signed_in? %>

@@ -67,9 +67,12 @@
             <p>asfdsd</p>
           </div>
           <div id="chat-sendbox">
-            <textarea> </textarea>
+            <%= form_for Message.new do |f| %>
+              <%= f.hidden_field :receiver_id %>
+              <%= f.text_area :content %>
+              <%= f.submit "发送", id: "chat-sendbutton" %>
+            <% end %>
           </div>
-          <button class="btn" id="chat-sendbutton">发送</button>
         </div>
       </div>
     </div>
