@@ -6,6 +6,9 @@ $(document).ready(function() {
     $("#chat-box").hide();
     return false;
   })
+  $("#chat-left").on("click", "li", function() {
+    activateItem(this);
+  })
   $("#chat-with-button").click(function() {
     $("#chat-box").show();
     var path = window.location.pathname;
@@ -33,4 +36,10 @@ function addUser(uid, username, isOnline) {
   $(li).append(nameSpan);
   $(li).attr("title", username);
   $("#chat-left ul").append(li);
+}
+
+// 激活当前点击的对象
+function activateItem(item) {
+  $("#chat-left li").removeClass("chat-active");
+  $(item).addClass("chat-active");
 }

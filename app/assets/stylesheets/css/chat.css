@@ -26,6 +26,18 @@
   width: 100%;
   height: 30px;
   padding: 0;
+  border-top: 1px solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
+}
+
+#chat-left li:hover {
+  cursor: pointer;
+}
+
+#chat-left .chat-active {
+  background: #fff;
+  border-top: 1px solid #bbb;
+  border-bottom: 1px solid #bbb;
 }
 
 #chat-left .chat-status {
