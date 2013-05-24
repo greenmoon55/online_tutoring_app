@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130520051039) do
+ActiveRecord::Schema.define(:version => 20130523132059) do
 
   create_table "Requests", :force => true do |t|
     t.integer  "kind",                           :null => false
     t.integer  "receiver_id",                    :null => false
     t.integer  "sender_id",                      :null => false
-    t.string   "content"
+    t.string   "content",     :default => "f",   :null => false
     t.boolean  "read",        :default => false, :null => false
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
@@ -35,7 +35,9 @@ ActiveRecord::Schema.define(:version => 20130520051039) do
   add_index "blocked_relationships", ["user_id"], :name => "index_blocked_relationships_on_user_id"
 
   create_table "degrees", :force => true do |t|
-    t.string "name"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "districts", :force => true do |t|
@@ -64,6 +66,25 @@ ActiveRecord::Schema.define(:version => 20130520051039) do
   add_index "relationships", ["student_id", "teacher_id"], :name => "index_relationships_on_student_id_and_teacher_id", :unique => true
   add_index "relationships", ["student_id"], :name => "index_relationships_on_student_id"
   add_index "relationships", ["teacher_id"], :name => "index_relationships_on_teacher_id"
+
+  create_table "room_student_relationships", :force => true do |t|
+    t.integer  "student_id", :null => false
+    t.integer  "room_id",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "room_student_relationships", ["room_id"], :name => "index_room_student_relationships_on_room_id"
+  add_index "room_student_relationships", ["student_id"], :name => "index_room_student_relationships_on_student_id"
+
+  create_table "rooms", :force => true do |t|
+    t.string   "outline"
+    t.integer  "user_id",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "rooms", ["user_id"], :name => "index_rooms_on_user_id"
 
   create_table "student_relationships", :force => true do |t|
     t.integer "user_id",    :null => false

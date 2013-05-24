@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
 #as a teacher
   has_many :reverse_relationships, foreign_key: "teacher_id",class_name:"Relationship", dependent: :destroy
   has_many :students, through: :reverse_relationships,dependent: :destroy
+  has_many :rooms
 
   has_many :requests, foreign_key:"receiver_id", dependent: :destroy
 
