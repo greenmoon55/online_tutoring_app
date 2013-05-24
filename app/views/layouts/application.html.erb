@@ -23,12 +23,12 @@
     <button id="chat-popup-button" class="btn btn-info">聊天</button>
     <div id="chat-box">
       <div id="chat-header">
-        <a href="#" id="chat-close"><i class="icon-remove"></i></a>
+        <a id="chat-close"><i class="icon-remove"></i></a>
       </div> 
       <div id="chat-wrap">
         <div id="chat-left">
           <ul>
-            <li>
+            <li class="chat-active" title="username">
               <span class="chat-status chat-online"> </span>
               <span class="chat-username">greenmoon55</span>
             </li>
@@ -67,9 +67,12 @@
             <p>asfdsd</p>
           </div>
           <div id="chat-sendbox">
-            <textarea> </textarea>
+            <%= form_for Message.new do |f| %>
+              <%= f.hidden_field :receiver_id %>
+              <%= f.text_area :content %>
+              <%= f.submit "发送", id: "chat-sendbutton" %>
+            <% end %>
           </div>
-          <button class="btn" id="chat-sendbutton">发送</button>
         </div>
       </div>
     </div>

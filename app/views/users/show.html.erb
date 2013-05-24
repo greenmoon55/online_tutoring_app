@@ -4,11 +4,6 @@
   <%= render @messages if @messages %>
   <button class="btn" id="chat-with-button">聊天</button>
 </div>
-<%= form_for Message.new, remote: true do |f| %>
-  <%= f.hidden_field :receiver_id, value: @user.id %>
-  <%= f.text_field :content %>
-  <%= f.submit %>
-<% end %>
 
 <div>
   <% if signed_in? %>
@@ -22,12 +17,14 @@
         <td><label>个人状态：
 		</label>
 		<% if @user.online? %>
-		  <img src="/assets/res/online.png" width="30" height="30"/>
+		  <!-- id用于聊天，请不要删除-->
+		  <img id="img_online" src="/assets/res/online.png" width="30" height="30"/>
 		<% else %>
 		  <img src="/assets/res/offline.png" width="30" height="30"/>
 		<% end %>
 		
-        <td><h1><%=@user.name%></h1></td>
+		        <!-- id用于聊天，请不要删除-->
+        <td><h1 id="username"><%=@user.name%></h1></td>
         <td><input class="btn_edit" name="commit" type="submit" value="编辑资料"/></td>
       </tr>
     </table>
