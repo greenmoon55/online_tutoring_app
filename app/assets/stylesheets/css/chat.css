@@ -28,6 +28,31 @@
   padding: 0;
 }
 
+#chat-left .chat-status {
+  width: 7px;
+  height: 7px;
+  display: inline-block;
+  float: left;
+  margin: 10px 5px;
+}
+
+#chat-left .chat-online {
+  background-color: #8FDC00;
+}
+
+#chat-left .chat-offline {
+  background-color: #D4D4D4;
+}
+
+#chat-left .chat-username {
+  float: left;
+  width: 90px;
+  word-wrap: break-word;
+  line-height: 30px;
+  overflow: hidden;
+  height: 100%;
+}
+
 #chat-close {
   float: right;  
 }
@@ -49,23 +74,4 @@
 #chat-sendbutton {
   float: right;
   margin-right: 3px;
-}
-
-#chat-left .chat-status {
-  width: 7px;
-  height: 7px;
-  display: inline-block;
-  float: left;
-}
-
-#chat-left .chat-online {
-  background-color: #8FDC00;
-}
-
-#chat-left .chat-offline {
-  background-color: #D4D4D4;
-}
-
-.chat-username {
-  float: left;
 }
