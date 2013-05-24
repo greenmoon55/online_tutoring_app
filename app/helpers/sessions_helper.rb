@@ -18,7 +18,11 @@ module SessionsHelper
       end
     end
   end
-
+  def require_current_teacher
+    unless signed_in?&&current_teacher?
+      redirect_to root_path
+    end
+  end
   # setter
   def current_user=(user)
     @current_user = user

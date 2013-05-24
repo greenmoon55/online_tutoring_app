@@ -5,17 +5,19 @@ OnlineTutoringApp::Application.routes.draw do
   resources :users do
     member do
       get :friends, :requests,:blocked_users
+      
     end
+    resources :rooms
   end
 
   match '/users/:id/messages', to: 'users#messages', via: :get
   resources :sessions, only: [:new, :create, :destroy]
   resources :search_contents, only: [:create]
   resources :relationships, only: [:create, :destroy]
-  resources :blocked_relationships, only: [:create, :destroy]
   
   resources :requests, only: [:create, :destroy]
   resources :messages, only: :create
+  resources :blocked_relationships, only: [:create,:destroy]
 
   match '/refresh', to: 'sessions#refresh', via: :get
 

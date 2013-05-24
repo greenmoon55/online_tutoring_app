@@ -38,16 +38,16 @@ class User < ActiveRecord::Base
   
 #as a student
   has_many :relationships, foreign_key: "student_id", dependent: :destroy
-  has_many :teachers, through: :relationships,dependent: :destroy
+  has_many :teachers, through: :relationships
 #as a teacher
   has_many :reverse_relationships, foreign_key: "teacher_id",class_name:"Relationship", dependent: :destroy
-  has_many :students, through: :reverse_relationships,dependent: :destroy
+  has_many :students, through: :reverse_relationships
   has_many :rooms
 
   has_many :requests, foreign_key:"receiver_id", dependent: :destroy
 
   has_many :blocked_relationships,dependent: :destroy
-  has_many :blocked_users, through: :blocked_relationships, source: :blocked_user, dependent: :destroy
+  has_many :blocked_users, through: :blocked_relationships, source: :blocked_user
   accepts_nested_attributes_for :student_subjects
 
   before_save { |user| user.email = email.downcase }
