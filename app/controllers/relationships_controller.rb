@@ -29,7 +29,9 @@ class RelationshipsController < ApplicationController
       redirect_to current_user and return
     else
       flash[:success] = "解除成功"
+      current_user.delete_room_relationship!(@user,current_student?)
       current_user.set_not_to_be_friends!(@user,current_student?)
+      
       redirect_to current_user and return
     end
   end

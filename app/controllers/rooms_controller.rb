@@ -32,9 +32,12 @@ class RoomsController < ApplicationController
     @room.room_student_relationships.each do |relationship|
       if @student_selected.include?relationship[:student_id]
         # do nothing
-      else 
-        @room.room_student_relationships.find(relationship[:id]).destroy
-        User.find(relationship[:student_id]).requests.create!(kind:8,sender_id:@user[:id], content: @room[:outline])
+      else
+         if @user.students.include?(User.find(relationship[:student_id]))
+            User.find(relationship[:student_id]).requests.create!(kind:4,sender_id:@user[:id], content: "将你移出了 "+ @room[:outline] + " 聊天室中")
+         end
+         @room.room_student_relationships.find(relationship[:id]).destroy
+        
       end
     end
 
@@ -42,8 +45,10 @@ class RoomsController < ApplicationController
       if @room.room_student_relationships.find_by_student_id(student_id)
         # do nothing
       else
-         @room.room_student_relationships.create!(student_id: student_id)
-         User.find(student_id).requests.create!(kind:7,sender_id:@user[:id],content: @room[:outline])
+        if @user.students.include?(User.find(student_id))
+          @room.room_student_relationships.create!(student_id: student_id)
+          User.find(student_id).requests.create!(kind:4,sender_id:@user[:id],content: "将你加入到了 " + @room[:outline] + " 聊天室中")
+        end
       end
     end
     redirect_to user_room_path(current_user,@room[:id])
@@ -54,9 +59,10 @@ class RoomsController < ApplicationController
     @student_selected = []
     params[:student].each do |single_student_id|
       @student_selected.push(Integer(single_student_id))
-      if User.find(single_student_id)
+      student = User.find(single_student_id)
+      if @user.students.include?(student)
         @room.room_student_relationships.create!(student_id: single_student_id)
-        User.find(single_student_id).requests.create!(sender_id:@user[:id],kind:7,content: @room[:outline])
+        student.requests.create!(sender_id:@user[:id],kind:4,content: "将你加入到了 " + @room[:outline] + " 聊天室中")
       end
     end
     flash[:success] = "创建成功"
@@ -79,7 +85,9 @@ class RoomsController < ApplicationController
   def destroy
     @room =Room.find(params[:id])
     @room.students.each do |student|
-      student.requests.create!(sender_id:current_user[:id],content: current_user[:name]+"解散了 "+@room[:outline]+" 聊天室", kind:9)
+      if @user.students.include?(student)
+        student.requests.create!(sender_id:current_user[:id],content: "解散了 "+@room[:outline]+" 聊天室", kind:4)
+      end
     end
     @user.rooms.find(params[:id]).destroy
     redirect_to user_rooms_path(@user)

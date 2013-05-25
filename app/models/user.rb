@@ -160,16 +160,16 @@ logger.info other_user
 
   def send_accept_request!(other_user,current_student)
     if current_student
-      other_user.requests.create!(sender_id: self.id, kind:3)
+      other_user.requests.create!(sender_id: self.id, kind:3,content: "同意了你的请求")
     else
-      other_user.requests.create!(sender_id: self.id, kind:4)
+      other_user.requests.create!(sender_id: self.id, kind:4,content: "同意了你的请求")
     end
   end
   def send_refuse_request!(other_user,current_student)
     if current_student
-      other_user.requests.create!(sender_id: self.id, kind:5)
+      other_user.requests.create!(sender_id: self.id, kind:3,content: "拒绝了你的请求")
     else
-      other_user.requests.create!(sender_id: self.id, kind:6)
+      other_user.requests.create!(sender_id: self.id, kind:4,content: "拒绝了你的请求")
     end
   end
 
@@ -198,5 +198,20 @@ logger.info other_user
   end
 
 
-
+  def delete_room_relationship!(other_user,current_student)
+      if current_student
+        other_user.rooms.each do |room|
+          if room.students.include?(self)
+            room.room_student_relationships.find_by_student_id(self[:id]).destroy
+          end 
+        end
+      else
+        self.rooms.each do |room|
+          if room.students.include?(other_user)
+            room.room_student_relationships.find_by_student_id(other_user[:id]).destroy
+          end
+        end
+      end
+    
+  end
 end
