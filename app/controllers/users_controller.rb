@@ -90,10 +90,13 @@ class UsersController < ApplicationController
     @title = "所有请求"
     @user = User.find(params[:id])
     if current_student?
-      @user.requests.find_all_by_kind_and_read([2,4,6],false).collect do |x| x.update_attributes(read: true) end
+      @user.requests.find_all_by_kind_and_read([2,4,6,7,8,9],false).collect do |x| x.update_attributes(read: true) end
       @requests = @user.requests.find_all_by_kind(2)
       @accept_requests = @user.requests.find_all_by_kind(4)
       @refuse_requests = @user.requests.find_all_by_kind(6)
+      @add_room_requests = @user.requests.find_all_by_kind(7)
+      @delete_room_requests = @user.requests.find_all_by_kind(8)
+      @delete_requests = @user.requests.find_all_by_kind(9)
     else
       @requests = @user.requests.find_all_by_kind(1)
       @user.requests.find_all_by_kind_and_read([1,3,5],false).collect do |x| x.update_attributes(read: true) end
@@ -112,6 +115,19 @@ class UsersController < ApplicationController
     render 'show_blocked_users'
   end
  
+  def my_rooms
+    if current_student?
+      @title = "我的聊天室"
+      @student = User.find(params[:id])
+      @rooms = []
+      Room.all.each do |room|
+        if room.students.include? @student
+          @rooms.push(room)
+        end
+      end
+    end
+    render 'rooms/index'
+  end
 
   private
     def correct_user

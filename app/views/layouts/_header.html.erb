@@ -11,6 +11,11 @@
           <li><%= link_to t("user.friends"), friends_user_path(current_user) %> </li>
           <li><%= link_to t("user.requests"), requests_user_path(current_user) %> </li>
           <li><%= link_to t("user.blocked_users"), blocked_users_user_path(current_user) %> </li>
+          <% if current_teacher?%>
+            <li><%= link_to "聊天室", user_rooms_path(current_user) %> </li>
+          <% else %>
+            <li><%= link_to "聊天室", my_rooms_user_path(current_user)%></li>
+          <% end%>
         <% else %>
           <li><%= link_to t("common.login"), signup_path, id: "link", class: "signin" %></li>
           <li><%= link_to t("common.register"), signup_path %></li>

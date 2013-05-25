@@ -34,6 +34,7 @@ class RoomsController < ApplicationController
         # do nothing
       else 
         @room.room_student_relationships.find(relationship[:id]).destroy
+        User.find(relationship[:student_id]).requests.create!(kind:8,sender_id:@user[:id], content: @room[:outline])
       end
     end
 
@@ -42,6 +43,7 @@ class RoomsController < ApplicationController
         # do nothing
       else
          @room.room_student_relationships.create!(student_id: student_id)
+         User.find(student_id).requests.create!(kind:7,sender_id:@user[:id],content: @room[:outline])
       end
     end
     redirect_to user_room_path(current_user,@room[:id])
@@ -52,7 +54,10 @@ class RoomsController < ApplicationController
     @student_selected = []
     params[:student].each do |single_student_id|
       @student_selected.push(Integer(single_student_id))
-      @room.room_student_relationships.create!(student_id: single_student_id)
+      if User.find(single_student_id)
+        @room.room_student_relationships.create!(student_id: single_student_id)
+        User.find(single_student_id).requests.create!(sender_id:@user[:id],kind:7,content: @room[:outline])
+      end
     end
     flash[:success] = "创建成功"
     redirect_to current_user
@@ -72,7 +77,13 @@ class RoomsController < ApplicationController
   end
 
   def destroy
-    @room = params[:room]
+    @room =Room.find(params[:id])
+    @room.students.each do |student|
+      student.requests.create!(sender_id:current_user[:id],content: current_user[:name]+"解散了 "+@room[:outline]+" 聊天室", kind:9)
+    end
+    @user.rooms.find(params[:id]).destroy
+    redirect_to user_rooms_path(@user)
+
   end
 
     def correct_user
@@ -91,13 +102,11 @@ class RoomsController < ApplicationController
     user_id = params[:user_id]
     room_id = params[:id]
     if current_user?(User.find(user_id)) && current_teacher? && current_user.rooms.include?(Room.find(room_id))
-      
-    elsif !current_user?(User.find(user_id)) && current_student? && Room.find(room_id).students.include?(User.find(user_id))
+#  elsif current_student? && Room.find(room_id).students.include?(current_user)
+    elsif !current_user?(User.find(user_id)) && current_student? && Room.find(room_id).students.include?(current_user)
     else
     flash[:error] = "you don't have access"
     redirect_to current_user
     end
   end
-
-
 end

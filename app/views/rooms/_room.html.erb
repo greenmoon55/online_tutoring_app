@@ -1,4 +1,3 @@
 <li>
-  <%= link_to room[:outline], user_room_path(current_user,room[:id])%>
-
+  <%= link_to room[:outline], user_room_path(room.user,room[:id])%>
 </li>
