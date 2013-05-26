@@ -30,6 +30,10 @@ OnlineTutoringApp::Application.routes.draw do
   match '/search', to: 'search_contents#search'
   match '/search', to: 'search_contents#create', via: :post
   match '/requests/delete_request', to: 'requests#delete_request', via: :post
+
+  match '/chat/users/new', to: 'chat#new_user', via: :get
+  match '/chat/users/:id', to: 'chat#delete_user', via: :delete
+  match '/chat/users', to: 'chat#get_users', via: :get
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

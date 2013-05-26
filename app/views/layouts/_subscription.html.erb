@@ -1,7 +1,7 @@
 <%= subscribe_to "/messages/#{current_user.id}" if signed_in?%>
 <script>
   PrivatePub.subscribe("/messages/<%= current_user.id %>", function(data, channel) {
-    $("#chat").append(data.message.content);
+    if (data.type == 1) onChatMessage(data.message);
     console.log(data);
   });
   (function poll(){

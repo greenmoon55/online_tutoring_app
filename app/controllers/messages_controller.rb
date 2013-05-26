@@ -8,10 +8,12 @@ class MessagesController < ApplicationController
     receiver = User.find(message.receiver_id)
     if receiver && !receiver.has_blocked?(current_user)
       message.save! 
-      PrivatePub.publish_to("/messages/#{message.receiver_id}",
-          message: message)
-      PrivatePub.publish_to("/messages/#{message.sender_id}",
-          message: message)
+      publish_message = {type: 1, message: {content: 
+          ERB::Util.html_escape(message.content), 
+          created_at: message.created_at.localtime.to_s(:db),
+          sender_name: current_user.name}, sender_id: message.sender_id}
+      PrivatePub.publish_to("/messages/#{message.receiver_id}", publish_message)
+      PrivatePub.publish_to("/messages/#{message.sender_id}", publish_message)
     else
       # 提醒发送消息的人被屏蔽啦
     end

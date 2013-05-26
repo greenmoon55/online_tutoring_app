@@ -22,8 +22,8 @@ $(document).ready(function() {
   });
 
   $("#chat-sendbutton").click(function() {
-    alert("sendbutton");
     $("#new_message").submit();
+    $("#new_message").val("");
     return false;
   });
 
@@ -61,6 +61,10 @@ function addUser(uid, username, isOnline) {
     $("#chat-left ul").append(li);
   }
   activateItem(str);
+  $.ajax({
+    url: "http://localhost:3000/chat/users/new?id="+uid,
+    type: "GET",
+  })
 }
 
 // 激活当前点击的对象
@@ -74,4 +78,16 @@ function activateItem(item) {
 
   $(".chat-message").hide();
   $(".chat-with-" + id).show();
+}
+
+function onChatMessage(message) {
+  var header = document.createElement("div");
+  $(header).attr("class", "chat-message-header");
+  $(header).append(message.sender_name + " " + message.created_at);
+  var content = document.createElement("div");
+  $(content).append(message.content); //很不安全。。！！
+  var messageDiv = document.createElement("div");
+  $(messageDiv).attr("class", "chat-message chat-with-" + message.sender_id);  
+  $(messageDiv).append(header, content);
+  $("#chat-dialogue-list").append(messageDiv);
 }
