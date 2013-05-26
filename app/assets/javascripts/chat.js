@@ -2,13 +2,16 @@ $(document).ready(function() {
   $("#chat-popup-button").click(function() {
     $("#chat-box").toggle();
   });
+
   $("#chat-close").click(function() {
     $("#chat-box").hide();
     return false;
   });
+
   $("#chat-left").on("click", "li", function() {
     activateItem(this);
   });
+
   $("#chat-with-button").click(function() {
     $("#chat-box").show();
     var path = window.location.pathname;
@@ -17,11 +20,13 @@ $(document).ready(function() {
     var isOnline = $("#img_online").length;
     addUser(uid, username, isOnline);
   });
+
   $("#chat-sendbutton").click(function() {
     alert("sendbutton");
     $("#new_message").submit();
     return false;
   });
+
   $("#new_message").on("submit", function() {
     console.log($(this).serialize());
     $.ajax({
@@ -62,5 +67,11 @@ function addUser(uid, username, isOnline) {
 function activateItem(item) {
   $("#chat-left li").removeClass("chat-active");
   $(item).addClass("chat-active");
-  $("#message_receiver_id").val($(item).attr("id"));
+
+  id = $(item).attr("id");
+  // 更改发送 form 的接收用户 id
+  $("#message_receiver_id").val(id);
+
+  $(".chat-message").hide();
+  $(".chat-with-" + id).show();
 }
