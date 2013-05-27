@@ -2,7 +2,9 @@
 <!-- 仅供测试 -->
 <div id="chat">
   <%= render @messages if @messages %>
-  <button class="btn" id="chat-with-button">聊天</button>
+  <% unless current_user?(@user) %>
+    <button class="btn" id="chat-with-button">聊天</button>
+  <% end %>
 </div>
 
 <div>

@@ -65,6 +65,12 @@
   height: 100%;
 }
 
+.chat-user-close {
+  position: absolute;
+  left: 95px;
+  margin-top: 5px;
+}
+
 #chat-close {
   float: right;  
 }
