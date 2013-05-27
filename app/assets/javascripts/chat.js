@@ -63,6 +63,17 @@ function getUserList() {
   }
   for (var i = 0; i < userList.length; i++) {
     addUserToList(userList[i]["id"], userList[i]["name"], false);
+
+    $.ajax({
+      url: "http://localhost:3000/chat/messages/"+userList[i]["id"],
+      type: "GET",
+      dataType: "json"
+    }).success(function(data) {
+      console.log(data);
+      for (var j = 0; j < data.length; j++) {
+        onChatMessage(data[j])
+      }
+    });
   }
 }
 
@@ -124,7 +135,7 @@ function onChatMessage(message) {
   var content = document.createElement("div");
   $(content).append(message.content); // 后台已转义
   var messageDiv = document.createElement("div");
-  $(messageDiv).attr("class", "chat-message chat-with-" + message.sender_id);  
+  $(messageDiv).attr("class", "chat-message chat-with-" + message.user_id);  
   $(messageDiv).append(header, content);
   $("#chat-dialogue-list").append(messageDiv);
 }
