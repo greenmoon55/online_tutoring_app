@@ -1,4 +1,5 @@
 var chatOpened = false; // 聊天窗口是否被打开过
+var userList = [];
 $(document).ready(function() {
   $("#chat-popup-button").click(function() {
     if (!chatOpened) {
@@ -29,7 +30,8 @@ $(document).ready(function() {
     var uid = path.match(/\/users\/(\d*)/)[1];
     var username = $("#username").text();
     var isOnline = $("#img_online").length;
-    addUser(uid, username, isOnline);
+    if (!userExists(uid)) addUser(uid, username, isOnline);
+    activateUser(uid);
   });
 
   $("#chat-sendbutton").click(function() {
@@ -49,18 +51,24 @@ $(document).ready(function() {
   });
 });
 
-function getUserList() {
-  $.ajax({
-    url: "http://localhost:3000/chat/users",
-    type: "GET",
-    dataType: "json"
-  }).done(function(data) {
-    temp = data;
-  });
+function userExists(uid) {
+  var str = "#chat-left li#" + uid;
+  // 判断是否已存在该用户
+  return $(str).length;
 }
 
-function addUser(uid, username, isOnline) {
-  console.log("addUser " + uid + username + isOnline);
+function getUserList() {
+  if ($.cookie("userList")) {
+    userList = JSON.parse($.cookie("userList"));
+  }
+  for (var i = 0; i < userList.length; i++) {
+    addUserToList(userList[i]["id"], userList[i]["name"], false);
+  }
+}
+
+// 仅把用户添加到用户列表中显示
+function addUserToList(uid, username, isOnline) {
+  console.log("addUserToList");
   str = "#chat-left li#" + uid;
   // 判断是否已存在该用户
   if (!$(str).length) {
@@ -81,11 +89,14 @@ function addUser(uid, username, isOnline) {
     $(li).attr("id", uid);
     $("#chat-left ul").append(li);
   }
-  activateItem(str);
-  $.ajax({
-    url: "http://localhost:3000/chat/users/new?id="+uid,
-    type: "GET",
-  })
+}
+
+
+function addUser(uid, username, isOnline) {
+  console.log("addUser " + uid + username + isOnline);
+  addUserToList(uid, username, isOnline);
+  userList.push({id: uid, name: username});
+  $.cookie("userList", JSON.stringify(userList));
 }
 
 // 激活当前点击的对象
@@ -99,6 +110,11 @@ function activateItem(item) {
 
   $(".chat-message").hide();
   $(".chat-with-" + id).show();
+}
+
+function activateUser(uid) {
+  var str = "#chat-left li#" + uid;
+  activateItem(str);
 }
 
 function onChatMessage(message) {
