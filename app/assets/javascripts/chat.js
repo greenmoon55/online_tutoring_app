@@ -63,18 +63,21 @@ function getUserList() {
   }
   for (var i = 0; i < userList.length; i++) {
     addUserToList(userList[i]["id"], userList[i]["name"], false);
-
-    $.ajax({
-      url: "http://localhost:3000/chat/messages/"+userList[i]["id"],
-      type: "GET",
-      dataType: "json"
-    }).success(function(data) {
-      console.log(data);
-      for (var j = 0; j < data.length; j++) {
-        onChatMessage(data[j])
-      }
-    });
+    getConversation(userList[i]["id"]);
   }
+}
+
+function getConversation(uid) {
+  $.ajax({
+    url: "http://localhost:3000/chat/messages/"+uid,
+    type: "GET",
+    dataType: "json"
+  }).success(function(data) {
+    console.log(data);
+    for (var j = 0; j < data.length; j++) {
+      onChatMessage(data[j]);
+    }
+  });
 }
 
 // 仅把用户添加到用户列表中显示
@@ -107,15 +110,19 @@ function addUser(uid, username, isOnline) {
   console.log("addUser " + uid + username + isOnline);
   addUserToList(uid, username, isOnline);
   userList.push({id: uid, name: username});
-  $.cookie("userList", JSON.stringify(userList));
+  $.cookie("userList", JSON.stringify(userList), {path: '/'});
+  getConversation(uid);
 }
 
 // 激活当前点击的对象
 function activateItem(item) {
+  console.log("activateItem");
+  console.log(item);
   $("#chat-left li").removeClass("chat-active");
   $(item).addClass("chat-active");
 
-  id = $(item).attr("id");
+  var id = $(item).attr("id");
+  console.log(id);
   // 更改发送 form 的接收用户 id
   $("#message_receiver_id").val(id);
 
@@ -125,7 +132,7 @@ function activateItem(item) {
 
 function activateUser(uid) {
   var str = "#chat-left li#" + uid;
-  activateItem(str);
+  activateItem($(str));
 }
 
 function onChatMessage(message) {

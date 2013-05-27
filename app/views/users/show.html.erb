@@ -1,15 +1,12 @@
 <% provide(:title, @user.name) %>
 <!-- 仅供测试 -->
-<div id="chat">
-  <%= render @messages if @messages %>
-  <% unless current_user?(@user) %>
-    <button class="btn" id="chat-with-button">聊天</button>
-  <% end %>
-</div>
-
 <div>
   <% if signed_in? %>
   <%= render "shared/request_form",:user => @user %>
+    <%= render @messages if @messages %>
+    <% unless current_user?(@user) %>
+      <button class="btn" id="chat-with-button">聊天</button>
+    <% end %>
   <% end %>
 </div>
 <div class="info_container">
