@@ -1,6 +1,13 @@
+var chatOpened = false; // 聊天窗口是否被打开过
 $(document).ready(function() {
   $("#chat-popup-button").click(function() {
-    $("#chat-box").toggle();
+    if (!chatOpened) {
+      $("#chat-box").show();
+      getUserList();
+      chatOpened = true;
+    } else {
+      $("#chat-box").toggle();
+    }
   });
 
   $("#chat-close").click(function() {
@@ -13,6 +20,10 @@ $(document).ready(function() {
   });
 
   $("#chat-with-button").click(function() {
+    if (!chatOpened) {
+      getUserList();
+      chatOpened = true;
+    }
     $("#chat-box").show();
     var path = window.location.pathname;
     var uid = path.match(/\/users\/(\d*)/)[1];
@@ -37,6 +48,16 @@ $(document).ready(function() {
     return false;
   });
 });
+
+function getUserList() {
+  $.ajax({
+    url: "http://localhost:3000/chat/users",
+    type: "GET",
+    dataType: "json"
+  }).done(function(data) {
+    temp = data;
+  });
+}
 
 function addUser(uid, username, isOnline) {
   console.log("addUser " + uid + username + isOnline);
@@ -85,7 +106,7 @@ function onChatMessage(message) {
   $(header).attr("class", "chat-message-header");
   $(header).append(message.sender_name + " " + message.created_at);
   var content = document.createElement("div");
-  $(content).append(message.content); //很不安全。。！！
+  $(content).append(message.content); // 后台已转义
   var messageDiv = document.createElement("div");
   $(messageDiv).attr("class", "chat-message chat-with-" + message.sender_id);  
   $(messageDiv).append(header, content);
