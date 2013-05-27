@@ -63,8 +63,25 @@ function getUserList() {
   }
   for (var i = 0; i < userList.length; i++) {
     addUserToList(userList[i]["id"], userList[i]["name"], false);
-    getConversation(userList[i]["id"]);
   }
+  var array = [101, 102];
+  getConversations(array);
+}
+
+function getConversations(uids) {
+  console.log("getconversations");
+  console.log(JSON.stringify({"users": uids}));
+  $.ajax({
+    url: "http://localhost:3000/chat/messages/",
+    type: "GET",
+    dataType: "json",
+    data: {"users": uids}
+  }).success(function(data) {
+    console.log(data);
+    for (var j = 0; j < data.length; j++) {
+      onChatMessage(data[j]);
+    }
+  });
 }
 
 function getConversation(uid) {

@@ -17,4 +17,8 @@ class Message < ActiveRecord::Base
   def self.get_conversation(user1, user2)
     Message.find_by_sql ["SELECT * FROM messages WHERE (sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?) ORDER BY created_at", user1, user2, user2, user1]
   end
+
+  def self.get_conversations(users)
+    Message.where(:sender_id => users, :receiver_id => users)
+  end
 end

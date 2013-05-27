@@ -19,6 +19,7 @@ class ChatController < ApplicationController
     render json: {users: uids}
   end
 
+  # deprecated
   def get_conversation
     messages = Message.get_conversation(current_user.id, params[:id])
     name_hash = {current_user.id => current_user.name, 
@@ -33,6 +34,18 @@ class ChatController < ApplicationController
     render json: messages
   end
 
+  def get_conversations
+    params[:users] << current_user.id
+    messages = Message.get_conversations(params[:users])
+    messages.map! do |m|
+        {content: ERB::Util.html_escape(m.content), 
+        created_at: m.created_at.localtime.to_s(:db),
+        user_id: (m.sender_id == current_user.id)? m.receiver_id : m.sender_id,
+        sender_name: User.find(m.sender_id).name,
+        sender_id: m.sender_id}
+    end
+    render json: messages
+  end
   private
     def chat_userlist_key
       "chat-userlist-" + current_user.id.to_s

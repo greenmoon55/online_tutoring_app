@@ -1,5 +1,6 @@
 #encoding: utf-8
 class SessionsController < ApplicationController
+  before_filter :require_signin, only: :refresh
   def new
   end
 
