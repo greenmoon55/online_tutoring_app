@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130523132059) do
+ActiveRecord::Schema.define(:version => 20130527062727) do
 
   create_table "Requests", :force => true do |t|
     t.integer  "kind",                           :null => false
     t.integer  "receiver_id",                    :null => false
     t.integer  "sender_id",                      :null => false
-    t.string   "content"
+    t.string   "content",     :default => "f",   :null => false
     t.boolean  "read",        :default => false, :null => false
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(:version => 20130523132059) do
 
   add_index "Requests", ["kind"], :name => "index_requests_on_type"
   add_index "Requests", ["receiver_id"], :name => "index_requests_on_receiver_id"
+
+  create_table "advertisements", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.string   "content",    :null => false
+    t.integer  "role",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "advertisements", ["user_id"], :name => "index_advertisements_on_user_id"
 
   create_table "blocked_relationships", :force => true do |t|
     t.integer "user_id",         :null => false
@@ -35,7 +45,9 @@ ActiveRecord::Schema.define(:version => 20130523132059) do
   add_index "blocked_relationships", ["user_id"], :name => "index_blocked_relationships_on_user_id"
 
   create_table "degrees", :force => true do |t|
-    t.string "name"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "districts", :force => true do |t|

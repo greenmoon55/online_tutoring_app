@@ -11,6 +11,7 @@
           <li><%= link_to t("user.friends"), friends_user_path(current_user) %> </li>
           <li><%= link_to t("user.requests"), requests_user_path(current_user) %> </li>
           <li><%= link_to t("user.blocked_users"), blocked_users_user_path(current_user) %> </li>
+          <li><%= link_to "用户需求", advertisements_path %> </li>
           <% if current_teacher?%>
             <li><%= link_to "聊天室", user_rooms_path(current_user) %> </li>
           <% else %>

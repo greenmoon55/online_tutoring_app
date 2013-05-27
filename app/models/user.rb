@@ -48,6 +48,7 @@ class User < ActiveRecord::Base
 
   has_many :blocked_relationships,dependent: :destroy
   has_many :blocked_users, through: :blocked_relationships, source: :blocked_user
+  has_many :advertisements
   accepts_nested_attributes_for :student_subjects
 
   before_save { |user| user.email = email.downcase }
@@ -199,13 +200,14 @@ logger.info other_user
 
 
   def delete_room_relationship!(other_user,current_student)
-      if current_student
+      if current_student && other_user.is_teacher?
         other_user.rooms.each do |room|
           if room.students.include?(self)
             room.room_student_relationships.find_by_student_id(self[:id]).destroy
           end 
         end
-      else
+      end
+      if !current_student && other_user.is_teacher?
         self.rooms.each do |room|
           if room.students.include?(other_user)
             room.room_student_relationships.find_by_student_id(other_user[:id]).destroy
