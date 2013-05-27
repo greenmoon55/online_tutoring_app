@@ -1,4 +1,8 @@
 OnlineTutoringApp::Application.routes.draw do
+
+  resources :advertisements
+
+
   root to: "static_pages#home"
 
   get "static_pages/about"
@@ -35,6 +39,7 @@ OnlineTutoringApp::Application.routes.draw do
   match '/chat/users/:id', to: 'chat#delete_user', via: :delete
   match '/chat/users', to: 'chat#get_users', via: :get
   match '/chat/messages', to: 'chat#get_conversations'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

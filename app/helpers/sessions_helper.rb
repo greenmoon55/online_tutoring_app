@@ -11,6 +11,7 @@ module SessionsHelper
   end
 
   def require_signin
+
     unless signed_in?
       respond_to do |format|
         format.html { redirect_to signin_path, notice: "请先登录" }
@@ -77,6 +78,13 @@ module SessionsHelper
     cookies.delete(:userList)
   end
 
+  def current_user_role_number
+    if current_student?
+      return 1
+    else 
+      return 0
+    end
+  end
   # 这个在用吗？
   def districts
     @districts ||= District.all.collect {|x| [x.name, x.id]}

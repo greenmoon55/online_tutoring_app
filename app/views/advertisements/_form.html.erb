@@ -1,0 +1,8 @@
+<%= form_for(@advertisement) do |f| %>
+
+  <div class="field">
+    <%= f.label :content %><br />
+    <%= f.text_area :content %>
+  </div>
+    <%= f.submit "提交" %>
+<% end %>
