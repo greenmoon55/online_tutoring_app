@@ -1,4 +1,5 @@
 var chatOpened = false; // 聊天窗口是否被打开过
+var userList = [];
 $(document).ready(function() {
   $("#chat-popup-button").click(function() {
     if (!chatOpened) {
@@ -29,7 +30,8 @@ $(document).ready(function() {
     var uid = path.match(/\/users\/(\d*)/)[1];
     var username = $("#username").text();
     var isOnline = $("#img_online").length;
-    addUser(uid, username, isOnline);
+    if (!userExists(uid)) addUser(uid, username, isOnline);
+    activateUser(uid);
   });
 
   $("#chat-sendbutton").click(function() {
@@ -49,18 +51,38 @@ $(document).ready(function() {
   });
 });
 
+function userExists(uid) {
+  var str = "#chat-left li#" + uid;
+  // 判断是否已存在该用户
+  return $(str).length;
+}
+
 function getUserList() {
+  if ($.cookie("userList")) {
+    userList = JSON.parse($.cookie("userList"));
+  }
+  for (var i = 0; i < userList.length; i++) {
+    addUserToList(userList[i]["id"], userList[i]["name"], false);
+    getConversation(userList[i]["id"]);
+  }
+}
+
+function getConversation(uid) {
   $.ajax({
-    url: "http://localhost:3000/chat/users",
+    url: "http://localhost:3000/chat/messages/"+uid,
     type: "GET",
     dataType: "json"
-  }).done(function(data) {
-    temp = data;
+  }).success(function(data) {
+    console.log(data);
+    for (var j = 0; j < data.length; j++) {
+      onChatMessage(data[j]);
+    }
   });
 }
 
-function addUser(uid, username, isOnline) {
-  console.log("addUser " + uid + username + isOnline);
+// 仅把用户添加到用户列表中显示
+function addUserToList(uid, username, isOnline) {
+  console.log("addUserToList");
   str = "#chat-left li#" + uid;
   // 判断是否已存在该用户
   if (!$(str).length) {
@@ -81,24 +103,36 @@ function addUser(uid, username, isOnline) {
     $(li).attr("id", uid);
     $("#chat-left ul").append(li);
   }
-  activateItem(str);
-  $.ajax({
-    url: "http://localhost:3000/chat/users/new?id="+uid,
-    type: "GET",
-  })
+}
+
+
+function addUser(uid, username, isOnline) {
+  console.log("addUser " + uid + username + isOnline);
+  addUserToList(uid, username, isOnline);
+  userList.push({id: uid, name: username});
+  $.cookie("userList", JSON.stringify(userList), {path: '/'});
+  getConversation(uid);
 }
 
 // 激活当前点击的对象
 function activateItem(item) {
+  console.log("activateItem");
+  console.log(item);
   $("#chat-left li").removeClass("chat-active");
   $(item).addClass("chat-active");
 
-  id = $(item).attr("id");
+  var id = $(item).attr("id");
+  console.log(id);
   // 更改发送 form 的接收用户 id
   $("#message_receiver_id").val(id);
 
   $(".chat-message").hide();
   $(".chat-with-" + id).show();
+}
+
+function activateUser(uid) {
+  var str = "#chat-left li#" + uid;
+  activateItem($(str));
 }
 
 function onChatMessage(message) {
@@ -108,7 +142,7 @@ function onChatMessage(message) {
   var content = document.createElement("div");
   $(content).append(message.content); // 后台已转义
   var messageDiv = document.createElement("div");
-  $(messageDiv).attr("class", "chat-message chat-with-" + message.sender_id);  
+  $(messageDiv).attr("class", "chat-message chat-with-" + message.user_id);  
   $(messageDiv).append(header, content);
   $("#chat-dialogue-list").append(messageDiv);
 }

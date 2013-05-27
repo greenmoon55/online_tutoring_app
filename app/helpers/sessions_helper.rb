@@ -75,6 +75,7 @@ module SessionsHelper
     self.current_user = nil
     session.delete(:user_id)
     session.delete(:role)
+    cookies.delete(:userList)
   end
 
   def current_user_role_number
