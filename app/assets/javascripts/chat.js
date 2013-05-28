@@ -64,8 +64,12 @@ function getUserList() {
   for (var i = 0; i < userList.length; i++) {
     addUserToList(userList[i]["id"], userList[i]["name"], false);
   }
-  var array = [101, 102];
-  getConversations(array);
+
+  var uids = [];
+  for (var i = 0; i < userList.length; i++) {
+    uids.push(parseInt(userList[i]["id"])); 
+  }
+  getConversations(uids);
 }
 
 function getConversations(uids) {

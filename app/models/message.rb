@@ -19,6 +19,6 @@ class Message < ActiveRecord::Base
   end
 
   def self.get_conversations(users)
-    Message.where(:sender_id => users, :receiver_id => users)
+    Message.where(:sender_id => users, :receiver_id => users).order("created_at ASC")
   end
 end
