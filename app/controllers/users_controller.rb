@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 class UsersController < ApplicationController
 #  before_filter :require_signin, only: [:edit, :update, :destroy, :full_role]
   before_filter :correct_user, only: [:edit, :update, :destroy, :full_role, :requests, :friends]

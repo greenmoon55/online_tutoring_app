@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class RenameMyColumnAgainByHand < ActiveRecord::Migration
   def up
     rename_column :Users, :type, :my_type

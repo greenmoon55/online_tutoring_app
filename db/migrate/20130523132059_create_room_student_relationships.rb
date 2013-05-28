@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateRoomStudentRelationships < ActiveRecord::Migration
   def change
     create_table :room_student_relationships do |t|

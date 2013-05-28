@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 OnlineTutoringApp::Application.routes.draw do
 
   resources :advertisements

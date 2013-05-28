@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 module SessionsHelper
   def sign_in(user)
     session[:user_id] = user.id

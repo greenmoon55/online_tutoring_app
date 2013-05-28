@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class RoomsController < ApplicationController
   before_filter :require_signin
   before_filter :members_in_room,only:[:show]

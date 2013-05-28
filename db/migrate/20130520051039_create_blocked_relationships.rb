@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateBlockedRelationships < ActiveRecord::Migration
   def change
     create_table :blocked_relationships do |t|

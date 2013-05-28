@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddAttributesToUsers < ActiveRecord::Migration
   def change
     add_column :users, :is_teacher, :boolean

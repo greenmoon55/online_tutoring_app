@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Room < ActiveRecord::Base
   attr_accessible :outline, :user_id
   belongs_to :user

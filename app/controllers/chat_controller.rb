@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ChatController < ApplicationController
   before_filter :require_signin
   def new_user
