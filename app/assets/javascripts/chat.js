@@ -1,14 +1,20 @@
 var chatOpened = false; // 聊天窗口是否被打开过
-var userList = [];
-var currentUid;
+var userList = []; // 获取到的用户列表 json 包括 id 和 name
+var currentUid; // 当前正在和谁聊天
 $(document).ready(function() {
   $("#chat-popup-button").click(function() {
     if (!chatOpened) {
       $("#chat-box").show();
       getUserList();
       chatOpened = true;
+      if (currentUid) activateUser(userList[userList.length - 1]["id"]);
     } else {
       $("#chat-box").toggle();
+    }
+    if (currentUid) {
+      $("#chat-sendbutton").prop("disabled", false);
+    } else {
+      $("#chat-sendbutton").prop("disabled", true);
     }
   });
 
@@ -146,8 +152,6 @@ function addUser(uid, username, isOnline) {
 
 // 激活当前点击的对象
 function activateItem(item) {
-  console.log("activateItem");
-  console.log(item);
   $("#chat-left li").removeClass("chat-active");
   $(item).addClass("chat-active");
 
@@ -173,8 +177,6 @@ function scrollDownDialogueList() {
 }
 
 function onChatMessage(message) {
-  console.log("onChatMessage");
-  console.log(message);
   if (userExists(message.user_id)) {
     var header = document.createElement("div");
     $(header).attr("class", "chat-message-header");
