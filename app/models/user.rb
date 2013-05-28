@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
 #
 # Table name: users
@@ -38,16 +39,17 @@ class User < ActiveRecord::Base
   
 #as a student
   has_many :relationships, foreign_key: "student_id", dependent: :destroy
-  has_many :teachers, through: :relationships,dependent: :destroy
+  has_many :teachers, through: :relationships
 #as a teacher
   has_many :reverse_relationships, foreign_key: "teacher_id",class_name:"Relationship", dependent: :destroy
-  has_many :students, through: :reverse_relationships,dependent: :destroy
+  has_many :students, through: :reverse_relationships
   has_many :rooms
 
   has_many :requests, foreign_key:"receiver_id", dependent: :destroy
 
   has_many :blocked_relationships,dependent: :destroy
-  has_many :blocked_users, through: :blocked_relationships, source: :blocked_user, dependent: :destroy
+  has_many :blocked_users, through: :blocked_relationships, source: :blocked_user
+  has_many :advertisements
   accepts_nested_attributes_for :student_subjects
 
   before_save { |user| user.email = email.downcase }
@@ -160,16 +162,16 @@ logger.info other_user
 
   def send_accept_request!(other_user,current_student)
     if current_student
-      other_user.requests.create!(sender_id: self.id, kind:3)
+      other_user.requests.create!(sender_id: self.id, kind:3,content: "同意了你的请求")
     else
-      other_user.requests.create!(sender_id: self.id, kind:4)
+      other_user.requests.create!(sender_id: self.id, kind:4,content: "同意了你的请求")
     end
   end
   def send_refuse_request!(other_user,current_student)
     if current_student
-      other_user.requests.create!(sender_id: self.id, kind:5)
+      other_user.requests.create!(sender_id: self.id, kind:3,content: "拒绝了你的请求")
     else
-      other_user.requests.create!(sender_id: self.id, kind:6)
+      other_user.requests.create!(sender_id: self.id, kind:4,content: "拒绝了你的请求")
     end
   end
 
@@ -198,5 +200,21 @@ logger.info other_user
   end
 
 
-
+  def delete_room_relationship!(other_user,current_student)
+      if current_student && other_user.is_teacher?
+        other_user.rooms.each do |room|
+          if room.students.include?(self)
+            room.room_student_relationships.find_by_student_id(self[:id]).destroy
+          end 
+        end
+      end
+      if !current_student && other_user.is_teacher?
+        self.rooms.each do |room|
+          if room.students.include?(other_user)
+            room.room_student_relationships.find_by_student_id(other_user[:id]).destroy
+          end
+        end
+      end
+    
+  end
 end

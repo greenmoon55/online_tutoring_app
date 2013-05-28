@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 class UsersController < ApplicationController
 #  before_filter :require_signin, only: [:edit, :update, :destroy, :full_role]
   before_filter :correct_user, only: [:edit, :update, :destroy, :full_role, :requests, :friends]
@@ -90,16 +90,13 @@ class UsersController < ApplicationController
     @title = "所有请求"
     @user = User.find(params[:id])
     if current_student?
-      @user.requests.find_all_by_kind_and_read([2,4,6],false).collect do |x| x.update_attributes(read: true) end
+      @user.requests.find_all_by_kind_and_read([2,4],false).collect do |x| x.update_attributes(read: true) end
       @requests = @user.requests.find_all_by_kind(2)
       @accept_requests = @user.requests.find_all_by_kind(4)
-      @refuse_requests = @user.requests.find_all_by_kind(6)
     else
       @requests = @user.requests.find_all_by_kind(1)
-      @user.requests.find_all_by_kind_and_read([1,3,5],false).collect do |x| x.update_attributes(read: true) end
-      
+      @user.requests.find_all_by_kind_and_read([1,3],false).collect do |x| x.update_attributes(read: true) end
       @accept_requests = @user.requests.find_all_by_kind(3)
-      @refuse_requests = @user.requests.find_all_by_kind(5)
     end
     
     render 'show_requests'
@@ -112,6 +109,19 @@ class UsersController < ApplicationController
     render 'show_blocked_users'
   end
  
+  def my_rooms
+    if current_student?
+      @title = "我的聊天室"
+      @student = User.find(params[:id])
+      @rooms = []
+      Room.all.each do |room|
+        if room.students.include? @student
+          @rooms.push(room)
+        end
+      end
+    end
+    render 'rooms/index'
+  end
 
   private
     def correct_user

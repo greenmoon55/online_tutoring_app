@@ -23,42 +23,53 @@
     <button id="chat-popup-button" class="btn btn-info">聊天</button>
     <div id="chat-box">
       <div id="chat-header">
-        <a href="#" id="chat-close"><i class="icon-remove"></i></a>
+        <a id="chat-close"><i class="icon-remove"></i></a>
       </div> 
       <div id="chat-wrap">
-        <div id="chat-left"></div>
+        <div id="chat-left">
+          <ul>
+            <!--
+            <li class="chat-active" title="username">
+              <span class="chat-status chat-online"> </span>
+              <span class="chat-username">greenmoon55</span>
+              <a class="chat-user-close"><i class="icon-remove"></i></a>
+            </li>
+            <li>
+              <span class="chat-status chat-offline"> </span>
+              <span class="chat-username">greenmoon55</span>
+              <a class="chat-user-close"><i class="icon-remove"></i></a>
+            </li>
+            -->
+          </ul>
+        </div>
         <div id="chat-right">
           <div id="chat-dialogue-list">
-            <br>
-            <br>
-            <br>
-            <p>asfdsd</p>
-            <p>asfdsd</p>
-            <p>asfdsd</p>
-            <p>asfdsd</p>
-            <p>asfdsd</p>
-            <p>asfdsd</p>
-            <p>asfdsd</p>
-            <p>asfdsd</p>
-            <p>asfdsd</p>
-            <p>asfdsd</p>
-            <p>asfdsd</p>
-            <p>asfdsd</p>
-            <p>asfdsd</p>
-            <p>asfdsd</p>
-            <p>asfdsd</p>
-            <p>asfdsd</p>
-            <p>asfdsd</p>
-            <p>asfdsd</p>
-            <p>asfdsd</p>
-            <p>asfdsd</p>
-            <p>asfdsd</p>
-            <p>asfdsd</p>
+            <!--
+            <div class="chat-message chat-with-101">
+              <div class="chat-message-header">
+                greenmoon55 2013年2月X日 2:23
+              </div>
+              <div class="chat-message-content">
+                你好吗？
+              </div>
+            </div>
+            <div class="chat-message chat-with-101">
+              <div class="chat-message-header">
+                greenmoon55 2013年2月X日 2:23
+              </div>
+              <div class="chat-message-content">
+                你好吗？
+              </div>
+            </div>
+            -->
           </div>
           <div id="chat-sendbox">
-            <textarea> </textarea>
+            <%= form_for Message.new do |f| %>
+              <%= f.hidden_field :receiver_id %>
+              <%= f.text_area :content %>
+              <%= f.submit "发送", id: "chat-sendbutton" %>
+            <% end %>
           </div>
-          <button class="btn" id="chat-sendbutton">发送</button>
         </div>
       </div>
     </div>

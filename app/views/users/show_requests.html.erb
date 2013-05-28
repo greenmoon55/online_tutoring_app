@@ -1,5 +1,6 @@
 <% provide(:title, @title)%>
-<% if @requests.count!= 0||@accept_requests.count != 0|| @refuse_requests.count != 0 %>
+
+<% if @requests.count!= 0||@accept_requests.count != 0%>
   <% if @requests%>
     <% @requests.each do |request|%>
     <%=request.sender_id %>
@@ -16,20 +17,10 @@
   <% if @accept_requests%>
     <% @accept_requests.each do |accept_request|%>
       <li>
-      <%= User.find(accept_request.sender_id).name%> 接受了你的请求
+      <%= User.find(accept_request.sender_id).name%>
+      <%= accept_request[:content]%>
       <%= form_tag(:controller=>"requests", :action=> "delete_request",method:"delete") do%>
       <%= hidden_field_tag :request_id, accept_request.id%>
-      <%= submit_tag "删除", class: "btn btn-primary"%>
-        <% end %>
-      </li>
-    <%end%>
-  <% end%>
-  <% if @refuse_requests%>
-    <% @refuse_requests.each do |refuse_request|%>
-      <li>
-      <%= User.find(refuse_request.sender_id).name%>拒绝了你的请求
-      <%= form_tag(:controller=>"requests", :action=> "delete_request",method:"delete") do%>
-      <%= hidden_field_tag :request_id, refuse_request.id%>
       <%= submit_tag "删除", class: "btn btn-primary"%>
         <% end %>
       </li>

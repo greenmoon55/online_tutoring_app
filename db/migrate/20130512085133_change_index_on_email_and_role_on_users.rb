@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ChangeIndexOnEmailAndRoleOnUsers < ActiveRecord::Migration
   def up
     remove_index :users, :email_and_is_student

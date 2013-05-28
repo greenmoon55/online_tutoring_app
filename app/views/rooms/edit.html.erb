@@ -1,0 +1,17 @@
+<% provide(:title,"编辑聊天室") %>
+<div class="row">
+  <div class="span6">
+      <%= form_tag(user_room_path(current_user,@room[:id]), method: 'put') do %>
+        <tr>
+          <td> <%= label_tag "聊天室主题"%></td>
+          <td> <%= text_field_tag :outline, @outline%></td>
+        </tr>
+        <% @students.each do |student|%>
+          <tr><%= check_box_tag 'student[]', student[:id],student[:checked]%>
+          <%= label_tag student[:name]%></tr>
+        <% end%>
+        <%= submit_tag "更新聊天室", class: "btn btn-primary"%>
+
+      <% end%>
+  </div>
+</div>

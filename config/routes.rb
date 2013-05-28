@@ -1,21 +1,28 @@
+# -*- encoding : utf-8 -*-
 OnlineTutoringApp::Application.routes.draw do
+
+  resources :advertisements
+
+
   root to: "static_pages#home"
 
   get "static_pages/about"
   resources :users do
     member do
-      get :friends, :requests,:blocked_users
+      get :friends, :requests,:blocked_users,:my_rooms
+      
     end
+    resources :rooms
   end
 
   match '/users/:id/messages', to: 'users#messages', via: :get
   resources :sessions, only: [:new, :create, :destroy]
   resources :search_contents, only: [:create]
   resources :relationships, only: [:create, :destroy]
-  resources :blocked_relationships, only: [:create, :destroy]
   
   resources :requests, only: [:create, :destroy]
   resources :messages, only: :create
+  resources :blocked_relationships, only: [:create,:destroy]
 
   match '/refresh', to: 'sessions#refresh', via: :get
 
@@ -28,6 +35,13 @@ OnlineTutoringApp::Application.routes.draw do
   match '/search', to: 'search_contents#search'
   match '/search', to: 'search_contents#create', via: :post
   match '/requests/delete_request', to: 'requests#delete_request', via: :post
+
+  match '/chat/users/new', to: 'chat#new_user', via: :get
+  match '/chat/users/:id', to: 'chat#delete_user', via: :delete
+  match '/chat/users', to: 'chat#get_users', via: :get
+  match '/chat/messages', to: 'chat#get_conversations'
+  match '/chat/messages/:id', to: 'chat#get_conversation'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ChangeIsTeacherToIsStudentAndChangeEmailIndex < ActiveRecord::Migration
   def up
     rename_column :users, :is_teacher, :is_student

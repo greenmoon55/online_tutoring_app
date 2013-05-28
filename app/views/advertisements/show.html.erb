@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @advertisement.user[:name] %>
+</p>
+
+<% if @advertisement.role == 0 %>
+<b>老师</b>
+<% else %>
+<b>学生</b>
+
+<% end%>
+<p>
+  <b>需求信息:</b>
+  <%= @advertisement.content %>
+</p>
+
+
+<% if signed_in? && @advertisement.user == current_user && @advertisement.role == current_user_role_number%>
+<%= render 'delete_advertisement', advertisement: @advertisement %> |
+<%= link_to '编辑', edit_advertisement_path(@advertisement) %> |
+<% end%>
+<%= link_to '返回需求列表', advertisements_path %>

@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 module SessionsHelper
   def sign_in(user)
     session[:user_id] = user.id
@@ -11,6 +11,7 @@ module SessionsHelper
   end
 
   def require_signin
+
     unless signed_in?
       respond_to do |format|
         format.html { redirect_to signin_path, notice: "请先登录" }
@@ -18,7 +19,11 @@ module SessionsHelper
       end
     end
   end
-
+  def require_current_teacher
+    unless signed_in?&&current_teacher?
+      redirect_to root_path
+    end
+  end
   # setter
   def current_user=(user)
     @current_user = user
@@ -70,8 +75,16 @@ module SessionsHelper
     self.current_user = nil
     session.delete(:user_id)
     session.delete(:role)
+    cookies.delete(:userList)
   end
 
+  def current_user_role_number
+    if current_student?
+      return 1
+    else 
+      return 0
+    end
+  end
   # 这个在用吗？
   def districts
     @districts ||= District.all.collect {|x| [x.name, x.id]}

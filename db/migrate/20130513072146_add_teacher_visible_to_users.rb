@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddTeacherVisibleToUsers < ActiveRecord::Migration
   def change
     add_column :users, :teacher_visible, :boolean, null: false, default: true

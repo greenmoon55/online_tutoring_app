@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ApplicationController < ActionController::Base
 #  before_filter :update_online_status
   protect_from_forgery

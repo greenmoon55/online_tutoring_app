@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class RenameMyColumnByHand < ActiveRecord::Migration
   def up
     rename_column :Users, :is_student, :type

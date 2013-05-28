@@ -1,4 +1,4 @@
-# encoding: UTF-8
+# -*- encoding : utf-8 -*-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130523132059) do
+ActiveRecord::Schema.define(:version => 20130527064811) do
 
   create_table "Requests", :force => true do |t|
     t.integer  "kind",                           :null => false
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(:version => 20130523132059) do
 
   add_index "Requests", ["kind"], :name => "index_requests_on_type"
   add_index "Requests", ["receiver_id"], :name => "index_requests_on_receiver_id"
+
+  create_table "advertisements", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.string   "content",    :null => false
+    t.integer  "role",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "advertisements", ["user_id"], :name => "index_advertisements_on_user_id"
 
   create_table "blocked_relationships", :force => true do |t|
     t.integer "user_id",         :null => false

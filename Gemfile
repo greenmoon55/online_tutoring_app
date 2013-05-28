@@ -16,15 +16,20 @@ gem 'thin'
 gem 'redis'
 
 group :development do
+  gem 'rspec-rails', "2.11.0"
   gem 'faker', '1.0.1'
   gem 'annotate'
   gem 'sqlite3'
+  gem 'magic_encoding'
 end
 
 group :production do
   gem 'pg'
 end
 
+group :test do
+  gem 'capybara', '1.1.2'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -39,6 +44,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'jquery-cookie-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
