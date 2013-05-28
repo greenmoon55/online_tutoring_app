@@ -39,6 +39,7 @@ OnlineTutoringApp::Application.routes.draw do
   match '/chat/users/:id', to: 'chat#delete_user', via: :delete
   match '/chat/users', to: 'chat#get_users', via: :get
   match '/chat/messages', to: 'chat#get_conversations'
+  match '/chat/messages/:id', to: 'chat#get_conversation'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
