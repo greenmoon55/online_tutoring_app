@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(:version => 20130523132059) do
     t.integer  "kind",                           :null => false
     t.integer  "receiver_id",                    :null => false
     t.integer  "sender_id",                      :null => false
-    t.string   "content",     :default => "f",   :null => false
+    t.string   "content"
     t.boolean  "read",        :default => false, :null => false
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
@@ -35,9 +35,7 @@ ActiveRecord::Schema.define(:version => 20130523132059) do
   add_index "blocked_relationships", ["user_id"], :name => "index_blocked_relationships_on_user_id"
 
   create_table "degrees", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string "name"
   end
 
   create_table "districts", :force => true do |t|
