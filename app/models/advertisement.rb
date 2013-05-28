@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Advertisement < ActiveRecord::Base
   attr_accessible :content, :role, :user_id
   belongs_to :user

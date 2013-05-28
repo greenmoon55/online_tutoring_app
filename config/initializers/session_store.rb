@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # Be sure to restart your server when you modify this file.
 
 OnlineTutoringApp::Application.config.session_store :cookie_store, key: '_online_tutoring_app_session'

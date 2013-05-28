@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ChangeTypeToRequest < ActiveRecord::Migration
   def up
     rename_column :Requests, :type, :kind

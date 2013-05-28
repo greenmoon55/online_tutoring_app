@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module RoomsHelper
   def members_in_room
     user_id = params[:user_id]

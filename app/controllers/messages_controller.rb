@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 class MessagesController < ApplicationController
   before_filter :require_signin
   def create
@@ -11,8 +11,11 @@ class MessagesController < ApplicationController
       publish_message = {type: 1, message: {content: 
           ERB::Util.html_escape(message.content), 
           created_at: message.created_at.localtime.to_s(:db),
+          user_id: message.sender_id,
           sender_name: current_user.name}, sender_id: message.sender_id}
       PrivatePub.publish_to("/messages/#{message.receiver_id}", publish_message)
+      publish_message[:message][:user_id] = message.receiver_id
+      logger.info publish_message.inspect
       PrivatePub.publish_to("/messages/#{message.sender_id}", publish_message)
     else
       # 提醒发送消息的人被屏蔽啦

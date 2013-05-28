@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class RequestsController < ApplicationController
   before_filter :require_signin , only:[:create,:destroy,:delete_request]
   def create

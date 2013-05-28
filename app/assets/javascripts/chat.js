@@ -1,14 +1,20 @@
 var chatOpened = false; // 聊天窗口是否被打开过
-var userList = [];
-var currentUid;
+var userList = []; // 获取到的用户列表 json 包括 id 和 name
+var currentUid; // 当前正在和谁聊天
 $(document).ready(function() {
   $("#chat-popup-button").click(function() {
     if (!chatOpened) {
       $("#chat-box").show();
       getUserList();
       chatOpened = true;
+      if (currentUid) activateUser(userList[userList.length - 1]["id"]);
     } else {
       $("#chat-box").toggle();
+    }
+    if (currentUid) {
+      $("#chat-sendbutton").prop("disabled", false);
+    } else {
+      $("#chat-sendbutton").prop("disabled", true);
     }
   });
 
@@ -38,7 +44,7 @@ $(document).ready(function() {
 
   $("#chat-sendbutton").click(function() {
     $("#new_message").submit();
-    $("#new_message").val("");
+    $("#message_content").val("");
     return false;
   });
 
@@ -146,8 +152,6 @@ function addUser(uid, username, isOnline) {
 
 // 激活当前点击的对象
 function activateItem(item) {
-  console.log("activateItem");
-  console.log(item);
   $("#chat-left li").removeClass("chat-active");
   $(item).addClass("chat-active");
 
@@ -158,6 +162,8 @@ function activateItem(item) {
 
   $(".chat-message").hide();
   $(".chat-with-" + id).show();
+
+  scrollDownDialogueList();
 }
 
 function activateUser(uid) {
@@ -166,14 +172,23 @@ function activateUser(uid) {
   activateItem(tmp);
 }
 
+function scrollDownDialogueList() {
+  $("#chat-dialogue-list").scrollTop($("#chat-dialogue-list")[0].scrollHeight);
+}
+
 function onChatMessage(message) {
-  var header = document.createElement("div");
-  $(header).attr("class", "chat-message-header");
-  $(header).append(message.sender_name + " " + message.created_at);
-  var content = document.createElement("div");
-  $(content).append(message.content); // 后台已转义
-  var messageDiv = document.createElement("div");
-  $(messageDiv).attr("class", "chat-message chat-with-" + message.user_id);  
-  $(messageDiv).append(header, content);
-  $("#chat-dialogue-list").append(messageDiv);
+  if (userExists(message.user_id)) {
+    var header = document.createElement("div");
+    $(header).attr("class", "chat-message-header");
+    $(header).append(message.sender_name + " " + message.created_at);
+    var content = document.createElement("div");
+    $(content).append(message.content); // 后台已转义
+    var messageDiv = document.createElement("div");
+    $(messageDiv).attr("class", "chat-message chat-with-" + message.user_id);  
+    $(messageDiv).append(header, content);
+    $("#chat-dialogue-list").append(messageDiv);
+    scrollDownDialogueList();
+  } else {
+    addUser(message.user_id, message.sender_name, true);
+  }
 }

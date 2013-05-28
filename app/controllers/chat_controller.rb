@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ChatController < ApplicationController
   before_filter :require_signin
   def new_user
@@ -19,7 +20,6 @@ class ChatController < ApplicationController
     render json: {users: uids}
   end
 
-  # deprecated
   def get_conversation
     messages = Message.get_conversation(current_user.id, params[:id])
     name_hash = {current_user.id => current_user.name, 

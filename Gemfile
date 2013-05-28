@@ -20,6 +20,7 @@ group :development do
   gem 'faker', '1.0.1'
   gem 'annotate'
   gem 'sqlite3'
+  gem 'magic_encoding'
 end
 
 group :production do

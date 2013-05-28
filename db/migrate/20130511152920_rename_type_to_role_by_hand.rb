@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class RenameTypeToRoleByHand < ActiveRecord::Migration
   def up
     rename_column :Users, :type, :role

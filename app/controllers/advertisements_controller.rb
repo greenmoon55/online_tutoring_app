@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AdvertisementsController < ApplicationController
   before_filter :require_signin, only: [:edit,:update,:create,:new,:destroy]
   before_filter :correct_user, only: [:edit,:update,:destroy]
