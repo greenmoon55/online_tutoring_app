@@ -38,7 +38,7 @@ $(document).ready(function() {
 
   $("#chat-sendbutton").click(function() {
     $("#new_message").submit();
-    $("#new_message").val("");
+    $("#message_content").val("");
     return false;
   });
 
@@ -158,6 +158,8 @@ function activateItem(item) {
 
   $(".chat-message").hide();
   $(".chat-with-" + id).show();
+
+  scrollDownDialogueList();
 }
 
 function activateUser(uid) {
@@ -166,14 +168,25 @@ function activateUser(uid) {
   activateItem(tmp);
 }
 
+function scrollDownDialogueList() {
+  $("#chat-dialogue-list").scrollTop($("#chat-dialogue-list")[0].scrollHeight);
+}
+
 function onChatMessage(message) {
-  var header = document.createElement("div");
-  $(header).attr("class", "chat-message-header");
-  $(header).append(message.sender_name + " " + message.created_at);
-  var content = document.createElement("div");
-  $(content).append(message.content); // 后台已转义
-  var messageDiv = document.createElement("div");
-  $(messageDiv).attr("class", "chat-message chat-with-" + message.user_id);  
-  $(messageDiv).append(header, content);
-  $("#chat-dialogue-list").append(messageDiv);
+  console.log("onChatMessage");
+  console.log(message);
+  if (userExists(message.user_id)) {
+    var header = document.createElement("div");
+    $(header).attr("class", "chat-message-header");
+    $(header).append(message.sender_name + " " + message.created_at);
+    var content = document.createElement("div");
+    $(content).append(message.content); // 后台已转义
+    var messageDiv = document.createElement("div");
+    $(messageDiv).attr("class", "chat-message chat-with-" + message.user_id);  
+    $(messageDiv).append(header, content);
+    $("#chat-dialogue-list").append(messageDiv);
+    scrollDownDialogueList();
+  } else {
+    addUser(message.user_id, message.sender_name, true);
+  }
 }
