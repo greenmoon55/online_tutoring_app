@@ -16,6 +16,7 @@ gem 'thin'
 gem 'redis'
 
 group :development do
+  gem 'rspec-rails', "2.11.0"
   gem 'faker', '1.0.1'
   gem 'annotate'
   gem 'sqlite3'
@@ -25,6 +26,9 @@ group :production do
   gem 'pg'
 end
 
+group :test do
+  gem 'capybara', '1.1.2'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
