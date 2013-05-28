@@ -1,5 +1,6 @@
 var chatOpened = false; // 聊天窗口是否被打开过
 var userList = [];
+var currentUid;
 $(document).ready(function() {
   $("#chat-popup-button").click(function() {
     if (!chatOpened) {
@@ -21,15 +22,16 @@ $(document).ready(function() {
   });
 
   $("#chat-with-button").click(function() {
+    var path = window.location.pathname;
+    var uid = path.match(/\/users\/(\d*)/)[1]; // 需要修改
+    currentUid = parseInt(uid);
+    var username = $("#username").text();
+    var isOnline = $("#img_online").length;
     if (!chatOpened) {
       getUserList();
       chatOpened = true;
     }
     $("#chat-box").show();
-    var path = window.location.pathname;
-    var uid = path.match(/\/users\/(\d*)/)[1];
-    var username = $("#username").text();
-    var isOnline = $("#img_online").length;
     if (!userExists(uid)) addUser(uid, username, isOnline);
     activateUser(uid);
   });
@@ -60,16 +62,17 @@ function userExists(uid) {
 function getUserList() {
   if ($.cookie("userList")) {
     userList = JSON.parse($.cookie("userList"));
-  }
-  for (var i = 0; i < userList.length; i++) {
-    addUserToList(userList[i]["id"], userList[i]["name"], false);
-  }
 
-  var uids = [];
-  for (var i = 0; i < userList.length; i++) {
-    uids.push(parseInt(userList[i]["id"])); 
+    for (var i = 0; i < userList.length; i++) {
+      addUserToList(userList[i]["id"], userList[i]["name"], false);
+    }
+
+    var uids = [];
+    for (var i = 0; i < userList.length; i++) {
+      uids.push(parseInt(userList[i]["id"])); 
+    }
+    getConversations(uids);
   }
-  getConversations(uids);
 }
 
 function getConversations(uids) {
@@ -85,6 +88,9 @@ function getConversations(uids) {
     for (var j = 0; j < data.length; j++) {
       onChatMessage(data[j]);
     }
+    if (currentUid) {
+      activateUser(currentUid);
+    }
   });
 }
 
@@ -97,6 +103,9 @@ function getConversation(uid) {
     console.log(data);
     for (var j = 0; j < data.length; j++) {
       onChatMessage(data[j]);
+    }
+    if (currentUid) {
+      activateUser(currentUid);
     }
   });
 }
@@ -153,7 +162,8 @@ function activateItem(item) {
 
 function activateUser(uid) {
   var str = "#chat-left li#" + uid;
-  activateItem($(str));
+  var tmp = $(str);
+  activateItem(tmp);
 }
 
 function onChatMessage(message) {
