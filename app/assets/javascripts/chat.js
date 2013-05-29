@@ -7,7 +7,7 @@ $(document).ready(function() {
       $("#chat-box").show();
       getUserList();
       chatOpened = true;
-      if (currentUid) activateUser(userList[userList.length - 1]["id"]);
+      if (currentUid) activateUser(userList[userList.length - 1].id);
     } else {
       $("#chat-box").toggle();
     }
@@ -30,7 +30,7 @@ $(document).ready(function() {
   $("#chat-with-button").click(function() {
     var path = window.location.pathname;
     var uid = path.match(/\/users\/(\d*)/)[1]; // 需要修改
-    currentUid = parseInt(uid);
+    currentUid = parseInt(uid, 10);
     var username = $("#username").text();
     var isOnline = $("#img_online").length;
     if (!chatOpened) {
@@ -54,7 +54,7 @@ $(document).ready(function() {
       url: $(this).prop("action"),
       type: "POST",
       data: $(this).serialize()
-    })
+    });
     return false;
   });
 });
@@ -67,15 +67,16 @@ function userExists(uid) {
 
 function getUserList() {
   if ($.cookie("userList")) {
+    var i;
     userList = JSON.parse($.cookie("userList"));
 
-    for (var i = 0; i < userList.length; i++) {
-      addUserToList(userList[i]["id"], userList[i]["name"], false);
+    for (i = 0; i < userList.length; i++) {
+      addUserToList(userList[i].id, userList[i].name, false);
     }
 
     var uids = [];
-    for (var i = 0; i < userList.length; i++) {
-      uids.push(parseInt(userList[i]["id"])); 
+    for (i = 0; i < userList.length; i++) {
+      uids.push(parseInt(userList[i].id, 10)); 
     }
     getConversations(uids);
   }
