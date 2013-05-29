@@ -84,6 +84,7 @@ function getUserList() {
 
     var uids = getUidsFromUserList();
     getConversations(uids);
+    getOnlineStatus(uids);
   }
 }
 
@@ -199,19 +200,26 @@ function onChatMessage(message) {
 }
 
 function setOnline(uid) {
-  console.log("setonline");
-  $("#chat-left li#"+ uid + " .chat-status").removeClass("chat-offline");
-  $("#chat-left li#"+ uid + " .chat-status").addClass("chat-online");
-
+  $("#chat-left li#"+ uid + " .chat-status").removeClass("chat-offline")
+    .addClass("chat-online");
 }
 
 function updateOnlineStatus(onlineUids) {
-  console.log(onlineUids);
-  console.log("updatestatus");
-  $("#chat-left .chat-status").removeClass("chat-online");
-  $("#chat-left .chat-status").removeClass("chat-offline");
-  $("#chat-left .chat-status").addClass("chat-offline");
+  $("#chat-left .chat-status").removeClass("chat-online chat-offline")
+    .addClass("chat-offline");
   for (var i = 0; i < onlineUids.length; i++) {
     setOnline(onlineUids[i]);
   }
+}
+
+function getOnlineStatus(uids) {
+  $.ajax({ 
+    url: "http://localhost:3000/refresh", 
+    type: "GET",
+    dataType: "json",
+    data: {"users": getUidsFromUserList()},
+    success: function(data){
+      updateOnlineStatus(data.uids);  
+    }
+  });
 }

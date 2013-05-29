@@ -6,19 +6,18 @@
   });
   (function poll(){
   setTimeout(function(){
-    console.log("setTimeout");
     $.ajax({ 
       url: "http://localhost:3000/refresh", 
       type: "GET",
       dataType: "json",
       data: {"users": getUidsFromUserList()},
       success: function(data){
-        tuids = data.uids;
         updateOnlineStatus(data.uids);  
         //Setup the next poll recursively
         poll();
-      }});
-    }, 10000);
+      }
+    });
+    }, 30000);
   })();  
 </script>
 <%= online_users %>
