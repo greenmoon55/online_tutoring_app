@@ -63,8 +63,6 @@
 #chat-close {
 	float: right;
 }
-#chat-right {
-}
 #chat-dialogue-list {
 	overflow-y: scroll;
 	height: 255px;
@@ -72,20 +70,10 @@
 }
 .chat-message {
 	padding: 5px;
-	font-size: 12px;
+	font-size: 14px;
 }
-.date_id h6 {
-	font-size: 12px;
-	color: #666;
-	padding: 0px;
-	padding-left: 5px;
-	margin: 0px;
-}
-.chat-message-header a {
-	padding-right: 5px;
-}
-.chat-message-header a, .chat-message-header a:visited {
-	color: #5bc0de;
+.chat-message-header {
+  color: #00f;
 }
 #chat-sendbox textarea {
 	width: 290px;
@@ -95,10 +83,12 @@
 #chat-sendbutton {
 	float: right;
 	margin-right: 3px;
+  /*
 	border-style: none;
 	background-color: #5bc0de;
 	color: #FFF;
 	border: 1px solid;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
+  */
 }
