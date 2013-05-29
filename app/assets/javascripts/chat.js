@@ -23,6 +23,11 @@ $(document).ready(function() {
     return false;
   });
 
+  $("#chat-left").on("click", ".chat-user-close", function(event) {
+    event.stopPropagation();
+    removeUser(parseInt($(this).parent()[0].id, 10));
+  });
+
   $("#chat-left").on("click", "li", function() {
     activateItem(this);
   });
@@ -57,6 +62,7 @@ $(document).ready(function() {
     });
     return false;
   });
+
 });
 
 function userExists(uid) {
@@ -91,6 +97,7 @@ function getUserList() {
 function getConversations(uids) {
   console.log("getconversations");
   console.log(JSON.stringify({"users": uids}));
+  if (!uids.length) return;
   $.ajax({
     url: "http://localhost:3000/chat/messages/",
     type: "GET",
@@ -139,9 +146,14 @@ function addUserToList(uid, username, isOnline) {
     var nameSpan = document.createElement("span");
     $(nameSpan).attr("class", "chat-username");
     $(nameSpan).append(username);
+    var removeA = document.createElement("a");
+    var removeI = $(document.createElement("i")).addClass("icon-remove");
+    $(removeA).append(removeI);
+    $(removeA).attr("class", "chat-user-close");
     var li = document.createElement("li");
     $(li).append(statusSpan);
     $(li).append(nameSpan);
+    $(li).append(removeA);
     $(li).attr("title", username);
     $(li).attr("id", uid);
     $("#chat-left ul").append(li);
@@ -152,8 +164,38 @@ function addUser(uid, username, isOnline) {
   console.log("addUser " + uid + username + isOnline);
   addUserToList(uid, username, isOnline);
   userList.push({id: uid, name: username});
-  $.cookie("userList", JSON.stringify(userList), {path: '/'});
+  saveCookie();
   getConversation(uid);
+  getOnlineStatus(uid);
+}
+
+function saveCookie() {
+  $.cookie("userList", JSON.stringify(userList), {path: '/'});
+}
+
+function removeUser(uid) {
+  $(".chat-with-"+uid).remove();
+  var currentLi = $("#"+uid);
+  if (currentLi.hasClass("chat-active")) {
+    currentLi.remove();
+    if ($("#chat-left li").length) {
+      activateItem($("#chat-left li").last());
+    } else {
+      // 没有用户了
+      currentUid = null;
+      $("#chat-sendbutton").prop("disabled", true);
+    }
+  } else {
+    currentLi.remove();
+  }
+  for (var i = 0; i < userList.length; i++) {
+    if (userList[i].id == uid) {
+      userList.splice(i, 1);
+      break;
+    }
+  }
+  console.log(userList);
+  saveCookie();
 }
 
 // 激活当前点击的对象
