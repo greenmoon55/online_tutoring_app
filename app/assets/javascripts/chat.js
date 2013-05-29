@@ -65,6 +65,14 @@ function userExists(uid) {
   return $(str).length;
 }
 
+function getUidsFromUserList() {
+  var uids = [];
+  for (i = 0; i < userList.length; i++) {
+    uids.push(parseInt(userList[i].id, 10)); 
+  }
+  return uids;
+}
+
 function getUserList() {
   if ($.cookie("userList")) {
     var i;
@@ -74,10 +82,7 @@ function getUserList() {
       addUserToList(userList[i].id, userList[i].name, false);
     }
 
-    var uids = [];
-    for (i = 0; i < userList.length; i++) {
-      uids.push(parseInt(userList[i].id, 10)); 
-    }
+    var uids = getUidsFromUserList();
     getConversations(uids);
   }
 }
@@ -142,7 +147,6 @@ function addUserToList(uid, username, isOnline) {
   }
 }
 
-
 function addUser(uid, username, isOnline) {
   console.log("addUser " + uid + username + isOnline);
   addUserToList(uid, username, isOnline);
@@ -191,5 +195,23 @@ function onChatMessage(message) {
     scrollDownDialogueList();
   } else {
     addUser(message.user_id, message.sender_name, true);
+  }
+}
+
+function setOnline(uid) {
+  console.log("setonline");
+  $("#chat-left li#"+ uid + " .chat-status").removeClass("chat-offline");
+  $("#chat-left li#"+ uid + " .chat-status").addClass("chat-online");
+
+}
+
+function updateOnlineStatus(onlineUids) {
+  console.log(onlineUids);
+  console.log("updatestatus");
+  $("#chat-left .chat-status").removeClass("chat-online");
+  $("#chat-left .chat-status").removeClass("chat-offline");
+  $("#chat-left .chat-status").addClass("chat-offline");
+  for (var i = 0; i < onlineUids.length; i++) {
+    setOnline(onlineUids[i]);
   }
 }

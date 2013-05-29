@@ -33,5 +33,9 @@ class SessionsController < ApplicationController
     return unless signed_in?
     # key, score, member
     $redis.zadd('online-users', Time.now.to_i, current_user.id) 
+    uids = params[:users] || []
+    uids.map!(&:to_i)
+    uids.keep_if {|uid| User.find(uid).online?} 
+    render :json => {uids: uids}
   end
 end

@@ -1,11 +1,13 @@
 # -*- encoding : utf-8 -*-
 class ChatController < ApplicationController
   before_filter :require_signin
+  # unused
   def new_user
     $redis.sadd(chat_userlist_key, params[:id])
     render :nothing => true
   end
 
+  #unused
   def remove_user()
     $redis.srem(chat_userlist_key, params[:id])
     render :nothing => true
