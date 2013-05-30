@@ -1,16 +1,14 @@
 <% provide(:title, @user.name) %>
 <!-- 仅供测试 -->
-<div>
   <% if signed_in? %>
-  <%= render "shared/request_form",:user => @user %>
+  <%= render "shared/request_form", :user => @user %>
     <%= render @messages if @messages %>
     <% unless current_user?(@user) %>
       <button class="btn" id="chat-with-button">聊天</button>
     <% end %>
   <% end %>
-</div>
-<div class="info_container">
-  <div class="page">
+<div class="info_container" style="border:none;">
+  <div class="page" style="float:none;">
     <table>
       <tr>
         <td><label>个人状态：
@@ -24,6 +22,7 @@
 		
 		        <!-- id用于聊天，请不要删除-->
         <td><h1 id="username"><%=@user.name%></h1></td>
+       
         <td><input class="btn_edit" name="commit" type="submit" value="编辑资料"/></td>
       </tr>
     </table>
@@ -106,3 +105,4 @@
     <div id="clear"/>
   </div>
 </div>
+<div id="clear"/>

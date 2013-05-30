@@ -1,6 +1,6 @@
 <div id="blocked_form">
 <%= form_tag(blocked_relationships_path, method:'post') do %>
 <%= hidden_field_tag :blocked_user_id,user.id%>
-<%= submit_tag "加入黒名单", class: "btn btn-primary"%>
+<%= submit_tag "加入黒名单", class: "btn_edit"%>
 <% end %>
 </div>

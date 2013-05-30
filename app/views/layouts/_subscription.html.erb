@@ -1,18 +1,36 @@
 <%= subscribe_to "/messages/#{current_user.id}" if signed_in?%>
 <script>
   PrivatePub.subscribe("/messages/<%= current_user.id %>", function(data, channel) {
-    if (data.type == 1) onChatMessage(data.message);
+    switch(data.type) {
+      case 1: 
+        onNewMessage(data.message);
+        break;
+      case 2:
+        removeUser(data.user_id); 
+        break;
+      case 3:
+        addUser(data.user.id, data.user.name, data.user.online);
+        break;
+    }
     console.log(data);
   });
-  (function poll(){
-     setTimeout(function(){
-        $.ajax({ url: "http://localhost:3000/refresh", success: function(data){
-          //Update your dashboard gauge
-
-          //Setup the next poll recursively
-          poll();
-        }});
+  function poll(){
+    setTimeout(function(){
+      refresh();
     }, 30000);
-  })();  
+  }  
+  function refresh() {
+    $.ajax({ 
+      url: "http://localhost:3000/refresh", 
+      type: "GET",
+      dataType: "json",
+      data: {"users": getUidsFromUserList()},
+      success: function(data){
+        updateOnlineStatus(data.uids);  
+        //Setup the next poll recursively
+        poll();
+      }
+    });
+  }
+  refresh();
 </script>
-<%= online_users %>
