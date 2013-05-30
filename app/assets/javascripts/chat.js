@@ -29,9 +29,7 @@ $(document).ready(function() {
     removeUser(id);
     $.ajax({
       url: "http://localhost:3000/chat/users/" + id,
-      type: "GET",
-    }).success(function(data) {
-      console.log(data);
+      type: "GET"
     });
   });
 
@@ -86,6 +84,7 @@ function getUidsFromUserList() {
   return uids;
 }
 
+// 从 cookie 获取用户列表
 function getUserList() {
   if ($.cookie("userList")) {
     var i;
@@ -167,13 +166,23 @@ function addUserToList(uid, username, isOnline) {
   }
 }
 
-function addUser(uid, username, isOnline) {
-  console.log("addUser " + uid + username + isOnline);
-  addUserToList(uid, username, isOnline);
-  userList.push({id: uid, name: username});
+// 不仅在界面显示，还要保存到 cookie 里，并获取在线状态
+function addUser(id, username, isOnline) {
+  id = parseInt(id, 10);
+  if (userExists(id)) return;
+  addUserToList(id, username, isOnline);
+  userList.push({id: id, name: username});
   saveCookie();
-  getConversation(uid);
-  getOnlineStatus(uid);
+  getConversation(id);
+  getOnlineStatus(id);
+  $.ajax({
+    url: "http://localhost:3000/chat/users/new",
+    type: "GET",
+    data: {id: id}
+  });
+  if (userList.length === 1) {
+    activateUser(id);
+  }
 }
 
 function saveCookie() {

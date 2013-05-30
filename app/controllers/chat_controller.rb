@@ -1,14 +1,24 @@
 # -*- encoding : utf-8 -*-
 class ChatController < ApplicationController
   before_filter :require_signin
-  # unused
   def new_user
+    id = params[:id].to_i
+    user = User.find(id)
+    if id
+      PrivatePub.publish_to("/messages/#{current_user.id}", 
+        {
+          type: 3, 
+          user: {
+              id: id, 
+              name: user.name, 
+              online: user.online?
+        }})
+    end
     render :nothing => true
   end
 
   def remove_user
     id = params[:id].to_i
-    logger.info id
     if id
       PrivatePub.publish_to("/messages/#{current_user.id}", 
         {type: 2, user_id: id})
