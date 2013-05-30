@@ -122,6 +122,7 @@ function getConversations(uids) {
 }
 
 function getConversation(uid) {
+  console.log("getconversation");
   $.ajax({
     url: "http://localhost:3000/chat/messages/"+uid,
     type: "GET",
@@ -139,7 +140,6 @@ function getConversation(uid) {
 
 // 仅把用户添加到用户列表中显示
 function addUserToList(uid, username, isOnline) {
-  console.log("addUserToList");
   str = "#chat-left li#" + uid;
   // 判断是否已存在该用户
   if (!$(str).length) {
@@ -218,7 +218,8 @@ function removeUser(uid) {
 
 // 激活当前点击的对象
 function activateItem(item) {
-  $("#chat-left li").removeClass("chat-active chat-unread");
+  $("#chat-left li").removeClass("chat-active");
+  $(item).removeClass("chat-unread");
   $(item).addClass("chat-active");
 
   var id = $(item).attr("id");
@@ -243,16 +244,18 @@ function scrollDownDialogueList() {
 }
 
 function onChatMessage(message) {
-  var header = document.createElement("div");
-  $(header).attr("class", "chat-message-header");
-  $(header).append(message.sender_name + " " + message.created_at);
-  var content = document.createElement("div");
-  $(content).append(message.content); // 后台已转义
-  var messageDiv = document.createElement("div");
-  $(messageDiv).attr("class", "chat-message chat-with-" + message.user_id);  
-  $(messageDiv).append(header, content);
-  $("#chat-dialogue-list").append(messageDiv);
-  if (!userExists(message.user_id)) {
+  if (userExists(message.user_id)) {
+    var header = document.createElement("div");
+    $(header).attr("class", "chat-message-header");
+    $(header).append(message.sender_name + " " + message.created_at);
+    var content = document.createElement("div");
+    $(content).append(message.content); // 后台已转义
+    var messageDiv = document.createElement("div");
+    $(messageDiv).attr("class", "chat-message chat-with-" + message.user_id);  
+    $(messageDiv).append(header, content);
+    $("#chat-dialogue-list").append(messageDiv);
+  } else {
+    // 此时ajax获取历史消息
     addUser(message.user_id, message.sender_name, true);
   }
 }
@@ -264,8 +267,6 @@ function onNewMessage(message) {
   } else {
     $(".chat-message").hide();
     $(".chat-with-" + currentUid).show();
-  }
-  if (currentUid != message.user_id) {
     $("#chat-left li#" + message.user_id).addClass("chat-unread");
   }
 }
