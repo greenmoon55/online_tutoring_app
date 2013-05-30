@@ -3,7 +3,7 @@
   PrivatePub.subscribe("/messages/<%= current_user.id %>", function(data, channel) {
     switch(data.type) {
       case 1: 
-        onChatMessage(data.message);
+        onNewMessage(data.message);
         break;
       case 2:
         removeUser(data.user_id); 
