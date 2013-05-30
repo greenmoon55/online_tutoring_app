@@ -1,0 +1,8 @@
+<h1>编辑公告</h1>
+
+<%= render 'form' %>
+<% if current_admin?%>
+<%= render 'delete_annoncement',annoncement: @annoncement%>
+<% end%>
+<%= link_to '退出编辑', @annoncement %> 
+<%= link_to '所有公告', annoncements_path %>

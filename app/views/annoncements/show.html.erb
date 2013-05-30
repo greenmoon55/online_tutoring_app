@@ -1,0 +1,16 @@
+
+
+<p>
+  <b>标题：</b>
+  <%= @annoncement.title %>
+</p>
+
+<p>
+  <b>内容</b>
+  <%= @annoncement.content %>
+</p>
+<% if current_admin?%>
+<%= render 'delete_annoncement',annoncement: @annoncement%>
+<%= link_to '编辑', edit_annoncement_path(@annoncement) %> 
+<% end%>
+<%= link_to '所有公告', annoncements_path %>

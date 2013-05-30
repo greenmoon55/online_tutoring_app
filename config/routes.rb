@@ -1,9 +1,7 @@
 # -*- encoding : utf-8 -*-
 OnlineTutoringApp::Application.routes.draw do
-
+  resources :annoncements
   resources :advertisements
-
-
   root to: "static_pages#home"
 
   get "static_pages/about"

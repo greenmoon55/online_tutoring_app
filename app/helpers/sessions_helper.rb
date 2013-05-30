@@ -19,6 +19,18 @@ module SessionsHelper
       end
     end
   end
+  
+  def require_admin
+    unless signed_in? && current_user[:id] == 1
+        flash[:error] = "你没有权限"
+        redirect_to root_path
+    end
+  end
+  
+  def current_admin?
+    signed_in? && current_user[:id] == 1
+  end
+  
   def require_current_teacher
     unless signed_in?&&current_teacher?
       redirect_to root_path

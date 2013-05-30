@@ -21,7 +21,16 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+   def test_should_create_user
+     user = User.new
+     user.name = "yeziyll"
+     user.email = "yeziyll@qq.com"
+     user.password = "yeziyll"
+     user.password_confirmation = "yeziyll"
+     user.role = 0
+     user.gender = 0
+     user.description = "i am beautiful"
+
+     assert user.save
+   end
 end

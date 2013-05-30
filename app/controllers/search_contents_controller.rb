@@ -89,7 +89,7 @@ class SearchContentsController < ApplicationController
     @users = User.find(:all,:conditions => [condition,true,"%#{@content}%"])
 # @users = User.find(:all,:conditions => ["name LIKE ? and gender IN (?) and role IN (?) and degree_id IN (#{@degree_selected.join(', ')}) and district_id IN (?) and #{visible} = ?  ","%#{@content}%",gender_array,role_array,@district_selected,true])
     
-    if subject_need_care = true
+    if subject_need_care == true
       if(@role_number == 0)
         @users.delete_if{|user|self.help_function?( user.teacher_relationships,@subject_selected)}  
       else
