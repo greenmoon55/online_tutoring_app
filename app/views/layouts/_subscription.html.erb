@@ -14,8 +14,12 @@
     }
     console.log(data);
   });
-  (function poll(){
-  setTimeout(function(){
+  function poll(){
+    setTimeout(function(){
+      refresh();
+    }, 30000);
+  }  
+  function refresh() {
     $.ajax({ 
       url: "http://localhost:3000/refresh", 
       type: "GET",
@@ -27,7 +31,6 @@
         poll();
       }
     });
-    }, 30000);
-  })();  
+  }
+  refresh();
 </script>
-<%= online_users %>
