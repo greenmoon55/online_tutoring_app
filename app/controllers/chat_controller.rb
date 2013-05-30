@@ -3,13 +3,16 @@ class ChatController < ApplicationController
   before_filter :require_signin
   # unused
   def new_user
-    $redis.sadd(chat_userlist_key, params[:id])
     render :nothing => true
   end
 
-  #unused
-  def remove_user()
-    $redis.srem(chat_userlist_key, params[:id])
+  def remove_user
+    id = params[:id].to_i
+    logger.info id
+    if id
+      PrivatePub.publish_to("/messages/#{current_user.id}", 
+        {type: 2, user_id: id})
+    end
     render :nothing => true
   end
 

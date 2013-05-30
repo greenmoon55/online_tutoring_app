@@ -25,7 +25,14 @@ $(document).ready(function() {
 
   $("#chat-left").on("click", ".chat-user-close", function(event) {
     event.stopPropagation();
-    removeUser(parseInt($(this).parent()[0].id, 10));
+    var id = parseInt($(this).parent()[0].id, 10);
+    removeUser(id);
+    $.ajax({
+      url: "http://localhost:3000/chat/users/" + id,
+      type: "GET",
+    }).success(function(data) {
+      console.log(data);
+    });
   });
 
   $("#chat-left").on("click", "li", function() {
@@ -176,6 +183,7 @@ function saveCookie() {
 function removeUser(uid) {
   $(".chat-with-"+uid).remove();
   var currentLi = $("#"+uid);
+  if (!currentLi.length) return;
   if (currentLi.hasClass("chat-active")) {
     currentLi.remove();
     if ($("#chat-left li").length) {
