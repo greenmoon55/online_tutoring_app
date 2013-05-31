@@ -10,3 +10,10 @@
 <% end%>
 <div id="chatroom-dialogue-list">
 </div>
+<div id="chatroom-sendbox">
+  <%= form_for Message.new do |f| %>
+    <%= f.hidden_field :room_id, value: @room.id%>
+    <%= f.text_area :content %>
+    <%= f.submit "发送", id: "chatroom-sendbutton" %>
+  <% end %>
+</div>

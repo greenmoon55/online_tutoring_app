@@ -20,7 +20,6 @@ class RoomsController < ApplicationController
     @user = User.find(params[:user_id])
     @room = @user.rooms.find(params[:id])
     @students = @room.students
-
   end
 
   def update
@@ -84,7 +83,7 @@ class RoomsController < ApplicationController
   end
 
   def destroy
-    @room =Room.find(params[:id])
+    @room = Room.find(params[:id])
     @room.students.each do |student|
       if @user.students.include?(student)
         student.requests.create!(sender_id:current_user[:id],content: "解散了 "+@room[:outline]+" 聊天室", kind:4)
@@ -114,8 +113,8 @@ class RoomsController < ApplicationController
 #  elsif current_student? && Room.find(room_id).students.include?(current_user)
     elsif !current_user?(User.find(user_id)) && current_student? && Room.find(room_id).students.include?(current_user)
     else
-    flash[:error] = "you don't have access"
-    redirect_to current_user
+      flash[:error] = "you don't have access"
+      redirect_to current_user
     end
   end
 end
