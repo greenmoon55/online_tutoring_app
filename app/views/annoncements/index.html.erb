@@ -1,23 +1,24 @@
 <h1>所有公告</h1>
 
-<table>
+<% if current_admin? %>
+<%= link_to '创建新公告', new_annoncement_path %>
+<% end%>
 
+<br />
+
+<table>
 
 <% @annoncements.each do |annoncement| %>
   <tr>
-    <td><%= annoncement.title %></td>
+    <td><%= link_to annoncement.title, annoncement %></td>
     <td><%= annoncement.content %></td>
-    <td><%= link_to '详情', annoncement %></td>
     <% if current_admin? %>
-    <td><%= link_to '编辑', edit_annoncement_path(annoncement) %></td>
-    <td><%= render 'delete_annoncement',annoncement: annoncement%></td>
-   
+    <td><%= button_to '编辑', edit_annoncement_path(annoncement),method: "get", class: "btn btn-primary"%></td>
+    <td><%= render 'delete_annoncement',annoncement: annoncement%></td>  
     <% end%>
   </tr>
 <% end %>
 </table>
 
-<br />
-<% if current_admin? %>
-<%= link_to '创建新公告', new_annoncement_path %>
-<% end%>
+
+

@@ -1,5 +1,6 @@
 
 
+<%= link_to '所有公告', annoncements_path %>
 <p>
   <b>标题：</b>
   <%= @annoncement.title %>
@@ -10,7 +11,7 @@
   <%= @annoncement.content %>
 </p>
 <% if current_admin?%>
+<%= button_to '编辑', edit_annoncement_path(@annoncement) , method: "get", class: "btn btn-primary"%>
 <%= render 'delete_annoncement',annoncement: @annoncement%>
-<%= link_to '编辑', edit_annoncement_path(@annoncement) %> 
 <% end%>
-<%= link_to '所有公告', annoncements_path %>
+

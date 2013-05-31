@@ -3,19 +3,31 @@
 <%= link_to '我要发布', new_advertisement_path %>
 <table>
 
+<p>学生发出的需求</p>
 <% @student_advertisements.each do |advertisement| %>
   <tr>
-    <td><%= link_to advertisement.user[:name] , advertisement%></td>
+    <td><%= link_to advertisement.user[:name] , advertisement.user%></td>
     <td><%= advertisement.content %></td>
+    
+	<% if signed_in? && advertisement.user == current_user && advertisement.role == current_user_role_number%>
+	  <td><%= button_to '编辑', edit_advertisement_path(advertisement),method: "get", class: "btn btn-primary" %> </td>
+	  <td><%= render 'delete_advertisement', advertisement: advertisement %> </td>
+	<%end%>
   </tr>
 <% end %>
+<p>老师发出的需求</p>
 <% @teacher_advertisements.each do |advertisement| %>
   <tr>
-    <td><%= link_to advertisement.user[:name], advertisement %></td>
+    <td><%= link_to advertisement.user[:name], advertisement.user %></td>
     <td><%= advertisement.content %></td>
+    
+    <% if signed_in? && advertisement.user == current_user && advertisement.role == current_user_role_number%>
+      <td><%= button_to '编辑', edit_advertisement_path(advertisement),method: "get", class: "btn btn-primary" %> </td>
+      <td><%= render 'delete_advertisement', advertisement: advertisement %> </td>
+    <%end%>
+    
   </tr>
 <% end %>
 </table>
-
 <br />
 

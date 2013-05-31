@@ -1,7 +1,7 @@
-<p id="notice"><%= notice %></p>
+<!--<p id="notice"><%= notice %></p>-->
 
 <p>
-  <b>User:</b>
+  <b>用户名:</b>
   <%= @advertisement.user[:name] %>
 </p>
 
@@ -9,7 +9,6 @@
 <b>老师</b>
 <% else %>
 <b>学生</b>
-
 <% end%>
 <p>
   <b>需求信息:</b>
@@ -18,7 +17,7 @@
 
 
 <% if signed_in? && @advertisement.user == current_user && @advertisement.role == current_user_role_number%>
-<%= render 'delete_advertisement', advertisement: @advertisement %> |
-<%= link_to '编辑', edit_advertisement_path(@advertisement) %> |
+<%= button_to '编辑', edit_advertisement_path(@advertisement),method: "get", class: "btn btn-primary" %> 
+<%= render 'delete_advertisement', advertisement: @advertisement %> 
 <% end%>
-<%= link_to '返回需求列表', advertisements_path %>
+<%= link_to '需求列表', advertisements_path %>

@@ -1,4 +1,4 @@
-<%= form_tag(annoncement_path(annoncement.id), method:'delete', :multipart => true) do%>
-<%= hidden_field_tag :annoncement_id,annoncement.id%>
+<%= form_tag(annoncement_path(annoncement), method:'delete', :multipart => true) do%>
+<%= hidden_field_tag :id,annoncement.id%>
 <%= submit_tag "删除", class: "btn btn-primary"%>
 <% end %>
