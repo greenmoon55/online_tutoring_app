@@ -13,13 +13,12 @@ class MessagesController < ApplicationController
           created_at: Time.now.to_s(:db),
           sender_id: current_user.id,
           sender_name: current_user.name
-        }
+        },
+        room_id: room.id
       }
       if (current_student? && room.students.includes(current_user)) ||
           (current_teacher? && current_user?(room.user))
         room.users.each do |user|
-          logger.info user.id
-          logger.info user.name
           PrivatePub.publish_to("/messages/#{user.id}", message)
         end
       end
