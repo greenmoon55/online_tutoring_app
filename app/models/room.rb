@@ -6,4 +6,8 @@ class Room < ActiveRecord::Base
   has_many :students,through: :room_student_relationships
 
   validates :user_id, presence: true
+
+  def users
+    #self.students + 
+  end
 end
