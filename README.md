@@ -22,4 +22,7 @@ online_tutoring_app
 > 第一次运行时执行 bundle exec rake db:seed 载入设置好的数据，以后应该就不用了。
 
 
-消息格式见 doc/message_format.md
+消息格式
+-------
+
+见 doc/message_format.md
