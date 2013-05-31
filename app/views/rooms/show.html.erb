@@ -2,9 +2,11 @@
 
 <%=link_to "老师",user_path(@user[:id])%>
 <% if current_user?(@user) && current_teacher?%>
-<%= render 'delete_room', room: @room%>
+  <%= render 'delete_room', room: @room%>
 <% end%>
 <div>学生</div>
 <% @students.each do |student|%>
-<%=link_to student[:name], user_path(student[:id])%>
+  <%=link_to student[:name], user_path(student[:id])%>
 <% end%>
+<div id="chatroom-dialogue-list">
+</div>
