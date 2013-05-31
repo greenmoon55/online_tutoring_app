@@ -203,14 +203,14 @@ logger.info other_user
 
 
   def delete_room_relationship!(other_user,current_student)
-      if current_student && other_user.is_teacher?
+      if current_student
         other_user.rooms.each do |room|
           if room.students.include?(self)
             room.room_student_relationships.find_by_student_id(self[:id]).destroy
           end 
         end
-      end
-      if !current_student && other_user.is_teacher?
+      
+      else
         self.rooms.each do |room|
           if room.students.include?(other_user)
             room.room_student_relationships.find_by_student_id(other_user[:id]).destroy

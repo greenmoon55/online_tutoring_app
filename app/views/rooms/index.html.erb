@@ -1,3 +1,6 @@
+<% if current_teacher?%>
+<%= link_to "创建聊天室", new_user_room_path(current_user)%>
+<% end%>
 <div>
   <%= render @rooms%>
 </div>

@@ -1,0 +1,4 @@
+<%= form_tag(rooms_delete_by_student_path,method: 'post') do%>
+<%= hidden_field_tag :id, room[:id]%>
+<%= submit_tag "退出聊天室",class: "btn btn-primary"%>
+<% end%>

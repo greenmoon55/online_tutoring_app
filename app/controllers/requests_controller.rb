@@ -42,7 +42,7 @@ class RequestsController < ApplicationController
     @sender = User.find(sender_id)
     unless current_user.have_add_request?(@sender,current_student?)
       flash[:error] = "这个请求不存在"
-      redirect_to current_user     and return 
+      redirect_to requests_user_path(current_user)     and return 
       #request not exist  
     end
     
@@ -50,17 +50,17 @@ class RequestsController < ApplicationController
     current_user.delete_add_request!(@sender,current_student?)
     #delete successfully
       flash[:success] = "拒绝成功"
-      redirect_to current_user     and return 
+      redirect_to requests_user_path(current_user)     and return 
   end
 
   def delete_request
     request_id = params[:request_id]
     unless Request.find(request_id)
       flash[:error] = "已删除该消息"
-      redirect_to current_user and return
+      redirect_to requests_user_path(current_user) and return
     end
     current_user.requests.find(request_id).destroy
     flash[:success] = "成功删除消息"
-    redirect_to current_user and return 
+    redirect_to requests_user_path(current_user) and return 
   end
 end

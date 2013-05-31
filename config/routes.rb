@@ -33,6 +33,7 @@ OnlineTutoringApp::Application.routes.draw do
   match '/search', to: 'search_contents#search'
   match '/search', to: 'search_contents#create', via: :post
   match '/requests/delete_request', to: 'requests#delete_request', via: :post
+  match '/rooms/delete_by_student', to: 'rooms#delete_by_student', via: :post
 
   match '/chat/users/new', to: 'chat#new_user', via: :get
   match '/chat/users/:id', to: 'chat#remove_user' 

@@ -26,8 +26,10 @@ class RoomsController < ApplicationController
     @room = @user.rooms.find(params[:id])
     @room.update_attributes(outline: params[:outline])
     @student_selected = []
-    params[:student].each do |student_id|
-      @student_selected.push(Integer(student_id))
+    if params[:student]
+      params[:student].each do |student_id|
+        @student_selected.push(Integer(student_id))
+      end
     end
     @room.room_student_relationships.each do |relationship|
       if @student_selected.include?relationship[:student_id]
@@ -36,11 +38,9 @@ class RoomsController < ApplicationController
          if @user.students.include?(User.find(relationship[:student_id]))
             User.find(relationship[:student_id]).requests.create!(kind:4,sender_id:@user[:id], content: "将你移出了 "+ @room[:outline] + " 聊天室中")
          end
-         @room.room_student_relationships.find(relationship[:id]).destroy
-        
+         @room.room_student_relationships.find(relationship[:id]).destroy 
       end
     end
-
     @student_selected.each do |student_id|
       if @room.room_student_relationships.find_by_student_id(student_id)
         # do nothing
@@ -57,16 +57,18 @@ class RoomsController < ApplicationController
   def create
     @room = @user.rooms.create!(outline: params[:outline])
     @student_selected = []
-    params[:student].each do |single_student_id|
-      @student_selected.push(Integer(single_student_id))
-      student = User.find(single_student_id)
-      if @user.students.include?(student)
-        @room.room_student_relationships.create!(student_id: single_student_id)
-        student.requests.create!(sender_id:@user[:id],kind:4,content: "将你加入到了 " + @room[:outline] + " 聊天室中")
+    if params[:student]
+      params[:student].each do |single_student_id|
+        @student_selected.push(Integer(single_student_id))
+        student = User.find(single_student_id)
+        if @user.students.include?(student)
+          @room.room_student_relationships.create!(student_id: single_student_id)
+          student.requests.create!(sender_id:@user[:id],kind:4,content: "将你加入到了 " + @room[:outline] + " 聊天室中")
+        end
       end
     end
     flash[:success] = "创建成功"
-    redirect_to current_user
+    redirect_to user_room_path(current_user,@room)
   end
 
   def edit
@@ -78,8 +80,6 @@ class RoomsController < ApplicationController
       @student_selected.push(Integer(student[:id]))
     end
     self.get_student
-    
-
   end
 
   def destroy
@@ -91,9 +91,17 @@ class RoomsController < ApplicationController
     end
     @user.rooms.find(params[:id]).destroy
     redirect_to user_rooms_path(@user)
-
   end
-
+  
+  def delete_by_student
+    @room = Room.find(params[:id])
+    if(current_student? && current_user.my_rooms.include?(@room))
+      current_user.room_student_relationships.find_by_room_id(params[:id]).destroy
+      flash[:success] = "成功退出聊天室"
+    end
+    redirect_to my_rooms_user_path(current_user)
+  end
+  
     def correct_user
       @user = User.find(params[:user_id])
       unless current_user?(@user)
