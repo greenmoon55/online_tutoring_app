@@ -3,6 +3,7 @@ class MessagesController < ApplicationController
   before_filter :require_signin
   def create
     if params[:message][:room_id]
+      # 群发消息
       room = Room.find(params[:message][:room_id])
       return unless room
       message = {
@@ -14,12 +15,13 @@ class MessagesController < ApplicationController
           sender_name: current_user.name
         }
       }
-      if current_student? && room.users.include(current_user)
-        room.students.each do |user|
+      if (current_student? && room.students.includes(current_user)) ||
+          (current_teacher? && current_user?(room.user))
+        room.users.each do |user|
+          logger.info user.id
+          logger.info user.name
           PrivatePub.publish_to("/messages/#{user.id}", message)
         end
-      else # current_teacher
-        
       end
     else
       message = Message.new(params[:message])
