@@ -22,7 +22,7 @@
 
 ```json
 {
-  "type": 2
+  "type": 2,
   "user_id": 101
 }
 ```
