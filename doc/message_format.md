@@ -1,4 +1,42 @@
 本文档定义服务器传来的消息的格式
+=========
 
-1. 私聊
-   { "message": {"content":"test","created_at":"","id":1,""sender_id":102,"receiver_id",}, "type": 1}
+1. 私聊消息
+--------
+
+```json
+{
+  "message": {
+    "content": "消息内容",
+    "created_at": "2013-05-29 15:55:18",
+    "sender_id": 102,
+    "sender_name": "greenmoon55" 
+  }, 
+  "sender_id": 1,
+  "type": 1
+}
+```
+
+2. 移除用户
+--------
+
+```json
+{
+  "type": 2,
+  "user_id": 101
+}
+```
+
+3. 添加用户
+-------
+
+```json
+{
+  "type": 3, 
+  "user": {
+    "id": 111, 
+    "name": "greenmoon55", 
+    "online": true
+  }
+}
+```

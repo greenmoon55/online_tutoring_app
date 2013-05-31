@@ -20,3 +20,9 @@ online_tutoring_app
 > 运行redis，参考 README。http://redis.io # 这个数据库用来保存在线用户
 
 > 第一次运行时执行 bundle exec rake db:seed 载入设置好的数据，以后应该就不用了。
+
+
+消息格式
+-------
+
+见 doc/message_format.md
