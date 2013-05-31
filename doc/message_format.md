@@ -7,8 +7,7 @@
 ```json
 {
   "message": {
-    "content": "消息内容",
-    "created_at": "2013-05-29 15:55:18",
+    "content": "消息内容", "created_at": "2013-05-29 15:55:18",
     "sender_id": 102,
     "sender_name": "greenmoon55" 
   }, 
@@ -52,5 +51,6 @@
     "created_at": "2013-05-29 15:55:18",
     "sender_id": 102,
     "sender_name": "greenmoon55" 
-  }
+  },
+  "room_id": 5
 }
