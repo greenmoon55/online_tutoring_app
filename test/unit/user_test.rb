@@ -21,7 +21,7 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-   def test_should_create_user
+   test "test_should_create_user" do
      user = User.new
      user.name = "yeziyll"
      user.email = "yeziyll@qq.com"

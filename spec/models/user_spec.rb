@@ -7,20 +7,29 @@ describe User do
 
   subject { @user }
 
-  it { should respond_to(:name) }
   it { should respond_to(:email) }
-  it { should respond_to(:role) }
+  it { should respond_to(:name) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
+  it { should respond_to(:gender) }
+  it { should respond_to(:district_id) }
+  it { should respond_to(:description) }
+  it { should respond_to(:role) }
+  it { should respond_to(:student_visible) }
+  it { should respond_to(:teacher_visible) }
+  it { should respond_to(:degree_id) }
+  it { should respond_to(:student_subject_ids) }
+  it { should respond_to(:teacher_subject_ids) }
   it { should be_valid }
   describe "when name is not present" do
     before { @user.name = "" }
     it { should_not be_valid }
   end
   describe "when name is too long" do
-    before { @user.name = "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh" }
+    before { @user.name = "h"*21}
     it { should_not be_valid }
   end
+  
   describe "when email is not present" do
     before { @user.email = "" }
     it { should_not be_valid }
