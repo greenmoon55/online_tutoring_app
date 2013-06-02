@@ -48,4 +48,9 @@ class MessagesController < ApplicationController
       end
     end
   end
+  
+  def get_unread_users
+    render json: (Message.find_by_sql ["SELECT * FROM messages WHERE read = 'f' AND (sender_id = ? OR receiver_id = ?)", current_user.id, current_user.id])
+    #render json: Message.where('read'=> false).where("sender_id = ? OR receiver_id = ?)", current_user.id, current_user.id)
+  end
 end
