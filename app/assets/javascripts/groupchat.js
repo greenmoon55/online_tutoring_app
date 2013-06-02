@@ -7,7 +7,7 @@ function onGroupChatMessage(message, roomID) {
 
 $(document).ready(function() {
   var drawing = document.getElementById("chatroom-canvas");
-  if (drawing.getContext) {
+  if (drawing && drawing.getContext) {
     var context = drawing.getContext("2d");
     context.beginPath();
     context.moveTo(100, 100);
