@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 FactoryGirl.define do 
 	factory :user do
 		name "aaa"
@@ -22,21 +21,5 @@ FactoryGirl.define do
 		kind "1"
 	end
 end
-=======
-# -*- encoding : utf-8 -*-
-FactoryGirl.define do
-  
-  factory :user do
-    name "example_user"
-    email "example_email@qq.com"
-    password "example_password"
-    password_confirmation "example_password"
-    role 1
-    teacher_visible true
-    student_visible true
-  end
 
-	
-end
 		
->>>>>>> 有关联的两个模型测不出来，急死了

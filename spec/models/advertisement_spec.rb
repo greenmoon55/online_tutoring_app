@@ -5,7 +5,7 @@ describe Advertisement do
  
   let(:user) { FactoryGirl.create(:user) } 
   
-  before { @advertisement = user.advertisement.build(content: "example",role: user.role )}
+  before { @advertisement = user.advertisements.build(content: "example",role: user.role )}
 
   subject { @advertisement }
 
