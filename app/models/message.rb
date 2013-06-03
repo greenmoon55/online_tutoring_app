@@ -19,7 +19,8 @@ class Message < ActiveRecord::Base
     Message.find_by_sql ["SELECT * FROM messages WHERE (sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?) ORDER BY created_at", user1, user2, user2, user1]
   end
 
-  def self.get_conversations(users)
-    Message.where(:sender_id => users, :receiver_id => users).order("created_at ASC")
+  def self.get_conversations(users, current_user)
+    #Message.where(:sender_id => users, :receiver_id => users).order("created_at ASC")
+    Message.find_by_sql ["SELECT * FROM messages WHERE (read = 'f' AND receiver_id = ?) OR (sender_id = ? AND receiver_id IN (?)) OR (sender_id IN (?) AND receiver_id = ?)", current_user.id, current_user.id, users, users, current_user.id]
   end
-end
+end 
