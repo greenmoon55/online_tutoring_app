@@ -9,7 +9,7 @@ gem 'bcrypt-ruby'
 gem 'bootstrap-sass'
 
 # messaging
-gem 'private_pub'
+gem 'faye'
 gem 'thin'
 
 # online status

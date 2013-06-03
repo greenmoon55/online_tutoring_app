@@ -113,8 +113,6 @@ GEM
     pg (0.15.1)
     pg (0.15.1-x86-mingw32)
     polyglot (0.3.3)
-    private_pub (1.0.3)
-      faye
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -205,11 +203,11 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   factory_girl_rails (= 4.1.0)
   faker (= 1.0.1)
+  faye
   jquery-cookie-rails
   jquery-rails
   magic_encoding
   pg
-  private_pub
   rails (= 3.2.13)
   redis
   rspec-rails (= 2.11.0)
