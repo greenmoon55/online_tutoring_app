@@ -11,7 +11,8 @@
     "content": "消息内容", 
     "created_at": "2013-05-29 15:55:18",
     "sender_name": "greenmoon55",
-    "sender_id": 121 
+    "sender_id": 121,
+    "read": true
   }, 
   "type": 1
 }

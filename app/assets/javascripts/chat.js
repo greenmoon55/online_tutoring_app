@@ -251,7 +251,7 @@ function scrollDownDialogueList() {
 
 function readMessage(id) {
   $.ajax({
-    url: "http://localhost:3000/chat/"+id+"/read",
+    url: "http://localhost:3000/chat/messages/"+id+"/read",
     type: "GET"
   });
 }
@@ -271,6 +271,8 @@ function onChatMessage(message) {
     $("#chat-dialogue-list").append(messageDiv);
     if (currentUid === message.sender_id) {
       readMessage(message.id);
+    } else if (message.read === false && message.sender_id === message.user_id) {
+        $("#chat-left li#" + message.user_id).addClass("chat-unread");
     }
   } else {
     // 此时ajax获取历史消息

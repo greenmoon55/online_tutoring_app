@@ -46,7 +46,8 @@ class ChatController < ApplicationController
           created_at: m.created_at.localtime.to_s(:db),
           user_id: params[:id],
           sender_name: name_hash[m.sender_id],
-          sender_id: m.sender_id
+          sender_id: m.sender_id,
+          read: m.read
         }
     end
     render json: messages
@@ -62,7 +63,8 @@ class ChatController < ApplicationController
           created_at: m.created_at.localtime.to_s(:db),
           user_id: (m.sender_id == current_user.id)? m.receiver_id : m.sender_id,
           sender_name: User.find(m.sender_id).name,
-          sender_id: m.sender_id
+          sender_id: m.sender_id,
+          read: m.read
         }
     end
     render json: messages

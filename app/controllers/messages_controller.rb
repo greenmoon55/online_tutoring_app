@@ -38,7 +38,8 @@ class MessagesController < ApplicationController
             created_at: message.created_at.localtime.to_s(:db),
             user_id: message.sender_id,
             sender_name: current_user.name,
-            sender_id: message.sender_id
+            sender_id: message.sender_id,
+            read: message.read
           }
         }
         PrivatePub.publish_to("/messages/#{message.receiver_id}", publish_message)
