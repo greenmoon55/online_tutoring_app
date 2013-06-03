@@ -51,16 +51,9 @@ class MessagesController < ApplicationController
       end
     end
   end
-  
-  def get_unread_users
-    render json: (Message.find_by_sql ["SELECT * FROM messages WHERE read = 'f' AND (sender_id = ? OR receiver_id = ?)", current_user.id, current_user.id])
-  end
 
   def read
-    Message.where("sender_id = ? AND id <= ?", current_user.id, params[:id].to_i).each do |m|
-      m.read = true
-      m.save!
-    end
+    Message.where("receiver_id = ? AND id <= ?", current_user.id, params[:id].to_i).update_all(read: true)
     render nothing: true
   end
 end
