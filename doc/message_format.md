@@ -7,11 +7,13 @@
 ```json
 {
   "message": {
-    "content": "消息内容", "created_at": "2013-05-29 15:55:18",
-    "sender_id": 102,
-    "sender_name": "greenmoon55" 
+    "id": 1,
+    "content": "消息内容", 
+    "created_at": "2013-05-29 15:55:18",
+    "sender_name": "greenmoon55",
+    "sender_id": 121,
+    "read": true
   }, 
-  "sender_id": 1,
   "type": 1
 }
 ```

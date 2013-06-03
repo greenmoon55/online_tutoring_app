@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130601055815) do
+ActiveRecord::Schema.define(:version => 20130602122430) do
 
   create_table "Requests", :force => true do |t|
     t.integer  "kind",                           :null => false
@@ -60,10 +60,11 @@ ActiveRecord::Schema.define(:version => 20130601055815) do
   end
 
   create_table "messages", :force => true do |t|
-    t.integer  "sender_id",   :null => false
-    t.integer  "receiver_id", :null => false
+    t.integer  "sender_id",                      :null => false
+    t.integer  "receiver_id",                    :null => false
     t.string   "content"
-    t.datetime "created_at",  :null => false
+    t.datetime "created_at",                     :null => false
+    t.boolean  "read",        :default => false
   end
 
   add_index "messages", ["sender_id", "receiver_id"], :name => "index_messages_on_sender_id_and_receiver_id"

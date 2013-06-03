@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AnnoncementsController < ApplicationController
   before_filter :require_signin, only: [:new, :edit, :update, :create, :destroy]
   before_filter :require_admin, only: [:new, :edit, :update, :create, :destroy]

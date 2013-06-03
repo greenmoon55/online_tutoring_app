@@ -41,24 +41,31 @@ class ChatController < ApplicationController
       params[:id].to_i => User.find(params[:id]).name}
     logger.info name_hash.inspect
     messages.map! do |m|
-        {content: ERB::Util.html_escape(m.content), 
-        created_at: m.created_at.localtime.to_s(:db),
-        user_id: params[:id],
-        sender_name: name_hash[m.sender_id],
-        sender_id: m.sender_id}
+        {
+          content: ERB::Util.html_escape(m.content), 
+          created_at: m.created_at.localtime.to_s(:db),
+          user_id: params[:id],
+          sender_name: name_hash[m.sender_id],
+          sender_id: m.sender_id,
+          read: m.read
+        }
     end
     render json: messages
   end
 
   def get_conversations
-    params[:users] << current_user.id
-    messages = Message.get_conversations(params[:users])
+    params[:users].map!(&:to_i) if params[:users]
+    messages = Message.get_conversations(params[:users], current_user)
     messages.map! do |m|
-        {content: ERB::Util.html_escape(m.content), 
-        created_at: m.created_at.localtime.to_s(:db),
-        user_id: (m.sender_id == current_user.id)? m.receiver_id : m.sender_id,
-        sender_name: User.find(m.sender_id).name,
-        sender_id: m.sender_id}
+        {
+          id: m.id,
+          content: ERB::Util.html_escape(m.content), 
+          created_at: m.created_at.localtime.to_s(:db),
+          user_id: (m.sender_id == current_user.id)? m.receiver_id : m.sender_id,
+          sender_name: User.find(m.sender_id).name,
+          sender_id: m.sender_id,
+          read: m.read
+        }
     end
     render json: messages
   end

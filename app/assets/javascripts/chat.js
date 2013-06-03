@@ -7,7 +7,7 @@ $(document).ready(function() {
       $("#chat-box").show();
       getUserList();
       chatOpened = true;
-      if (currentUid) activateUser(userList[userList.length - 1].id);
+      if (!currentUid) activateUser(userList[userList.length - 1].id);
     } else {
       $("#chat-box").toggle();
     }
@@ -104,7 +104,6 @@ function getUserList() {
 function getConversations(uids) {
   console.log("getconversations");
   console.log(JSON.stringify({"users": uids}));
-  if (!uids.length) return;
   $.ajax({
     url: "http://localhost:3000/chat/messages/",
     type: "GET",
@@ -219,10 +218,17 @@ function removeUser(uid) {
 // 激活当前点击的对象
 function activateItem(item) {
   $("#chat-left li").removeClass("chat-active");
-  $(item).removeClass("chat-unread");
-  $(item).addClass("chat-active");
-
+  item = $(item);
   var id = $(item).attr("id");
+  if (item.hasClass("chat-unread"))
+  {
+    item.removeClass("chat-unread");
+    var messageID = $(".chat-with-" + id + "[sender_id='" + id + "']").last().attr("message_id");
+    console.log(messageID);
+    readMessage(parseInt(messageID, 10));
+  }
+  item.addClass("chat-active");
+
   currentUid = parseInt(id, 10);
   // 更改发送 form 的接收用户 id
   $("#message_receiver_id").val(id);
@@ -243,6 +249,13 @@ function scrollDownDialogueList() {
   $("#chat-dialogue-list").scrollTop($("#chat-dialogue-list")[0].scrollHeight);
 }
 
+function readMessage(id) {
+  $.ajax({
+    url: "http://localhost:3000/chat/messages/"+id+"/read",
+    type: "GET"
+  });
+}
+
 function onChatMessage(message) {
   if (userExists(message.user_id)) {
     var header = document.createElement("div");
@@ -252,8 +265,15 @@ function onChatMessage(message) {
     $(content).append(message.content); // 后台已转义
     var messageDiv = document.createElement("div");
     $(messageDiv).attr("class", "chat-message chat-with-" + message.user_id);  
+    $(messageDiv).attr("sender_id", message.sender_id);  
+    $(messageDiv).attr("message_id", message.id);  
     $(messageDiv).append(header, content);
     $("#chat-dialogue-list").append(messageDiv);
+    if (currentUid === message.sender_id) {
+      readMessage(message.id);
+    } else if (message.read === false && message.sender_id === message.user_id) {
+        $("#chat-left li#" + message.user_id).addClass("chat-unread");
+    }
   } else {
     // 此时ajax获取历史消息
     addUser(message.user_id, message.sender_name, true);
