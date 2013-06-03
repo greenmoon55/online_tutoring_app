@@ -51,7 +51,7 @@ class ChatController < ApplicationController
   end
 
   def get_conversations
-    params[:users].map!(&:to_i)
+    params[:users].map!(&:to_i) if params[:users]
     messages = Message.get_conversations(params[:users], current_user)
     messages.map! do |m|
         {content: ERB::Util.html_escape(m.content), 

@@ -7,7 +7,7 @@ $(document).ready(function() {
       $("#chat-box").show();
       getUserList();
       chatOpened = true;
-      if (currentUid) activateUser(userList[userList.length - 1].id);
+      if (!currentUid) activateUser(userList[userList.length - 1].id);
     } else {
       $("#chat-box").toggle();
     }
@@ -104,7 +104,6 @@ function getUserList() {
 function getConversations(uids) {
   console.log("getconversations");
   console.log(JSON.stringify({"users": uids}));
-  if (!uids.length) return;
   $.ajax({
     url: "http://localhost:3000/chat/messages/",
     type: "GET",
