@@ -1,11 +1,23 @@
-FactoryGirl.define do
-
+FactoryGirl.define do 
 	factory :user do
-		name "fjkdrwerwr"
-		password "hdfjkshfk"
-		password_confirmation "hdfjkshfk"
-		email "hfjdskfh@qq.com"
-		role 1
+		name "aaa"
+		email "zxcv@qq.com"
+		password "123456789"
+		password_confirmation "123456789"
+		role "1"
+	end
+	factory :user2 ,:class =>:User do
+		name "123ds"
+		email "mnbv@qq.com"
+		password "987654321"
+		password_confirmation "987654321"
+		role "1"
+	end
+
+	factory :request do
+		content "teacher request"
+		association :receiver, :class => :User
+		association :sender, :class => :User
+		kind "1"
 	end
 end
-		
