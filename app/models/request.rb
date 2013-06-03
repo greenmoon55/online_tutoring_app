@@ -21,5 +21,5 @@ class Request < ActiveRecord::Base
   validates :receiver_id ,presence: true
   validates :sender_id ,presence: true
   validates :kind ,presence: true
-  
+  default_scope order: 'requests.created_at DESC'
 end

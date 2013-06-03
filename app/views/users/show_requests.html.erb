@@ -1,31 +1,35 @@
 <% provide(:title, @title)%>
 
-<% if @requests.count!= 0||@accept_requests.count != 0%>
-  <% if @requests%>
-    <% @requests.each do |request|%>
-    <%=request.sender_id %>
-    <li>
-    理由：<%= request.content%>
-
-    <%= render 'shared/agree_form', user: User.find(request.sender_id) %>
-    <%= render 'shared/refuse_form', user: User.find(request.sender_id)%>
-
-    </li>
-    <% end%>
-  <% end%>
-    
-  <% if @accept_requests%>
-    <% @accept_requests.each do |accept_request|%>
-      <li>
-      <%= User.find(accept_request.sender_id).name%>
-      <%= accept_request[:content]%>
-      <%= form_tag(:controller=>"requests", :action=> "delete_request",method:"delete") do%>
-      <%= hidden_field_tag :request_id, accept_request.id%>
-      <%= submit_tag "删除", class: "btn btn-primary"%>
-        <% end %>
-      </li>
-    <%end%>
-  <% end%>
-<% else %>
-          无任何请求或消息
-<% end%>
+<div class="row">
+  <div class="inline">
+	<% if @requests.count!= 0||@accept_requests.count != 0%>
+	  <% if @requests%>
+	    <% @requests.each do |request|%>
+	    <li>
+	    <%=link_to User.find(request.sender_id).name, user_path(User.find(request.sender_id))%>
+	    
+	    理由：<%= request.content%>
+	
+	    <%= render 'shared/agree_form', user: User.find(request.sender_id) %>
+	    <%= render 'shared/refuse_form', user: User.find(request.sender_id)%>
+	    </li>
+	    <% end%>
+	  <% end%>
+	    
+	  <% if @accept_requests%>
+	    <% @accept_requests.each do |accept_request|%>
+	      <li>
+	      <%= link_to User.find(accept_request.sender_id).name, user_path(User.find(accept_request.sender_id))%>
+	      <%= accept_request[:content]%>
+	      <%= form_tag(:controller=>"requests", :action=> "delete_request",method:"delete") do%>
+	      <%= hidden_field_tag :request_id, accept_request.id%>
+	      <%= submit_tag "删除", class: "btn btn-primary"%>
+	        <% end %>
+	      </li>
+	    <%end%>
+	  <% end%>
+	<% else %>
+	          无任何请求或消息
+	<% end%>
+  </div>
+</div>
