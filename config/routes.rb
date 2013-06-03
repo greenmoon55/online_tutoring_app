@@ -40,6 +40,7 @@ OnlineTutoringApp::Application.routes.draw do
   match '/chat/users', to: 'messages#get_unread_users', via: :get
   match '/chat/messages', to: 'chat#get_conversations'
   match '/chat/messages/:id', to: 'chat#get_conversation'
+  match '/chat/messages/:id/read', to: 'messages#read', via: :get
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -242,6 +242,9 @@ function scrollDownDialogueList() {
   $("#chat-dialogue-list").scrollTop($("#chat-dialogue-list")[0].scrollHeight);
 }
 
+function readMessage(id) {
+}
+
 function onChatMessage(message) {
   if (userExists(message.user_id)) {
     var header = document.createElement("div");
@@ -253,6 +256,9 @@ function onChatMessage(message) {
     $(messageDiv).attr("class", "chat-message chat-with-" + message.user_id);  
     $(messageDiv).append(header, content);
     $("#chat-dialogue-list").append(messageDiv);
+    if (currentUid === message.user_id) {
+      readMessage(message.id);
+    }
   } else {
     // 此时ajax获取历史消息
     addUser(message.user_id, message.sender_name, true);

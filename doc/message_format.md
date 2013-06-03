@@ -7,6 +7,7 @@
 ```json
 {
   "message": {
+    "id": 1,
     "content": "消息内容", 
     "created_at": "2013-05-29 15:55:18",
     "sender_name": "greenmoon55" 

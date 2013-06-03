@@ -33,6 +33,7 @@ class MessagesController < ApplicationController
           type: 1, 
           message: 
           {
+            id: message.id,
             content: ERB::Util.html_escape(message.content), 
             created_at: message.created_at.localtime.to_s(:db),
             user_id: message.sender_id,
@@ -51,5 +52,13 @@ class MessagesController < ApplicationController
   
   def get_unread_users
     render json: (Message.find_by_sql ["SELECT * FROM messages WHERE read = 'f' AND (sender_id = ? OR receiver_id = ?)", current_user.id, current_user.id])
+  end
+
+  def read
+    Message.where("sender_id = ? AND id <= ?", current_user.id, params[:id].to_i).each do |m|
+      m.read = true
+      m.save!
+    end
+    render nothing: true
   end
 end
