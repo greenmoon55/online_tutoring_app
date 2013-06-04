@@ -8,6 +8,8 @@ gem 'rails', '3.2.13'
 gem 'bcrypt-ruby'
 gem 'bootstrap-sass'
 
+gem 'scout_rails'
+
 # messaging
 gem 'private_pub'
 gem 'thin'

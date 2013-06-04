@@ -1,10 +1,9 @@
 require 'spec_helper'
 
 describe User do 
-<<<<<<< HEAD
-=======
+
   
-  #对user属性的测试
+  #此部分叶琳琳写的
   before { @user = User.new(name: "ExampleUser", email: "user@example1.com", role: 1,
            password: "forever", password_confirmation: "forever" ) }
 
@@ -130,51 +129,47 @@ describe User do
      it { should == User.find_by_email_and_role(@user.email,1)}
    end
   
-end
+
 
 
   
   
->>>>>>> 有关联的两个模型测不出来，急死了
+#此部分吕梦琪写的
 
 	before do
-		@user = User.new(name: "Demo User", email:"user@demo.com",
-			password:"zxcvbnm", password_confirmation:"zxcvbnm")
-		@user2 = User.new(name: "Demo User2", email:"user2@demo.com",
-			password:"mnbvcxz", password_confirmation:"mnbvcxz")
-	end
-	
-	# subject{@user}
+	  @user2 = User.new(name: "Demo User2", email:"user2@demo.com",
+      password:"mnbvcxz", password_confirmation:"mnbvcxz")
+  end
 
-	it{@user.should respond_to(:authenticate)}
-	it{@user.should respond_to(:requests)}
+  it{@user.should respond_to(:authenticate)}
+  it{@user.should respond_to(:requests)}
 
-	it{@user2.should respond_to(:authenticate)}
-	it{@user2.should respond_to(:requests)}
+  it{@user2.should respond_to(:authenticate)}
+  it{@user2.should respond_to(:requests)}
 
-	describe "request associations" do
+  describe "request associations" do
 
-		before{@user.save}
-		before{@user2.save}
-		let!(:older_request)do
-			FactoryGirl.create(:request, receiver:@user, sender:@user2, created_at: 1.day.ago)
-		end
-		let!(:newer_request)do
-			FactoryGirl.create(:request, receiver:@user, sender:@user2, created_at: 1.hour.ago)
-		end
+    before{@user.save}
+    before{@user2.save}
+    let!(:older_request)do
+      FactoryGirl.create(:request, receiver:@user, sender:@user2, created_at: 1.day.ago)
+    end
+    let!(:newer_request)do
+      FactoryGirl.create(:request, receiver:@user, sender:@user2, created_at: 1.hour.ago)
+    end
 
-		it "should have the right requests in the right order" do
-			@user.requests.should == [older_request, newer_request]
-		end
-	end
+    it "should have the right requests in the right order" do
+      @user.requests.should == [older_request, newer_request]
+    end
+  
 
-		it "should destroy associated requests" do
-			requests = @user.requests.dup
-			@user.destroy
-			requests.should_not be_empty
-			requests.each do |request|
-				Request.find_by_id(request.id).should be_nil
-			end
-		end
-
+    it "should destroy associated requests" do
+      requests = @user.requests.dup
+      @user.destroy
+      requests.should_not be_empty
+      requests.each do |request|
+        Request.find_by_id(request.id).should be_nil
+      end
+    end
+  end
 end
