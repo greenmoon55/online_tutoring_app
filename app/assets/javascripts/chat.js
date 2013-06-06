@@ -1,15 +1,27 @@
 var chatOpened = false; // 聊天窗口是否被打开过
 var userList = []; // 获取到的用户列表 json 包括 id 和 name
 var currentUid; // 当前正在和谁聊天
+jQuery.fn.visible = function() {
+    return this.css('visibility', 'visible');
+};
+
+jQuery.fn.invisible = function() {
+    return this.css('visibility', 'hidden');
+};
+
+jQuery.fn.visibilityToggle = function() {
+    return this.css('visibility', function(i, visibility) {
+        return (visibility == 'visible') ? 'hidden' : 'visible';
+    });
+};
 $(document).ready(function() {
   $("#chat-popup-button").click(function() {
     if (!chatOpened) {
       $("#chat-box").show();
       getUserList();
       chatOpened = true;
-      if (!currentUid) activateUser(userList[userList.length - 1].id);
     } else {
-      $("#chat-box").toggle();
+      $("#chat-box").visibilityToggle();
     }
     if (currentUid) {
       $("#chat-sendbutton").prop("disabled", false);
@@ -19,7 +31,7 @@ $(document).ready(function() {
   });
 
   $("#chat-close").click(function() {
-    $("#chat-box").hide();
+    $("#chat-box").invisible();
     return false;
   });
 
@@ -98,6 +110,7 @@ function getUserList() {
     var uids = getUidsFromUserList();
     getConversations(uids);
     getOnlineStatus(uids);
+    if (!currentUid) activateUser(userList[userList.length - 1].id);
   }
 }
 
