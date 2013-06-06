@@ -20,6 +20,11 @@ FactoryGirl.define do
 		association :sender, :class => :User
 		kind "1"
 	end
-end
 
-		
+	factory :request2 ,:class =>:Request do
+		content "teacher request"
+		association :receiver, :factory => :user
+		association :sender, :factory => :user2
+		kind "1"
+	end
+end
