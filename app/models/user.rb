@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
 
   before_save { |user| user.email = email.downcase }
 
-  validates :name, presence: true, length: { maximum: 20 }
+  validates :name, presence: true, length: { maximum: 20 }, uniqueness: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, 
                     format: { with: VALID_EMAIL_REGEX },
@@ -203,20 +203,20 @@ logger.info other_user
 
 
   def delete_room_relationship!(other_user,current_student)
-      if current_student
-        other_user.rooms.each do |room|
-          if room.students.include?(self)
-            room.room_student_relationships.find_by_student_id(self[:id]).destroy
-          end 
-        end
-      
-      else
-        self.rooms.each do |room|
-          if room.students.include?(other_user)
-            room.room_student_relationships.find_by_student_id(other_user[:id]).destroy
-          end
+    if current_student
+      other_user.rooms.each do |room|
+        if room.students.include?(self)
+          room.room_student_relationships.find_by_student_id(self[:id]).destroy
+        end 
+      end
+    
+    else
+      self.rooms.each do |room|
+        if room.students.include?(other_user)
+          room.room_student_relationships.find_by_student_id(other_user[:id]).destroy
         end
       end
+    end
     
   end
 end
