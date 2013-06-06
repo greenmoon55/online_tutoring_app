@@ -2,17 +2,17 @@ var chatOpened = false; // 聊天窗口是否被打开过
 var userList = []; // 获取到的用户列表 json 包括 id 和 name
 var currentUid; // 当前正在和谁聊天
 jQuery.fn.visible = function() {
-    return this.css('visibility', 'visible');
+  return this.css('visibility', 'visible');
 };
 
 jQuery.fn.invisible = function() {
-    return this.css('visibility', 'hidden');
+  return this.css('visibility', 'hidden');
 };
 
 jQuery.fn.visibilityToggle = function() {
-    return this.css('visibility', function(i, visibility) {
-        return (visibility == 'visible') ? 'hidden' : 'visible';
-    });
+  return this.css('visibility', function(i, visibility) {
+      return (visibility == 'visible') ? 'hidden' : 'visible';
+  });
 };
 $(document).ready(function() {
   $("#chat-popup-button").click(function() {
@@ -58,8 +58,9 @@ $(document).ready(function() {
     if (!chatOpened) {
       getUserList();
       chatOpened = true;
+      $("#chat-box").show();
     }
-    $("#chat-box").show();
+    $("#chat-box").visible();
     if (!userExists(uid)) addUser(uid, username, isOnline);
     activateUser(uid);
   });
