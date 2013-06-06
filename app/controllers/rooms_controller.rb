@@ -125,4 +125,10 @@ class RoomsController < ApplicationController
       redirect_to current_user
     end
   end
+
+  def new_line
+    PrivatePub.publish_to("/rooms/#{params[:id]}",
+        points: params[:points].values)
+    render nothing: true
+  end
 end

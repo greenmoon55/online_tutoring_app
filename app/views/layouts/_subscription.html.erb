@@ -41,3 +41,11 @@
   }
   refresh();
 </script>
+<% if @room %>
+  <%= subscribe_to "/rooms/#{@room.id}" %>
+  <script>
+    PrivatePub.subscribe("/rooms/<%= @room.id %>", function(data, channel) {
+      draw(data);
+    });
+  </script>
+<% end %>
