@@ -1,9 +1,18 @@
-function onGroupChatMessage(message, roomID) {
-  console.log("test");
-  if (roomID == $("#message_room_id").val()) {
-    $("#chatroom-dialogue-list").append(message.content);
-  }
-}
+// http://stackoverflow.com/questions/2142535/how-to-clear-the-canvas-for-redrawing
+CanvasRenderingContext2D.prototype.clear = 
+  CanvasRenderingContext2D.prototype.clear || function (preserveTransform) {
+    if (preserveTransform) {
+      this.save();
+      this.setTransform(1, 0, 0, 1, 0, 0);
+    }
+
+    this.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+    if (preserveTransform) {
+      this.restore();
+    }           
+};
+
 var context;
 
 $(document).ready(function() {
@@ -76,3 +85,14 @@ function draw(data) {
   }
 }
 
+function clearAndUpdate() {
+  context.clear();  
+  // update here 
+}
+
+function onGroupChatMessage(message, roomID) {
+  console.log("test");
+  if (roomID == $("#message_room_id").val()) {
+    $("#chatroom-dialogue-list").append(message.content);
+  }
+}
