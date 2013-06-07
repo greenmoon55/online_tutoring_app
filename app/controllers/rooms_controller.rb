@@ -1,8 +1,10 @@
 # -*- encoding : utf-8 -*-
 class RoomsController < ApplicationController
   before_filter :require_signin
-  before_filter :members_in_room,only:[:show]
-  before_filter :correct_user,only:[:new, :index, :create,:update,:edit,:destroy]
+  before_filter :members_in_room, only:[:show]
+  before_filter :correct_user, 
+                only: [:new, :index, :create, :update, :edit, :destroy]
+  protect_from_forgery except: :new_line
 #  before_filter :require_current_teacher,only:[:new, :index, :create,:update,:edit,:destroy]
 
   def new
@@ -126,6 +128,7 @@ class RoomsController < ApplicationController
     end
   end
 
+  # 画了一条线（用于白板）
   def new_line
     PrivatePub.publish_to("/rooms/#{params[:id]}",
         points: params[:points].values)

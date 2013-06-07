@@ -47,7 +47,7 @@ $(document).ready(function() {
     drawingNow = false;
     $.ajax({
       url: "http://localhost:3000/rooms/5/new_line",
-      type: "GET",
+      type: "POST",
       dataType: "json",
       data: {"points": points}
     }).success(function(data) {
