@@ -37,6 +37,7 @@ $(document).ready(function() {
       context.lineWidth = lineWidth;
       context.beginPath();
     }
+    return false; // 禁止用户拖动 
   });
 
   canvas.mousemove(function(e) {
