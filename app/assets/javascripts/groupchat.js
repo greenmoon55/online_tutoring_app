@@ -87,7 +87,11 @@ function draw(data) {
 
 function clearAndUpdate() {
   context.clear();  
-  // update here 
+  $.ajax({
+    url: "http://localhost:3000/rooms/5/clear",
+    type: "GET",
+  }).success(function(data) {
+  });
 }
 
 function onGroupChatMessage(message, roomID) {

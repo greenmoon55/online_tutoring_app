@@ -4,6 +4,7 @@ class RoomsController < ApplicationController
   before_filter :members_in_room, only:[:show]
   before_filter :correct_user, 
                 only: [:new, :index, :create, :update, :edit, :destroy]
+  # post 时无需authentication token
   protect_from_forgery except: :new_line
 #  before_filter :require_current_teacher,only:[:new, :index, :create,:update,:edit,:destroy]
 
@@ -132,6 +133,12 @@ class RoomsController < ApplicationController
   def new_line
     PrivatePub.publish_to("/rooms/#{params[:id]}",
         points: params[:points].values)
+    render nothing: true
+  end
+
+  # 清除白板上画的内容
+  def clear
+    PrivatePub.publish_to("/rooms/#{params[:id]}", type: "clear")
     render nothing: true
   end
 end

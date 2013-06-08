@@ -45,7 +45,8 @@
   <%= subscribe_to "/rooms/#{@room.id}" %>
   <script>
     PrivatePub.subscribe("/rooms/<%= @room.id %>", function(data, channel) {
-      draw(data);
+      if (data.type === "clear") context.clear();
+      else draw(data);
     });
   </script>
 <% end %>
