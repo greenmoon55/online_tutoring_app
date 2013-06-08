@@ -14,15 +14,12 @@ CanvasRenderingContext2D.prototype.clear =
 
 var context;
 var color = "000000";
+var lineWidth = 1;
 
 $(document).ready(function() {
   var drawing = document.getElementById("chatroom-canvas");
   if (drawing && drawing.getContext) {
     context = drawing.getContext("2d");
-    context.beginPath();
-    context.moveTo(100, 100);
-    context.lineTo(35, 100);
-    context.stroke();
   } else {
     // not supported
   }
@@ -37,6 +34,7 @@ $(document).ready(function() {
       points.push([e.offsetX, e.offsetY]);
       context.fillStyle = color;
       context.strokeStyle = color;
+      context.lineWidth = lineWidth;
       context.beginPath();
     }
   });
@@ -66,7 +64,8 @@ $(document).ready(function() {
       dataType: "json",
       data: {
         "points": points,
-        "color": color
+        "color": color,
+        "lineWidth": lineWidth
       }
     }).success(function(data) {
     });
@@ -75,11 +74,10 @@ $(document).ready(function() {
 
 
 function draw(data) {
-  console.log(data.color);
   context.fillStyle = data.color;
   context.strokeStyle = data.color; 
+  context.lineWidth = data.lineWidth;
   var points = Array.prototype.slice.call(data.points);
-  console.log(points);
   context.beginPath();
   context.moveTo(points[0][0], points[0][1]);
   console.log(points.length);

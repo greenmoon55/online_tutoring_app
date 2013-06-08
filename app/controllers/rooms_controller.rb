@@ -133,7 +133,8 @@ class RoomsController < ApplicationController
   def new_line
     PrivatePub.publish_to("/rooms/#{params[:id]}",
                           points: params[:points].values,
-                          color: params[:color])
+                          color: params[:color],
+                          lineWidth: params[:lineWidth])
     render nothing: true
   end
 
