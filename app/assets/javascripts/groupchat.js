@@ -9,11 +9,11 @@ CanvasRenderingContext2D.prototype.clear =
     this.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     if (preserveTransform) {
-      this.restore();
-    }           
-};
+      this.restore(); }           
+  };
 
 var context;
+var color = "000000";
 
 $(document).ready(function() {
   var drawing = document.getElementById("chatroom-canvas");
@@ -31,16 +31,17 @@ $(document).ready(function() {
   var points = [];
   var canvas = $("#chatroom-canvas");
   canvas.mousedown(function(e) {
-    console.log("mousedown");
     if (!drawingNow) {
       drawingNow = true;
       points = [];
       points.push([e.offsetX, e.offsetY]);
+      context.fillStyle = color;
+      context.strokeStyle = color;
       context.beginPath();
     }
   });
 
-  $("#chatroom-canvas").mousemove(function(e) {
+  canvas.mousemove(function(e) {
     if (drawingNow) {
       points.push([e.offsetX, e.offsetY]);
       context.lineTo(e.offsetX, e.offsetY);
@@ -48,31 +49,35 @@ $(document).ready(function() {
     }
   });
 
-  $("#chatroom-canvas").mouseup(function() {
+  canvas.mouseup(function() {
     finishDrawing();
   });
 
+  canvas.mouseleave(function() {
+    if (drawingNow) {
+      finishDrawing();
+    }
+  });
   function finishDrawing() {
     drawingNow = false;
     $.ajax({
       url: "http://localhost:3000/rooms/5/new_line",
       type: "POST",
       dataType: "json",
-      data: {"points": points}
+      data: {
+        "points": points,
+        "color": color
+      }
     }).success(function(data) {
     });
   }
-
-  $("#chatroom-canvas").mouseleave(function() {
-    if (drawingNow) {
-      finishDrawing();
-    }
-  });
-
 });
 
+
 function draw(data) {
-  console.log(data.points);
+  console.log(data.color);
+  context.fillStyle = data.color;
+  context.strokeStyle = data.color; 
   var points = Array.prototype.slice.call(data.points);
   console.log(points);
   context.beginPath();

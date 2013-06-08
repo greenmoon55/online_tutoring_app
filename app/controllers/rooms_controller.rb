@@ -132,7 +132,8 @@ class RoomsController < ApplicationController
   # 画了一条线（用于白板）
   def new_line
     PrivatePub.publish_to("/rooms/#{params[:id]}",
-        points: params[:points].values)
+                          points: params[:points].values,
+                          color: params[:color])
     render nothing: true
   end
 
