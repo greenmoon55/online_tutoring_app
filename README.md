@@ -8,6 +8,11 @@ online_tutoring_app
 
 所有 HTML/CSS/JavaScript、Ruby 代码均采用两个空格缩进，不用tab...
 
+下面两个供参考
+
+* [Ruby 编程风格](http://ruby-china.org/wiki/coding-style)
+* [Code Conventions for the JavaScript Programming Language](Code Conventions for the JavaScript Programming Language)
+
 配置说明
 -------
 
