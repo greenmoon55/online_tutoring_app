@@ -29,14 +29,10 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-    logger.info current_role
-    logger.info "in edit"
     if current_teacher?
-      logger.info "here"
       render "edit_teacher"
       return
     end
-    logger.info current_role
   end
 
   def update
@@ -76,12 +72,13 @@ class UsersController < ApplicationController
   end
   
   def friends
-    @title = "所有朋友"
-    @user = User.find(params[:id])
+    user = User.find(params[:id])
     if current_student?
-      @users = @user.teachers
+      @title = "我的导师"
+      @users = user.teachers
     else
-      @users = @user.students
+      @title = "我的学生"
+      @users = user.students
     end
     render 'show_friends'
   end
