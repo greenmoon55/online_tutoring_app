@@ -16,8 +16,11 @@ var context;
 var color = "000000";
 var lineWidth = 1;
 var roomID;
+var currentTeacher;
 
 $(document).ready(function() {
+  var temp = $("#login ul li:first a").html().match(/\(.+\)/);
+  if (temp) currentTeacher = temp[0] === "(教师)";
   var path = window.location.pathname;
   var re = /\d+/g;
   var matches = path.match(re);
@@ -35,7 +38,7 @@ $(document).ready(function() {
   var points = [];
   var canvas = $("#chatroom-canvas");
   canvas.mousedown(function(e) {
-    if (!drawingNow) {
+    if (!drawingNow && currentTeacher) {
       drawingNow = true;
       points = [];
       points.push([e.offsetX, e.offsetY]);
@@ -90,7 +93,6 @@ function draw(data) {
   context.moveTo(points[0][0], points[0][1]);
   console.log(points.length);
   for (var i = 1; i < points.length; i++) {
-    console.log(i);
     context.lineTo(points[i][0], points[i][1]);
     context.stroke();
   }
