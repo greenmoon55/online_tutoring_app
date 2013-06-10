@@ -9,20 +9,27 @@ CanvasRenderingContext2D.prototype.clear =
     this.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     if (preserveTransform) {
-      this.restore();
-    }           
-};
+      this.restore(); }           
+  };
 
 var context;
+var color = "000000";
+var lineWidth = 1;
+var roomID;
+var currentTeacher;
 
 $(document).ready(function() {
+  var temp = $("#login ul li:first a").html().match(/\(.+\)/);
+  if (temp) currentTeacher = temp[0] === "(教师)";
+  var path = window.location.pathname;
+  var re = /\d+/g;
+  var matches = path.match(re);
+  if (matches && matches.length >= 2) {
+    var roomID = parseInt(matches[matches.length - 1], 10);
+  }
   var drawing = document.getElementById("chatroom-canvas");
   if (drawing && drawing.getContext) {
     context = drawing.getContext("2d");
-    context.beginPath();
-    context.moveTo(100, 100);
-    context.lineTo(35, 100);
-    context.stroke();
   } else {
     // not supported
   }
@@ -31,16 +38,19 @@ $(document).ready(function() {
   var points = [];
   var canvas = $("#chatroom-canvas");
   canvas.mousedown(function(e) {
-    console.log("mousedown");
-    if (!drawingNow) {
+    if (!drawingNow && currentTeacher) {
       drawingNow = true;
       points = [];
       points.push([e.offsetX, e.offsetY]);
+      context.fillStyle = color;
+      context.strokeStyle = color;
+      context.lineWidth = lineWidth;
       context.beginPath();
     }
+    return false; // 禁止用户拖动 
   });
 
-  $("#chatroom-canvas").mousemove(function(e) {
+  canvas.mousemove(function(e) {
     if (drawingNow) {
       points.push([e.offsetX, e.offsetY]);
       context.lineTo(e.offsetX, e.offsetY);
@@ -48,38 +58,41 @@ $(document).ready(function() {
     }
   });
 
-  $("#chatroom-canvas").mouseup(function() {
+  canvas.mouseup(function() {
     finishDrawing();
   });
 
-  function finishDrawing() {
-    drawingNow = false;
-    $.ajax({
-      url: "http://localhost:3000/rooms/5/new_line",
-      type: "POST",
-      dataType: "json",
-      data: {"points": points}
-    }).success(function(data) {
-    });
-  }
-
-  $("#chatroom-canvas").mouseleave(function() {
+  canvas.mouseleave(function() {
     if (drawingNow) {
       finishDrawing();
     }
   });
-
+  function finishDrawing() {
+    drawingNow = false;
+    $.ajax({
+      url: "http://localhost:3000/rooms/" + roomID + "/new_line",
+      type: "POST",
+      dataType: "json",
+      data: {
+        "points": points,
+        "color": color,
+        "lineWidth": lineWidth
+      }
+    }).success(function(data) {
+    });
+  }
 });
 
+
 function draw(data) {
-  console.log(data.points);
+  context.fillStyle = data.color;
+  context.strokeStyle = data.color; 
+  context.lineWidth = data.lineWidth;
   var points = Array.prototype.slice.call(data.points);
-  console.log(points);
   context.beginPath();
   context.moveTo(points[0][0], points[0][1]);
   console.log(points.length);
   for (var i = 1; i < points.length; i++) {
-    console.log(i);
     context.lineTo(points[i][0], points[i][1]);
     context.stroke();
   }
@@ -87,7 +100,11 @@ function draw(data) {
 
 function clearAndUpdate() {
   context.clear();  
-  // update here 
+  $.ajax({
+    url: "http://localhost:3000/rooms/" + roomID + "/clear",
+    type: "GET",
+  }).success(function(data) {
+  });
 }
 
 function onGroupChatMessage(message, roomID) {

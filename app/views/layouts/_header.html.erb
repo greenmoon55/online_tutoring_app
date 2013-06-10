@@ -6,17 +6,13 @@
           <li>
             <%= link_to gravatar_for(current_user, size: 20) + "#{current_user.name}(#{current_role_to_s})", user_path(current_user) %>
           </li>
-          <li><%= link_to t("user.edit"), edit_user_path(current_user) %> </li>
-          <li><%= link_to t("common.logout"), signout_path, method: "delete" %></li>
-          <li><%= link_to t("user.friends"), friends_user_path(current_user) %> </li>
-          <li><%= link_to t("user.requests"), requests_user_path(current_user) %> </li>
-          <li><%= link_to t("user.blocked_users"), blocked_users_user_path(current_user) %> </li>
-          <li><%= link_to "用户需求", advertisements_path %> </li>
-          <% if current_teacher?%>
-            <li><%= link_to "聊天室", user_rooms_path(current_user) %> </li>
-          <% else %>
-            <li><%= link_to "聊天室", my_rooms_user_path(current_user)%></li>
-          <% end%>
+          <li><button id="chat-popup-button">聊天</button></li>
+          <% if current_teacher? %>
+            <li><%= link_to "教学", friends_user_path(current_user) %> </li>
+          <% elsif current_student? %>
+            <li><%= link_to "学习", friends_user_path(current_user) %> </li>
+          <% end %>
+          <li><%= link_to "通知", requests_user_path(current_user) %> </li>
         <% else %>
           <li><%= link_to t("common.login"), signup_path, id: "link", class: "signin" %></li>
           <li><%= link_to t("common.register"), signup_path %></li>
@@ -26,10 +22,14 @@
     <div id="navi">
       <ul>
         <li><%= link_to "首页", root_path %> </li>
-        <li><%= link_to "搜索", search_path %> </li> <!-- 两种搜索放在一起 -->
+        <li><%= link_to "搜索", search_path %> </li>
         <li><%= link_to "公告", annoncements_path%></li>
-        <li><a href="#">帮助</a></li>
-        <li><a href="#">联系客服</a></li>
+        <li><%= link_to "需求", advertisements_path %> </li>
+        <% if signed_in? %>
+          <li>
+            <%= link_to t("common.logout"), signout_path, method: "delete" %>
+          </li>
+        <% end %>
       </ul>
     </div>
     <div id="clear"/>
@@ -44,13 +44,14 @@
   <li><%= password_field_tag :password , params[:password] %></li>
   <fieldset>
     <div class="role-select">
-	<ul>
-      <li><%= radio_button_tag :role, "teacher" %></li>
-      <li><%= label_tag :role_teacher, "教师" %></li>
-      <li><%= radio_button_tag :role, "student", true %></li>
-      <li><%= label_tag :role_student, "学生" %></li>
+      <ul>
+        <li><%= radio_button_tag :role, "teacher" %></li>
+        <li><%= label_tag :role_teacher, "教师" %></li>
+        <li><%= radio_button_tag :role, "student", true %></li>
+        <li><%= label_tag :role_student, "学生" %></li>
+      </ul>
     </div>
   </fieldset>
    <%= submit_tag t("common.login"), class: "btn btn-primary btn-info" %>
 <% end %>
-</ul> <!-- 这个要放到上面？ -->
+</ul>

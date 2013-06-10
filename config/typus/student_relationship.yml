@@ -1,0 +1,8 @@
+# Use the README file as a reference to customize settings.
+
+StudentRelationship:
+  fields:
+    default: user_id, subject_id
+    form: user_id, subject_id
+  relationships: 
+  application: Application

@@ -51,11 +51,12 @@ class User < ActiveRecord::Base
 
   has_many :blocked_relationships,dependent: :destroy
   has_many :blocked_users, through: :blocked_relationships, source: :blocked_user
-  has_many :advertisements
+  has_many :advertisements,dependent: :destroy
   accepts_nested_attributes_for :student_subjects
 
   before_save { |user| user.email = email.downcase }
 
+  validates :role, presence: true
   validates :name, presence: true, length: { maximum: 20 }, uniqueness: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, 
@@ -111,7 +112,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def set_to_be_friends!(other_user,current_student)
+  def set_to_be_friends!(other_user, current_student)
     if current_student
       self.relationships.create!(teacher_id: other_user.id)
     else
@@ -119,7 +120,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def set_not_to_be_friends!(other_user,current_student)
+  def set_not_to_be_friends!(other_user, current_student)
     if current_student
       self.relationships.find_by_teacher_id(other_user.id).destroy
     else
@@ -127,89 +128,92 @@ class User < ActiveRecord::Base
     end
   end
 
-# create
-  def have_send_add_request?(other_user,current_student)
+  def have_send_add_request?(other_user, current_student)
     if current_student
-      other_user.requests.find_by_sender_id_and_kind(self.id,1)
+      other_user.requests.find_by_sender_id_and_kind(self.id, 1)
     else
-      other_user.requests.find_by_sender_id_and_kind(self.id,2)
+      other_user.requests.find_by_sender_id_and_kind(self.id, 2)
     end
   end
-  def update_send_add_request!(other_user,content,current_student)
+  
+  def update_send_add_request!(other_user, content, current_student)
     if current_student
-      other_user.requests.find_by_sender_id_and_kind(self.id,1).update_attributes(read: false,content: content)
+      other_user.requests.find_by_sender_id_and_kind(self.id, 1).update_attributes(read: false, content: content)
     else
-      other_user.requests.find_by_sender_id_and_kind(self.id,2).update_attributes(read: false,content: content)
-    end
-  end
-#create
-  def send_add_request!(other_user,content,current_student)
-    if current_student
-      other_user.requests.create!(sender_id: self.id, kind: 1, :read => false , content: content)
-    else
-      other_user.requests.create!(sender_id: self.id, kind: 2, :read => false, content: content)
+      other_user.requests.find_by_sender_id_and_kind(self.id, 2).update_attributes(read: false, content: content)
     end
   end
 
-#create  
-  def have_add_request?(other_user,current_student)
-logger.info other_user
+  def send_add_request!(other_user, content, current_student)
     if current_student
-      self.requests.find_by_sender_id_and_kind(other_user.id,2)
+      other_user.requests.create!(sender_id: self.id, kind: 1, read: false, content: content)
     else
-      self.requests.find_by_sender_id_and_kind(other_user.id,1)
+      other_user.requests.create!(sender_id: self.id, kind: 2, read: false, content: content)
     end
   end
 
-
-  def send_accept_request!(other_user,current_student)
+  def have_add_request?(other_user, current_student)
     if current_student
-      other_user.requests.create!(sender_id: self.id, kind:3,content: "同意了你的请求")
+      self.requests.find_by_sender_id_and_kind(other_user.id, 2)
     else
-      other_user.requests.create!(sender_id: self.id, kind:4,content: "同意了你的请求")
-    end
-  end
-  def send_refuse_request!(other_user,current_student)
-    if current_student
-      other_user.requests.create!(sender_id: self.id, kind:3,content: "拒绝了你的请求")
-    else
-      other_user.requests.create!(sender_id: self.id, kind:4,content: "拒绝了你的请求")
+      self.requests.find_by_sender_id_and_kind(other_user.id, 1)
     end
   end
 
-  def delete_add_request!(other_user,current_student)
+  def send_accept_request!(other_user, current_student)
     if current_student
-      self.requests.find_by_sender_id_and_kind(other_user.id,2).destroy
+      other_user.create_normal_request！(self.id, 3, "同意了你的请求")
     else
-      self.requests.find_by_sender_id_and_kind(other_user.id,1).destroy
+      other_user.create_normal_request！(self.id, 4, "同意了你的请求")
     end
   end
+  def send_refuse_request!(other_user, current_student)
+    if current_student
+      other_user.create_normal_request！(self.id, 3, "拒绝了你的请求")
+    else
+      other_user.create_normal_request！(self.id, 4, "拒绝了你的请求")
+    end
+  end
+
+  def delete_add_request!(other_user, current_student)
+    if current_student
+      self.requests.find_by_sender_id_and_kind(other_user.id, 2).destroy
+    else
+      self.requests.find_by_sender_id_and_kind(other_user.id, 1).destroy
+    end
+  end
+  
   def delete_relationship!(other_user)
     if self.is_student? && other_user.is_teacher? && self.teachers.include?(other_user)
-      self.set_not_to_be_friends!(other_user,true)
+      self.set_not_to_be_friends!(other_user, true)
     end
     if self.is_teacher? && other_user.is_student? && self.students.include?(other_user)
-      self.set_not_to_be_friends!(other_user,false) 
+      self.set_not_to_be_friends!(other_user, false) 
     end
   end
   def delete_request!(other_user)
-    Request.find_all_by_receiver_id_and_sender_id(other_user.id,self.id).collect do |x| x.destroy end
-    Request.find_all_by_receiver_id_and_sender_id(self.id,other_user.id).collect do |x| x.destroy end
+    Request.find_all_by_receiver_id_and_sender_id(other_user.id, self.id).collect {|x| x.destroy}
+    Request.find_all_by_receiver_id_and_sender_id(self.id, other_user.id).collect {|x| x.destroy}
   end
+
   def delete_relationship_and_request!(other_user)
     delete_relationship!(other_user)
     delete_request!(other_user)
   end
 
+  def create_normal_request!(sender_id, kind, content)
+    if !self.blocked_users.include?(User.find(sender_id))
+      self.requests.create!(sender_id: sender_id, kind: kind, content: content)
+    end
+  end
 
-  def delete_room_relationship!(other_user,current_student)
+  def delete_room_relationship!(other_user, current_student)
     if current_student
       other_user.rooms.each do |room|
         if room.students.include?(self)
           room.room_student_relationships.find_by_student_id(self[:id]).destroy
         end 
       end
-    
     else
       self.rooms.each do |room|
         if room.students.include?(other_user)
@@ -217,6 +221,5 @@ logger.info other_user
         end
       end
     end
-    
   end
 end

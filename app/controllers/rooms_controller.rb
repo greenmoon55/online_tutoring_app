@@ -1,9 +1,10 @@
 # -*- encoding : utf-8 -*-
 class RoomsController < ApplicationController
   before_filter :require_signin
-  before_filter :members_in_room, only:[:show]
-  before_filter :correct_user, 
-                only: [:new, :index, :create, :update, :edit, :destroy]
+  before_filter :members_in_room, only: [:show]
+  before_filter :correct_user, only: [:new, :index, :create, :update, :edit, :destroy]
+  before_filter :room_owner, only: [:new_line, :clear]
+  # post 时无需authentication token
   protect_from_forgery except: :new_line
 #  before_filter :require_current_teacher,only:[:new, :index, :create,:update,:edit,:destroy]
 
@@ -33,27 +34,29 @@ class RoomsController < ApplicationController
         @student_selected.push(Integer(student_id))
       end
     end
-    @room.room_student_relationships.each do |relationship|
+    @room.room_student_relationships.each do |relationship|            
       if @student_selected.include?relationship[:student_id]
         # do nothing
       else
-         if @user.students.include?(User.find(relationship[:student_id]))
-            User.find(relationship[:student_id]).requests.create!(kind:4,sender_id:@user[:id], content: "将你移出了 "+ @room[:outline] + " 聊天室中")
+         if @user.students.include?(User.find(relationship[:student_id]))  
+           #提醒被老师移出聊天室的学生
+           User.find(relationship[:student_id]).create_normal_request!(@user[:id], 4, "将你移出了 "+ @room[:outline] + " 聊天室")
          end
          @room.room_student_relationships.find(relationship[:id]).destroy 
       end
     end
-    @student_selected.each do |student_id|
+    @student_selected.each do |student_id|                            
       if @room.room_student_relationships.find_by_student_id(student_id)
         # do nothing
       else
         if @user.students.include?(User.find(student_id))
-          @room.room_student_relationships.create!(student_id: student_id)
-          User.find(student_id).requests.create!(kind:4,sender_id:@user[:id],content: "将你加入到了 " + @room[:outline] + " 聊天室中")
+          # 提醒被老师 加入聊天室的学生
+          @room.room_student_relationships.create!(student_id: student_id)  
+          User.find(student_id).create_normal_request!(@user[:id], 4, "将你加入到了 " + @room[:outline] + " 聊天室中")
         end
       end
     end
-    redirect_to user_room_path(current_user,@room[:id])
+    redirect_to user_room_path(current_user, @room[:id])
   end
 
   def create
@@ -64,13 +67,14 @@ class RoomsController < ApplicationController
         @student_selected.push(Integer(single_student_id))
         student = User.find(single_student_id)
         if @user.students.include?(student)
-          @room.room_student_relationships.create!(student_id: single_student_id)
-          student.requests.create!(sender_id:@user[:id],kind:4,content: "将你加入到了 " + @room[:outline] + " 聊天室中")
+          # 提醒被老师 加入聊天室的学生
+          @room.room_student_relationships.create!(student_id: single_student_id) 
+          student.create_normal_request!(@user[:id], 4, "将你加入到了 #{@room[:outline]} 聊天室中")
         end
       end
     end
     flash[:success] = "创建成功"
-    redirect_to user_room_path(current_user,@room)
+    redirect_to user_room_path(current_user, @room)
   end
 
   def edit
@@ -88,42 +92,49 @@ class RoomsController < ApplicationController
     @room = Room.find(params[:id])
     @room.students.each do |student|
       if @user.students.include?(student)
-        student.requests.create!(sender_id:current_user[:id],content: "解散了 "+@room[:outline]+" 聊天室", kind:4)
+        student.create_normal_request!(current_user[:id], 4, "解散了 "+@room[:outline]+" 聊天室")
       end
     end
     @user.rooms.find(params[:id]).destroy
     redirect_to user_rooms_path(@user)
   end
   
-  def delete_by_student
+  # 学生自主退出聊天室
+  def delete_by_student 
     @room = Room.find(params[:id])
-    if(current_student? && current_user.my_rooms.include?(@room))
+
+    if current_student? && current_user.my_rooms.include?(@room)
       current_user.room_student_relationships.find_by_room_id(params[:id]).destroy
       flash[:success] = "成功退出聊天室"
     end
     redirect_to my_rooms_user_path(current_user)
   end
   
-    def correct_user
-      @user = User.find(params[:user_id])
-      unless current_user?(@user)
-        redirect_to root_path, notice: "非法操作"
-      end
+  def correct_user
+    @user = User.find(params[:user_id])
+    unless current_user?(@user)
+      redirect_to root_path, notice: "非法操作"
     end
-    def get_student
-      @students = current_user.students
-      @students.collect do |student|
-        student[:checked] = @student_selected.include?(student[:id])
-      end
+  end
+  
+  #获取当前用户的学生，并且增加一属性 checked 表示 是否被加入到聊天室
+  def get_student
+    @students = current_user.students
+    @students.collect do |student|
+      student[:checked] = @student_selected.include?(student[:id])
     end
+  end
+  
+  #判断用户是否属于该聊天室
   def members_in_room
     user_id = params[:user_id]
     room_id = params[:id]
     if current_user?(User.find(user_id)) && current_teacher? && current_user.rooms.include?(Room.find(room_id))
-#  elsif current_student? && Room.find(room_id).students.include?(current_user)
+      #是该聊天室的老师
     elsif !current_user?(User.find(user_id)) && current_student? && Room.find(room_id).students.include?(current_user)
+      #是该聊天室的学生
     else
-      flash[:error] = "you don't have access"
+      flash[:error] = "你没有权限"
       redirect_to current_user
     end
   end
@@ -131,7 +142,21 @@ class RoomsController < ApplicationController
   # 画了一条线（用于白板）
   def new_line
     PrivatePub.publish_to("/rooms/#{params[:id]}",
-        points: params[:points].values)
+                          points: params[:points].values,
+                          color: params[:color],
+                          lineWidth: params[:lineWidth])
     render nothing: true
+  end
+
+  # 清除白板上画的内容
+  def clear
+    PrivatePub.publish_to("/rooms/#{params[:id]}", type: "clear")
+    render nothing: true
+  end
+
+  # 只有房主才能同步白板内容给其他人
+  def room_owner
+    room = Room.find(params[:id])
+    redirect_to root_path unless current_user?(room.user)
   end
 end

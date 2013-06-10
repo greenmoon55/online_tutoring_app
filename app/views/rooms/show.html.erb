@@ -15,11 +15,9 @@
 <% end%>
 <div id="chatroom-dialogue-list">
 </div>
-<div>
-  <button onclick="clearAndUpdate()">clear</button>
-</div>
-<canvas id="chatroom-canvas" draggable="false" width="500" height="500">
-</canvas
+
+<%= render 'canvas' %>
+
 <div id="chatroom-sendbox">
   <%= form_for Message.new do |f| %>
     <%= f.hidden_field :room_id, value: @room.id%>

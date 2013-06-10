@@ -1,0 +1,8 @@
+# Use the README file as a reference to customize settings.
+
+Annoncement:
+  fields:
+    default: title, content
+    form: title, content
+  relationships: 
+  application: Application

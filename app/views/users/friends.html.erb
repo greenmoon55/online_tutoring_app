@@ -1,0 +1,20 @@
+<% provide(:title, @title) %>
+<%= render 'layouts/sub_header' %>
+<% if @users.any? %>
+    <% @users.each do |user| %>
+      <div class="span4">
+        <li>
+          <%= user.name %>
+          <%= render 'shared/remove_relationship', user: user %>
+        </li>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+<p>无朋友</p>
+<% end %>
+
+
+
+
+

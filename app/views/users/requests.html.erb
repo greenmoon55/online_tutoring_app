@@ -1,0 +1,31 @@
+<% provide(:title, @title)%>
+
+<div class="row">
+  <div class="inline">
+	<% if @add_requests.count!= 0||@other_requests.count != 0%>
+	  <% if @add_requests%>
+	    <% @add_requests.each do |request|%>
+	    <li>
+	    <%=link_to User.find(request.sender_id).name, user_path(User.find(request.sender_id))%>   
+	    理由：<%= request.content%>
+	    <%= render 'shared/agree_form', user: User.find(request.sender_id) %>
+	    <%= render 'shared/refuse_form', user: User.find(request.sender_id)%>
+	    <%= render 'shared/delete_request', request: request%>
+	    </li>
+	    <% end%>
+	  <% end%>
+	    
+	  <% if @other_requests%>
+	    <% @other_requests.each do |request|%>
+	      <li>
+	      <%= link_to User.find(request.sender_id).name, user_path(User.find(request.sender_id))%>
+	      <%= request[:content]%>
+          <%= render 'shared/delete_request', request: request%>
+	      </li>
+	    <% end%>
+	  <% end%>
+	<% else %>
+	          无任何请求或消息
+	<% end%>
+  </div>
+</div>
