@@ -1,5 +1,5 @@
 <% provide(:title, @title)%>
-<%= render 'shared/sub_header' %>
+<%= render 'layouts/sub_header' %>
 <%if @blocked_users.any?%>
   <% @blocked_users.each do |user|%>
   <li>
