@@ -1,7 +1,9 @@
 <%= render 'layouts/sub_header' %>
-<% if current_teacher?%>
+<% if signed_in? && current_teacher?%>
 <%= link_to "创建聊天室", new_user_room_path(current_user)%>
 <% end%>
 <div>
-  <%= render @rooms%>
+<% if signed_in? && current_teacher?%>
+<%= render @rooms%>
+<% end%>
 </div>

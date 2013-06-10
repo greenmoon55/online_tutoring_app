@@ -6,10 +6,8 @@
 	  <% if @add_requests%>
 	    <% @add_requests.each do |request|%>
 	    <li>
-	    <%=link_to User.find(request.sender_id).name, user_path(User.find(request.sender_id))%>
-	    
+	    <%=link_to User.find(request.sender_id).name, user_path(User.find(request.sender_id))%>   
 	    理由：<%= request.content%>
-	
 	    <%= render 'shared/agree_form', user: User.find(request.sender_id) %>
 	    <%= render 'shared/refuse_form', user: User.find(request.sender_id)%>
 	    <%= render 'shared/delete_request', request: request%>
@@ -24,7 +22,7 @@
 	      <%= request[:content]%>
           <%= render 'shared/delete_request', request: request%>
 	      </li>
-	    <%end%>
+	    <% end%>
 	  <% end%>
 	<% else %>
 	          无任何请求或消息
