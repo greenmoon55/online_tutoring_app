@@ -175,7 +175,6 @@ class User < ActiveRecord::Base
     end
   end
 
-=begin
   def delete_add_request!(other_user, current_student)
     if current_student
       self.requests.find_by_sender_id_and_kind(other_user.id, 2).destroy
@@ -183,7 +182,6 @@ class User < ActiveRecord::Base
       self.requests.find_by_sender_id_and_kind(other_user.id, 1).destroy
     end
   end
-=end
   
   def delete_relationship!(other_user)
     if self.is_student? && other_user.is_teacher? && self.teachers.include?(other_user)

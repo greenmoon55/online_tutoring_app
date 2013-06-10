@@ -39,7 +39,7 @@ class RoomsController < ApplicationController
         # do nothing
       else
          if @user.students.include?(User.find(relationship[:student_id]))  
-           # inform the students moved out of the room by the teacher
+           #提醒被老师移出聊天室的学生
            User.find(relationship[:student_id]).create_normal_request!(@user[:id], 4, "将你移出了 "+ @room[:outline] + " 聊天室")
          end
          @room.room_student_relationships.find(relationship[:id]).destroy 
@@ -50,7 +50,7 @@ class RoomsController < ApplicationController
         # do nothing
       else
         if @user.students.include?(User.find(student_id))
-          # inform the students added into the room by the teacher
+          # 提醒被老师 加入聊天室的学生
           @room.room_student_relationships.create!(student_id: student_id)  
           User.find(student_id).create_normal_request!(@user[:id], 4, "将你加入到了 " + @room[:outline] + " 聊天室中")
         end
@@ -67,7 +67,7 @@ class RoomsController < ApplicationController
         @student_selected.push(Integer(single_student_id))
         student = User.find(single_student_id)
         if @user.students.include?(student)
-          # inform the students added into the room by the teacher
+          # 提醒被老师 加入聊天室的学生
           @room.room_student_relationships.create!(student_id: single_student_id) 
           student.create_normal_request!(@user[:id], 4, "将你加入到了 #{@room[:outline]} 聊天室中")
         end
@@ -130,11 +130,11 @@ class RoomsController < ApplicationController
     user_id = params[:user_id]
     room_id = params[:id]
     if current_user?(User.find(user_id)) && current_teacher? && current_user.rooms.include?(Room.find(room_id))
-      #he is the teacher , so do nothing
+      #是该聊天室的老师
     elsif !current_user?(User.find(user_id)) && current_student? && Room.find(room_id).students.include?(current_user)
-      #students in the room , so do nothing
+      #是该聊天室的学生
     else
-      flash[:error] = "you don't have access"
+      flash[:error] = "你没有权限"
       redirect_to current_user
     end
   end

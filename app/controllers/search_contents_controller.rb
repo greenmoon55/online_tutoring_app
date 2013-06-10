@@ -20,7 +20,7 @@ class SearchContentsController < ApplicationController
         @degree_selected.push(Integer(single_degree))
       end    
     end
-    self.get_degree             # set attribute "checked"  of degree according to selected degree 
+    self.get_degree             #获取所有degree， 加入checked 的属性
     degree_need_care = true 
     if @degree_selected.empty?
       degree_need_care = false
@@ -33,7 +33,7 @@ class SearchContentsController < ApplicationController
       end    
     end
     district_need_care = true
-    self.get_district          # set attribute "checked"  of district according to selected degree 
+    self.get_district          #获取所有district， 加入checked 的属性
     if @district_selected.empty?
       district_need_care = false
     end
@@ -44,7 +44,7 @@ class SearchContentsController < ApplicationController
         @subject_selected.push(Integer(single_subject))
       end
     end
-    self.get_subject           # set attribute "checked"  of subject according to selected degree 
+    self.get_subject           #获取所有subject， 加入checked 的属性
     subject_need_care = true
     if @subject_selected.empty?
       subject_need_care = false
@@ -70,6 +70,7 @@ class SearchContentsController < ApplicationController
     else 
       condition += " and student_visible = ? "
     end
+    
     condition += " and name LIKE ?"
     @users = User.find(:all,:conditions => [condition,true,"%#{@content}%"])
     if subject_need_care 
@@ -81,7 +82,6 @@ class SearchContentsController < ApplicationController
     end 
     render 'new'
   end
-  
   
   def index
     redirect_to search_path
