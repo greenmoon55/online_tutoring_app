@@ -14,37 +14,37 @@ class SearchContentsController < ApplicationController
     @role_number = Integer(params[:role])          #role
     role_array = [Integer(params[:role]),2]
   
-    @degree_selected = []                          #selected degree
+    @degree_selected = []       #selected degree
     if(params[:degree])
       params[:degree].each do |single_degree|
         @degree_selected.push(Integer(single_degree))
       end    
     end
-    self.get_degree                                # set attribute "checked"  of degree according to selected degree 
+    self.get_degree             # set attribute "checked"  of degree according to selected degree 
     degree_need_care = true 
     if @degree_selected.empty?
       degree_need_care = false
     end
 
-    @district_selected = []                        # selected district
+    @district_selected = []    # selected district
     if(params[:district])
       params[:district].each do |single_district|
         @district_selected.push( Integer(single_district))
       end    
     end
     district_need_care = true
-    self.get_district                              # set attribute "checked"  of district according to selected degree 
+    self.get_district          # set attribute "checked"  of district according to selected degree 
     if @district_selected.empty?
       district_need_care = false
     end
 
-    @subject_selected = []                         # selected subject   
+    @subject_selected = []     # selected subject   
     if(params[:subject])
       params[:subject].each do |single_subject|
         @subject_selected.push(Integer(single_subject))
       end
     end
-    self.get_subject                              # set attribute "checked"  of subject according to selected degree 
+    self.get_subject           # set attribute "checked"  of subject according to selected degree 
     subject_need_care = true
     if @subject_selected.empty?
       subject_need_care = false
@@ -72,7 +72,7 @@ class SearchContentsController < ApplicationController
     end
     condition += " and name LIKE ?"
     @users = User.find(:all,:conditions => [condition,true,"%#{@content}%"])
-    if subject_need_care                                                     
+    if subject_need_care 
       if @role_number == 0
         @users.delete_if{|user|self.help_function?(user.teacher_relationships,@subject_selected)}  
       else
@@ -113,7 +113,8 @@ class SearchContentsController < ApplicationController
    return true
   end
 
-  def get_degree
+  #获取所有degree， 并且增加一属性 checked 表示在view中是否被选择， 以下类似
+  def get_degree     
     @degrees = Degree.all
     @degrees.collect do|degree|
       degree[:checked] = @degree_selected.include?(degree[:id])

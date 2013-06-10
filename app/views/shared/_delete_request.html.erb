@@ -1,0 +1,4 @@
+<%= form_tag(:controller=>"requests", :action=> "delete_request",method:"delete") do%>
+<%= hidden_field_tag :request_id, request.id%>
+<%= submit_tag "删除", class: "btn btn-primary"%>
+<% end %>

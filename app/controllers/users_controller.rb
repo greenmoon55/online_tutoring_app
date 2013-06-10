@@ -91,12 +91,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if current_student?
       @user.requests.find_all_by_kind_and_read([2,4],false).collect do |x| x.update_attributes(read: true) end
-      @requests = @user.requests.find_all_by_kind(2)
-      @accept_requests = @user.requests.find_all_by_kind(4)
+      @add_requests = @user.requests.find_all_by_kind(2)
+      @other_requests = @user.requests.find_all_by_kind(4)
     else
-      @requests = @user.requests.find_all_by_kind(1)
+      @add_requests = @user.requests.find_all_by_kind(1)
       @user.requests.find_all_by_kind_and_read([1,3],false).collect do |x| x.update_attributes(read: true) end
-      @accept_requests = @user.requests.find_all_by_kind(3)
+      @other_requests = @user.requests.find_all_by_kind(3)
     end
     
     render 'show_requests'
