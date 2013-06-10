@@ -40,10 +40,7 @@ class RoomsController < ApplicationController
         # do nothing
       else
          if @user.students.include?(User.find(relationship[:student_id]))
-
-            User.find(relationship[:student_id]).create_normal_request!(kind: 4,
-                                                                        sender_id: @user[:id],
-                                                                        content: "将你移出了 "+ @room[:outline] + " 聊天室")
+            User.find(relationship[:student_id]).create_normal_request!(@user[:id], 4, "将你移出了 "+ @room[:outline] + " 聊天室")
          end
          @room.room_student_relationships.find(relationship[:id]).destroy 
       end
@@ -54,11 +51,7 @@ class RoomsController < ApplicationController
       else
         if @user.students.include?(User.find(student_id))
           @room.room_student_relationships.create!(student_id: student_id)
-
-          User.find(student_id).create_normal_request!(kind: 4,
-                                                       sender_id: @user[:id],
-                                                       content: "将你加入到了 " + @room[:outline] + " 聊天室中")
-
+          User.find(student_id).create_normal_request!(@user[:id], 4, "将你加入到了 " + @room[:outline] + " 聊天室中")
         end
       end
     end
@@ -75,9 +68,7 @@ class RoomsController < ApplicationController
         if @user.students.include?(student)
           @room.room_student_relationships.create!(student_id: single_student_id)
 
-          student.create_normal_request!(sender_id: @user[:id],
-                                         kind: 4,
-                                         content: "将你加入到了 #{@room[:outline]} 聊天室中")
+          student.create_normal_request!(@user[:id], 4, "将你加入到了 #{@room[:outline]} 聊天室中")
         end
       end
     end
@@ -100,7 +91,7 @@ class RoomsController < ApplicationController
     @room = Room.find(params[:id])
     @room.students.each do |student|
       if @user.students.include?(student)
-        student.create_normal_request!(current_user[:id],4,"解散了 "+@room[:outline]+" 聊天室")
+        student.create_normal_request!(current_user[:id], 4, "解散了 "+@room[:outline]+" 聊天室")
       end
     end
     @user.rooms.find(params[:id]).destroy
