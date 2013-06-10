@@ -2,9 +2,9 @@
 
 <div class="row">
   <div class="inline">
-	<% if @requests.count!= 0||@accept_requests.count != 0%>
-	  <% if @requests%>
-	    <% @requests.each do |request|%>
+	<% if @add_requests.count!= 0||@other_requests.count != 0%>
+	  <% if @add_requests%>
+	    <% @add_requests.each do |request|%>
 	    <li>
 	    <%=link_to User.find(request.sender_id).name, user_path(User.find(request.sender_id))%>
 	    
@@ -12,19 +12,17 @@
 	
 	    <%= render 'shared/agree_form', user: User.find(request.sender_id) %>
 	    <%= render 'shared/refuse_form', user: User.find(request.sender_id)%>
+	    <%= render 'shared/delete_request', request: request%>
 	    </li>
 	    <% end%>
 	  <% end%>
 	    
-	  <% if @accept_requests%>
-	    <% @accept_requests.each do |accept_request|%>
+	  <% if @other_requests%>
+	    <% @other_requests.each do |request|%>
 	      <li>
-	      <%= link_to User.find(accept_request.sender_id).name, user_path(User.find(accept_request.sender_id))%>
-	      <%= accept_request[:content]%>
-	      <%= form_tag(:controller=>"requests", :action=> "delete_request",method:"delete") do%>
-	      <%= hidden_field_tag :request_id, accept_request.id%>
-	      <%= submit_tag "删除", class: "btn btn-primary"%>
-	        <% end %>
+	      <%= link_to User.find(request.sender_id).name, user_path(User.find(request.sender_id))%>
+	      <%= request[:content]%>
+          <%= render 'shared/delete_request', request: request%>
 	      </li>
 	    <%end%>
 	  <% end%>

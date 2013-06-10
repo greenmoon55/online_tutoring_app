@@ -128,7 +128,6 @@ class User < ActiveRecord::Base
     end
   end
 
-# create
   def have_send_add_request?(other_user, current_student)
     if current_student
       other_user.requests.find_by_sender_id_and_kind(self.id, 1)
@@ -136,6 +135,7 @@ class User < ActiveRecord::Base
       other_user.requests.find_by_sender_id_and_kind(self.id, 2)
     end
   end
+  
   def update_send_add_request!(other_user, content, current_student)
     if current_student
       other_user.requests.find_by_sender_id_and_kind(self.id, 1).update_attributes(read: false, content: content)
@@ -143,7 +143,7 @@ class User < ActiveRecord::Base
       other_user.requests.find_by_sender_id_and_kind(self.id, 2).update_attributes(read: false, content: content)
     end
   end
-#create
+
   def send_add_request!(other_user, content, current_student)
     if current_student
       other_user.requests.create!(sender_id: self.id, kind: 1, read: false, content: content)
@@ -152,7 +152,6 @@ class User < ActiveRecord::Base
     end
   end
 
-#create  
   def have_add_request?(other_user, current_student)
     if current_student
       self.requests.find_by_sender_id_and_kind(other_user.id, 2)
@@ -161,22 +160,22 @@ class User < ActiveRecord::Base
     end
   end
 
-
   def send_accept_request!(other_user, current_student)
     if current_student
-      other_user.requests.create!(sender_id: self.id, kind: 3, content: "同意了你的请求")
+      other_user.create_normal_request！(self.id, 3, "同意了你的请求")
     else
-      other_user.requests.create!(sender_id: self.id, kind: 4, content: "同意了你的请求")
+      other_user.create_normal_request！(self.id, 4, "同意了你的请求")
     end
   end
   def send_refuse_request!(other_user, current_student)
     if current_student
-      other_user.requests.create!(sender_id: self.id, kind: 3, content: "拒绝了你的请求")
+      other_user.create_normal_request！(self.id, 3, "拒绝了你的请求")
     else
-      other_user.requests.create!(sender_id: self.id, kind: 4, content: "拒绝了你的请求")
+      other_user.create_normal_request！(self.id, 4, "拒绝了你的请求")
     end
   end
 
+=begin
   def delete_add_request!(other_user, current_student)
     if current_student
       self.requests.find_by_sender_id_and_kind(other_user.id, 2).destroy
@@ -184,6 +183,8 @@ class User < ActiveRecord::Base
       self.requests.find_by_sender_id_and_kind(other_user.id, 1).destroy
     end
   end
+=end
+  
   def delete_relationship!(other_user)
     if self.is_student? && other_user.is_teacher? && self.teachers.include?(other_user)
       self.set_not_to_be_friends!(other_user, true)
@@ -215,7 +216,6 @@ class User < ActiveRecord::Base
           room.room_student_relationships.find_by_student_id(self[:id]).destroy
         end 
       end
-    
     else
       self.rooms.each do |room|
         if room.students.include?(other_user)
@@ -223,6 +223,5 @@ class User < ActiveRecord::Base
         end
       end
     end
-    
   end
 end

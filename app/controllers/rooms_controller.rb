@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 class RoomsController < ApplicationController
   before_filter :require_signin
-
   before_filter :members_in_room, only: [:show]
   before_filter :correct_user, only: [:new, :index, :create, :update, :edit, :destroy]
   before_filter :room_owner, only: [:new_line, :clear]
@@ -35,22 +34,24 @@ class RoomsController < ApplicationController
         @student_selected.push(Integer(student_id))
       end
     end
-    @room.room_student_relationships.each do |relationship|
+    @room.room_student_relationships.each do |relationship|            
       if @student_selected.include?relationship[:student_id]
         # do nothing
       else
-         if @user.students.include?(User.find(relationship[:student_id]))
-            User.find(relationship[:student_id]).create_normal_request!(@user[:id], 4, "将你移出了 "+ @room[:outline] + " 聊天室")
+         if @user.students.include?(User.find(relationship[:student_id]))  
+           # inform the students moved out of the room by the teacher
+           User.find(relationship[:student_id]).create_normal_request!(@user[:id], 4, "将你移出了 "+ @room[:outline] + " 聊天室")
          end
          @room.room_student_relationships.find(relationship[:id]).destroy 
       end
     end
-    @student_selected.each do |student_id|
+    @student_selected.each do |student_id|                            
       if @room.room_student_relationships.find_by_student_id(student_id)
         # do nothing
       else
         if @user.students.include?(User.find(student_id))
-          @room.room_student_relationships.create!(student_id: student_id)
+          # inform the students added into the room by the teacher
+          @room.room_student_relationships.create!(student_id: student_id)  
           User.find(student_id).create_normal_request!(@user[:id], 4, "将你加入到了 " + @room[:outline] + " 聊天室中")
         end
       end
@@ -66,8 +67,8 @@ class RoomsController < ApplicationController
         @student_selected.push(Integer(single_student_id))
         student = User.find(single_student_id)
         if @user.students.include?(student)
-          @room.room_student_relationships.create!(student_id: single_student_id)
-
+          # inform the students added into the room by the teacher
+          @room.room_student_relationships.create!(student_id: single_student_id) 
           student.create_normal_request!(@user[:id], 4, "将你加入到了 #{@room[:outline]} 聊天室中")
         end
       end
@@ -98,7 +99,8 @@ class RoomsController < ApplicationController
     redirect_to user_rooms_path(@user)
   end
   
-  def delete_by_student
+  # 学生自主退出聊天室
+  def delete_by_student 
     @room = Room.find(params[:id])
 
     if current_student? && current_user.my_rooms.include?(@room)
@@ -115,6 +117,7 @@ class RoomsController < ApplicationController
     end
   end
   
+  #获取当前用户的学生，并且增加一属性 checked 表示 是否被加入到聊天室
   def get_student
     @students = current_user.students
     @students.collect do |student|
@@ -122,11 +125,14 @@ class RoomsController < ApplicationController
     end
   end
   
+  #判断用户是否属于该聊天室
   def members_in_room
     user_id = params[:user_id]
     room_id = params[:id]
     if current_user?(User.find(user_id)) && current_teacher? && current_user.rooms.include?(Room.find(room_id))
+      #he is the teacher , so do nothing
     elsif !current_user?(User.find(user_id)) && current_student? && Room.find(room_id).students.include?(current_user)
+      #students in the room , so do nothing
     else
       flash[:error] = "you don't have access"
       redirect_to current_user

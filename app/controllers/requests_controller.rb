@@ -12,27 +12,26 @@ class RequestsController < ApplicationController
     if current_user.have_been_friends?(@receiver,current_student?)
       flash[:error] = "已经成为朋友啦"
       redirect_to @receiver and return
-     #have been friends
+      #have been friends
     end
 
     if current_user.have_add_request?(@receiver,current_student?)
       flash[:error] = "他已经给你发出请求,可在请求页面回复哦"
       redirect_to @receiver and return
-    #there is an add request from receiver
-    #so need not create an add request
+      #there is an add request from receiver
+      #so need not create an add request
     end
 
     if current_user.have_send_add_request?(@receiver,current_student?)
       current_user.update_send_add_request!(@receiver,@content,current_student?)
       flash[:error] = "已经发了请求，只是更新一下啦"
       redirect_to @receiver and return
-    #have sent an add request just update it
+      #have sent an add request just update it
     else
-
       current_user.send_add_request!(@receiver,@content,current_student?)
       flash[:success] = "发送成功"
       redirect_to @receiver and return
-      #just send a request
+      #send a request
     end
   end
 
@@ -42,7 +41,7 @@ class RequestsController < ApplicationController
     @sender = User.find(sender_id)
     unless current_user.have_add_request?(@sender,current_student?)
       flash[:error] = "这个请求不存在"
-      redirect_to requests_user_path(current_user)     and return 
+      redirect_to requests_user_path(current_user) and return 
       #request not exist  
     end
     if !@sender.blocked_users.include?(current_user)
@@ -51,7 +50,7 @@ class RequestsController < ApplicationController
     current_user.delete_add_request!(@sender,current_student?)
     #delete successfully
     flash[:success] = "你拒绝了#{@sender.name}的好友请求"
-    redirect_to requests_user_path(current_user)     and return 
+    redirect_to requests_user_path(current_user) and return 
   end
 
   def delete_request
