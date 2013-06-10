@@ -19,7 +19,7 @@ class RequestsController < ApplicationController
       flash[:error] = "他已经给你发出请求,可在请求页面回复哦"
       redirect_to @receiver and return
     #there is an add request from receiver
-    #so need not create a add request
+    #so need not create an add request
     end
 
     if current_user.have_send_add_request?(@receiver,current_student?)

@@ -201,6 +201,11 @@ logger.info other_user
     delete_request!(other_user)
   end
 
+  def create_normal_request!(sender_id, kind, content)
+    if !self.blocked_users.include?(User.find(sender_id))
+      self.requests.create!(sender_id: sender_id, kind: kind, content: content)
+    end
+  end
 
   def delete_room_relationship!(other_user,current_student)
     if current_student

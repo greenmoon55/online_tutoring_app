@@ -2,8 +2,7 @@
 class RoomsController < ApplicationController
   before_filter :require_signin
   before_filter :members_in_room, only:[:show]
-  before_filter :correct_user, 
-                only: [:new, :index, :create, :update, :edit, :destroy]
+  before_filter :correct_user, only: [:new, :index, :create, :update, :edit, :destroy]
   # post 时无需authentication token
   protect_from_forgery except: :new_line
 #  before_filter :require_current_teacher,only:[:new, :index, :create,:update,:edit,:destroy]
@@ -39,7 +38,7 @@ class RoomsController < ApplicationController
         # do nothing
       else
          if @user.students.include?(User.find(relationship[:student_id]))
-            User.find(relationship[:student_id]).requests.create!(kind:4,sender_id:@user[:id], content: "将你移出了 "+ @room[:outline] + " 聊天室中")
+            User.find(relationship[:student_id]).create_normal_request!(@user[:id],4,content: "将你移出了 "+ @room[:outline] + " 聊天室中")
          end
          @room.room_student_relationships.find(relationship[:id]).destroy 
       end
@@ -50,7 +49,7 @@ class RoomsController < ApplicationController
       else
         if @user.students.include?(User.find(student_id))
           @room.room_student_relationships.create!(student_id: student_id)
-          User.find(student_id).requests.create!(kind:4,sender_id:@user[:id],content: "将你加入到了 " + @room[:outline] + " 聊天室中")
+          User.find(student_id).create_normal_request!(@user[:id],4,"将你加入到了 " + @room[:outline] + " 聊天室中")
         end
       end
     end
@@ -66,7 +65,7 @@ class RoomsController < ApplicationController
         student = User.find(single_student_id)
         if @user.students.include?(student)
           @room.room_student_relationships.create!(student_id: single_student_id)
-          student.requests.create!(sender_id:@user[:id],kind:4,content: "将你加入到了 " + @room[:outline] + " 聊天室中")
+          student.create_normal_request!(@user[:id],4,"将你加入到了 " + @room[:outline] + " 聊天室中")
         end
       end
     end
@@ -89,7 +88,7 @@ class RoomsController < ApplicationController
     @room = Room.find(params[:id])
     @room.students.each do |student|
       if @user.students.include?(student)
-        student.requests.create!(sender_id:current_user[:id],content: "解散了 "+@room[:outline]+" 聊天室", kind:4)
+        student.create_normal_request!(current_user[:id],4,"解散了 "+@room[:outline]+" 聊天室")
       end
     end
     @user.rooms.find(params[:id]).destroy
@@ -98,30 +97,31 @@ class RoomsController < ApplicationController
   
   def delete_by_student
     @room = Room.find(params[:id])
-    if(current_student? && current_user.my_rooms.include?(@room))
+    if(@room && current_student? && current_user.my_rooms.include?(@room))
       current_user.room_student_relationships.find_by_room_id(params[:id]).destroy
       flash[:success] = "成功退出聊天室"
     end
     redirect_to my_rooms_user_path(current_user)
   end
   
-    def correct_user
-      @user = User.find(params[:user_id])
-      unless current_user?(@user)
-        redirect_to root_path, notice: "非法操作"
-      end
+  def correct_user
+    @user = User.find(params[:user_id])
+    unless current_user?(@user)
+      redirect_to root_path, notice: "非法操作"
     end
-    def get_student
-      @students = current_user.students
-      @students.collect do |student|
-        student[:checked] = @student_selected.include?(student[:id])
-      end
+  end
+  
+  def get_student
+    @students = current_user.students
+    @students.collect do |student|
+      student[:checked] = @student_selected.include?(student[:id])
     end
+  end
+  
   def members_in_room
     user_id = params[:user_id]
     room_id = params[:id]
     if current_user?(User.find(user_id)) && current_teacher? && current_user.rooms.include?(Room.find(room_id))
-#  elsif current_student? && Room.find(room_id).students.include?(current_user)
     elsif !current_user?(User.find(user_id)) && current_student? && Room.find(room_id).students.include?(current_user)
     else
       flash[:error] = "you don't have access"

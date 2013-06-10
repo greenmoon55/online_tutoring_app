@@ -8,9 +8,9 @@ class BlockedRelationshipsController < ApplicationController
       flash[:error] = "已经将#{blocked_user.name}加入到了你的黑名单中"  
       redirect_to blocked_user and return
     else
-      current_user.delete_relationship_and_request!(blocked_user)
-      current_user.delete_room_relationship!(blocked_user,current_student?)
-      current_user.blocked_relationships.create!(blocked_user_id: blocked_user_id)
+      current_user.delete_relationship_and_request!(blocked_user)                  #delete relationships and request between current_user and blocked_user
+      current_user.delete_room_relationship!(blocked_user,current_student?)        #delele room_relationships
+      current_user.blocked_relationships.create!(blocked_user_id: blocked_user_id) #add blocked_relationships 
       flash[:success] = "成功将#{blocked_user.name}加入了黑名单"
       redirect_to blocked_user and return
     end

@@ -19,7 +19,7 @@ class RelationshipsController < ApplicationController
       current_user.delete_add_request!(@sender,current_student?)
       redirect_to requests_user_path(current_user) and return 
     end
-
+    
     current_user.send_accept_request!(@sender,current_student?)
     current_user.delete_add_request!(@sender,current_student?)
     current_user.set_to_be_friends!(@sender,current_student?)
