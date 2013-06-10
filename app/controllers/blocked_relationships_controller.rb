@@ -4,10 +4,8 @@ class BlockedRelationshipsController < ApplicationController
   def create
     blocked_user_id = params[:blocked_user_id]
     blocked_user = User.find(params[:blocked_user_id])
-    if current_user.blocked_relationships.find_by_blocked_user_id(blocked_user_id)
-      
-      flash[:error] = "已经将#{blocked_user.name}加入到了你的黑名单中"
-      
+    if current_user.blocked_relationships.find_by_blocked_user_id(blocked_user_id)     
+      flash[:error] = "已经将#{blocked_user.name}加入到了你的黑名单中"  
       redirect_to blocked_user and return
     else
       current_user.delete_relationship_and_request!(blocked_user)
@@ -21,13 +19,11 @@ class BlockedRelationshipsController < ApplicationController
     blocked_user_id = params[:blocked_user_id]
     blocked_user = User.find(blocked_user_id)
     if !current_user.blocked_relationships.find_by_blocked_user_id(blocked_user_id)
-      flash[:error] = "#{blocked_user.name} 不再你的黒名单中"
+      flash[:error] = "#{blocked_user.name} 不在你的黒名单中"
       redirect_to blocked_user and return
     end
     current_user.blocked_relationships.find_by_blocked_user_id(blocked_user_id).destroy
     flash[:success] = "已将#{blocked_user.name}移出黑名单"
     redirect_to blocked_user and return
-
-
   end
 end
