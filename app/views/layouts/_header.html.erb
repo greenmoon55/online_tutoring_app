@@ -13,7 +13,6 @@
             <li><%= link_to "学习", friends_user_path(current_user) %> </li>
           <% end %>
           <li><%= link_to "通知", requests_user_path(current_user) %> </li>
-          <li><%= link_to "黑名单", blocked_users_user_path(current_user) %> </li>
           <li><%= link_to "用户需求", advertisements_path %> </li>
           <% if current_teacher? %>
             <li><%= link_to "聊天室", user_rooms_path(current_user) %> </li>
