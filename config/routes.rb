@@ -15,7 +15,7 @@ OnlineTutoringApp::Application.routes.draw do
 
   match '/users/:id/messages', to: 'users#messages', via: :get
   resources :sessions, only: [:new, :create, :destroy]
-  resources :search_contents, only: [:create]
+  resources :search_contents, only: [:new,:create,:index]
   resources :relationships, only: [:create, :destroy]
   
   resources :requests, only: [:create, :destroy]
@@ -30,8 +30,9 @@ OnlineTutoringApp::Application.routes.draw do
   match '/signin', to: 'sessions#new', via: :get
   match '/signin', to: 'sessions#create', via: :post
   match '/signout', to: 'sessions#destroy', via: :delete
-  match '/search', to: 'search_contents#search'
+  match '/search', to: 'search_contents#new'
   match '/search', to: 'search_contents#create', via: :post
+  #resources :searchs, only: [:new, :create]
   match '/requests/delete_request', to: 'requests#delete_request', via: :post
   match '/rooms/delete_by_student', to: 'rooms#delete_by_student', via: :post
   match '/rooms/:id/new_line', to: 'rooms#new_line'

@@ -2,6 +2,7 @@
 class SearchContentsController < ApplicationController
 
   def create
+
     @content = params[:content]
     @gender_number = Integer( params[:gender] )
     gender_array = []
@@ -96,12 +97,15 @@ class SearchContentsController < ApplicationController
         @users.delete_if{|user|self.help_function?( user.student_relationships,@subject_selected)}  
       end
     end 
-    render 'search'
+    render 'new'
   end
   
+  def index
+    redirect_to search_path
+  end
 
 
-  def search
+  def new
     @content = nil
     @gender_number = 2
     @role_number = 1
