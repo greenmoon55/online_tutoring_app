@@ -2,19 +2,20 @@
   <div class="navibar">
     <div id="login">
       <ul>
-        <li><%= link_to "首页", root_path %> </li>
         <% if signed_in? %>
           <li>
             <%= link_to gravatar_for(current_user, size: 20) + "#{current_user.name}(#{current_role_to_s})", user_path(current_user) %>
           </li>
           <li><button id="chat-popup-button">聊天</button></li>
-          <li><%= link_to t("common.logout"), signout_path, method: "delete" %></li>
-          <li><%= link_to "联系人", friends_user_path(current_user) if current_teacher?%> </li>
-          <li><%= link_to "联系人", friends_user_path(current_user) if current_student?%> </li>
+          <% if current_teacher? %>
+            <li><%= link_to "教学", friends_user_path(current_user) %> </li>
+          <% elsif current_student? %>
+            <li><%= link_to "学习", friends_user_path(current_user) %> </li>
+          <% end %>
           <li><%= link_to "通知", requests_user_path(current_user) %> </li>
           <li><%= link_to "黑名单", blocked_users_user_path(current_user) %> </li>
           <li><%= link_to "用户需求", advertisements_path %> </li>
-          <% if current_teacher?%>
+          <% if current_teacher? %>
             <li><%= link_to "聊天室", user_rooms_path(current_user) %> </li>
           <% else %>
             <li><%= link_to "聊天室", my_rooms_user_path(current_user)%></li>
@@ -27,8 +28,14 @@
     </div>
     <div id="navi">
       <ul>
-        <li><%= link_to "搜索", search_path %> </li> <!-- 两种搜索放在一起 -->
+        <li><%= link_to "首页", root_path %> </li>
+        <li><%= link_to "搜索", search_path %> </li>
         <li><%= link_to "公告", annoncements_path%></li>
+        <% if signed_in? %>
+          <li>
+            <%= link_to t("common.logout"), signout_path, method: "delete" %>
+          </li>
+        <% end %>
       </ul>
     </div>
     <div id="clear"/>

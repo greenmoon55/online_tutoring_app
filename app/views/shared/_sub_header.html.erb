@@ -1,0 +1,12 @@
+<div id="sub-header">
+  <ul>
+    <% if current_student? %>
+      <li><%= link_to "我的导师", friends_user_path(current_user) %> </li>
+    <% elsif current_teacher? %>
+      <li><%= link_to "我的学生", friends_user_path(current_user) %> </li>
+    <% end %>
+    <li><%= link_to "黑名单", blocked_users_user_path(current_user) %></li>
+    <li>讨论组</li>
+  </ul>
+</div>
+
