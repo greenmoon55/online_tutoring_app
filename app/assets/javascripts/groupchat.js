@@ -15,8 +15,13 @@ CanvasRenderingContext2D.prototype.clear =
 var context;
 var color = "000000";
 var lineWidth = 1;
+var roomID;
 
 $(document).ready(function() {
+  var path = window.location.pathname;
+  var re = /\d+/g;
+  var matches = path.match(re);
+  var roomID = parseInt(matches[matches.length - 1], 10);
   var drawing = document.getElementById("chatroom-canvas");
   if (drawing && drawing.getContext) {
     context = drawing.getContext("2d");
@@ -60,7 +65,7 @@ $(document).ready(function() {
   function finishDrawing() {
     drawingNow = false;
     $.ajax({
-      url: "http://localhost:3000/rooms/5/new_line",
+      url: "http://localhost:3000/rooms/" + roomID + "/new_line",
       type: "POST",
       dataType: "json",
       data: {
@@ -92,7 +97,7 @@ function draw(data) {
 function clearAndUpdate() {
   context.clear();  
   $.ajax({
-    url: "http://localhost:3000/rooms/5/clear",
+    url: "http://localhost:3000/rooms/" + roomID + "/clear",
     type: "GET",
   }).success(function(data) {
   });

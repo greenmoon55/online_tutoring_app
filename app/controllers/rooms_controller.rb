@@ -1,9 +1,10 @@
 # -*- encoding : utf-8 -*-
 class RoomsController < ApplicationController
   before_filter :require_signin
-  before_filter :members_in_room, only:[:show]
+  before_filter :members_in_room, only: [:show]
   before_filter :correct_user, 
                 only: [:new, :index, :create, :update, :edit, :destroy]
+  before_filter :room_owner, only: [:new_line, :clear]
   # post 时无需authentication token
   protect_from_forgery except: :new_line
 #  before_filter :require_current_teacher,only:[:new, :index, :create,:update,:edit,:destroy]
@@ -39,7 +40,9 @@ class RoomsController < ApplicationController
         # do nothing
       else
          if @user.students.include?(User.find(relationship[:student_id]))
-            User.find(relationship[:student_id]).requests.create!(kind:4,sender_id:@user[:id], content: "将你移出了 "+ @room[:outline] + " 聊天室中")
+            User.find(relationship[:student_id]).requests.create!(kind: 4,
+                                                                  sender_id: @user[:id],
+                                                                  content: "将你移出了 "+ @room[:outline] + " 聊天室")
          end
          @room.room_student_relationships.find(relationship[:id]).destroy 
       end
@@ -50,11 +53,13 @@ class RoomsController < ApplicationController
       else
         if @user.students.include?(User.find(student_id))
           @room.room_student_relationships.create!(student_id: student_id)
-          User.find(student_id).requests.create!(kind:4,sender_id:@user[:id],content: "将你加入到了 " + @room[:outline] + " 聊天室中")
+          User.find(student_id).requests.create!(kind: 4,
+                                                 sender_id: @user[:id],
+                                                 content: "将你加入到了 " + @room[:outline] + " 聊天室中")
         end
       end
     end
-    redirect_to user_room_path(current_user,@room[:id])
+    redirect_to user_room_path(current_user, @room[:id])
   end
 
   def create
@@ -66,12 +71,14 @@ class RoomsController < ApplicationController
         student = User.find(single_student_id)
         if @user.students.include?(student)
           @room.room_student_relationships.create!(student_id: single_student_id)
-          student.requests.create!(sender_id:@user[:id],kind:4,content: "将你加入到了 " + @room[:outline] + " 聊天室中")
+          student.requests.create!(sender_id: @user[:id],
+                                   kind: 4,
+                                   content: "将你加入到了 #{@room[:outline]} 聊天室中")
         end
       end
     end
     flash[:success] = "创建成功"
-    redirect_to user_room_path(current_user,@room)
+    redirect_to user_room_path(current_user, @room)
   end
 
   def edit
@@ -98,7 +105,7 @@ class RoomsController < ApplicationController
   
   def delete_by_student
     @room = Room.find(params[:id])
-    if(current_student? && current_user.my_rooms.include?(@room))
+    if current_student? && current_user.my_rooms.include?(@room)
       current_user.room_student_relationships.find_by_room_id(params[:id]).destroy
       flash[:success] = "成功退出聊天室"
     end
@@ -142,5 +149,11 @@ class RoomsController < ApplicationController
   def clear
     PrivatePub.publish_to("/rooms/#{params[:id]}", type: "clear")
     render nothing: true
+  end
+
+  # 只有房主才能同步白板内容给其他人
+  def room_owner
+    room = Room.find(params[:id])
+    redirect_to root_path unless current_user?(room.user)
   end
 end
