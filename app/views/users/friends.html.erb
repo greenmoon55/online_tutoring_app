@@ -1,6 +1,5 @@
 <% provide(:title, @title) %>
-<%= render 'shared/sub_header' %>
-<div style="clear:both"/>
+<%= render 'layouts/sub_header' %>
 <% if @users.any? %>
     <% @users.each do |user| %>
       <div class="span4">

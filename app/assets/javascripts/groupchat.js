@@ -21,7 +21,9 @@ $(document).ready(function() {
   var path = window.location.pathname;
   var re = /\d+/g;
   var matches = path.match(re);
-  var roomID = parseInt(matches[matches.length - 1], 10);
+  if (matches && matches.length >= 2) {
+    var roomID = parseInt(matches[matches.length - 1], 10);
+  }
   var drawing = document.getElementById("chatroom-canvas");
   if (drawing && drawing.getContext) {
     context = drawing.getContext("2d");

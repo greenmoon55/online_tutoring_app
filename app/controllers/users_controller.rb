@@ -80,7 +80,6 @@ class UsersController < ApplicationController
       @title = "我的学生"
       @users = user.students
     end
-    render 'show_friends'
   end
 
   def requests
