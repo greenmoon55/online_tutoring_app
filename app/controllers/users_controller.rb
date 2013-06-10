@@ -94,15 +94,12 @@ class UsersController < ApplicationController
       @user.requests.find_all_by_kind_and_read([1,3],false).collect do |x| x.update_attributes(read: true) end
       @other_requests = @user.requests.find_all_by_kind(3)
     end
-    
-    render 'show_requests'
   end
 
   def blocked_users
     @title = "黑名单列表"
     @user = User.find(params[:id])
     @blocked_users = @user.blocked_users
-    render 'show_blocked_users'
   end
  
   def my_rooms
