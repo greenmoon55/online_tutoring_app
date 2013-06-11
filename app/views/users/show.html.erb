@@ -1,25 +1,27 @@
 <% provide(:title, @user.name) %>
-<% if signed_in? %>
-  <%= render "shared/request_form", :user => @user %>
-  <% unless current_user?(@user) %>
-    <button class="btn" id="chat-with-button">聊天</button>
-  <% end %>
-<% end %>
 <div class="info_container" style="border:none;">
   <div class="page" style="float:none;">
     <table>
       <tr>
-        <td><label>在线状态：
-		</label>
-		<% if @user.online? %>
-		  <!-- id用于聊天，请不要删除-->
-		  <img id="img_online" src="/assets/res/online.png" width="30" height="30"/>
-		<% else %>
-		  <img src="/assets/res/offline.png" width="30" height="30"/>
-		<% end %>
+        <td><label>在线状态：</label>
+          <% if @user.online? %>
+            <!-- 下面id用于聊天，请不要删除-->
+            <img id="img_online" src="/assets/res/online.png" width="30" height="30"/>
+          <% else %>
+            <img src="/assets/res/offline.png" width="30" height="30"/>
+          <% end %>
+        </td>
+        <% if signed_in? && !current_user?(@user) %>
+          <td>
+            <button class="btn" id="chat-with-button">聊天</button>
+          </td>
+        <% end %>
 		
-		        <!-- id用于聊天，请不要删除-->
+		        <!-- 下面id用于聊天，请不要删除-->
         <td><h1 id="username"><%=@user.name%></h1></td>
+          <% if signed_in? %>
+            <%= render "shared/request_form", :user => @user %>
+          <% end %>
        
         <td><input class="btn_edit" name="commit" type="submit" value="编辑资料"/></td>
       </tr>
