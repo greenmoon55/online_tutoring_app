@@ -47,3 +47,4 @@ class AnnoncementsController < ApplicationController
   end
 
 end
+
