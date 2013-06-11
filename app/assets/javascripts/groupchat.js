@@ -117,3 +117,18 @@ function getStudentsInChatroom() {
     return this.id;
   }).get(); 
 }
+
+function setStudentOnline(id) {
+  console.log("online" + id);
+  $("#chatroom-student-list li#" + id + " span").removeClass("chatroom-offline")
+    .addClass("chatroom-online");
+}
+
+function updateStudentOnlineStatus(chatroomStudents) {
+  console.log("updateStudentOnlineStatus");
+  $("#chatroom-student-list li .chatroom-status").removeClass("chatroom-online")
+    .addClass("chatroom-offline");
+  for (var i = 0; i < chatroomStudents.length; i++) {
+    setStudentOnline(chatroomStudents[i]);
+  }
+}

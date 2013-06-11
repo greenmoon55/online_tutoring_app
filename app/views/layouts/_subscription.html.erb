@@ -34,6 +34,7 @@
       },
       success: function(data){
         updateOnlineStatus(data.uids);  
+        updateStudentOnlineStatus(data.chatroomStudents);
         //Setup the next poll recursively
         poll();
       }
