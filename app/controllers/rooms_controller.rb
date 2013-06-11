@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class RoomsController < ApplicationController
   before_filter :require_signin
-  before_filter :members_in_room, only: [:show]
+  before_filter :members_in_room, only: [:show, :message]
   before_filter :correct_user, only: [:new, :index, :create, :update, :edit, :destroy]
   before_filter :room_owner, only: [:new_line, :clear]
   # post 时无需authentication token
@@ -102,7 +102,6 @@ class RoomsController < ApplicationController
   # 学生自主退出聊天室
   def delete_by_student 
     @room = Room.find(params[:id])
-
     if current_student? && current_user.my_rooms.include?(@room)
       current_user.room_student_relationships.find_by_room_id(params[:id]).destroy
       flash[:success] = "成功退出聊天室"
@@ -127,12 +126,11 @@ class RoomsController < ApplicationController
   
   #判断用户是否属于该聊天室
   def members_in_room
-    user_id = params[:user_id]
-    room_id = params[:id]
-    if current_user?(User.find(user_id)) && current_teacher? && current_user.rooms.include?(Room.find(room_id))
-      #是该聊天室的老师
-    elsif !current_user?(User.find(user_id)) && current_student? && Room.find(room_id).students.include?(current_user)
-      #是该聊天室的学生
+    room = Room.find(params[:id])
+    #是该聊天室的老师
+    if current_teacher? && current_user.rooms.include?(room)
+    #是该聊天室的学生
+    elsif current_student? && room.students.include?(current_user)
     else
       flash[:error] = "你没有权限"
       redirect_to current_user
@@ -158,5 +156,20 @@ class RoomsController < ApplicationController
   def room_owner
     room = Room.find(params[:id])
     redirect_to root_path unless current_user?(room.user)
+  end
+
+  # 讨论组里发的消息
+  def message
+    message = {
+      message: {
+        content: params[:message][:content],
+        created_at: Time.now.to_s(:db),
+        sender_id: current_user.id,
+        sender_name: current_user.name
+      },
+      type: "message"
+    }
+    PrivatePub.publish_to("/rooms/#{params[:id]}", message)
+    render nothing: true
   end
 end

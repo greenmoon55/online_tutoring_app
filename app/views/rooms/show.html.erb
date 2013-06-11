@@ -19,8 +19,7 @@
 <%= render 'canvas' %>
 
 <div id="chatroom-sendbox">
-  <%= form_for Message.new do |f| %>
-    <%= f.hidden_field :room_id, value: @room.id%>
+  <%= form_for :message, url: room_new_message_path, remote: true do |f| %>
     <%= f.text_area :content %>
     <%= f.submit "发送", id: "chatroom-sendbutton" %>
   <% end %>

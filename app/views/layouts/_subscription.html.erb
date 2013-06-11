@@ -46,6 +46,7 @@
   <script>
     PrivatePub.subscribe("/rooms/<%= @room.id %>", function(data, channel) {
       if (data.type === "clear") context.clear();
+      else if (data.type === "message") onGroupChatMessage(data.message);
       else draw(data);
     });
   </script>
