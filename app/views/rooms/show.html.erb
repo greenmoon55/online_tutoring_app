@@ -10,9 +10,14 @@
 
 <%=link_to "老师:#{@room.user[:name]}",user_path(@room.user[:id])%>
 <div>学生</div>
-<% @students.each do |student|%>
-  <%=link_to student[:name], user_path(student[:id])%>
+<ul>
+<% @students.each do |student| %>
+  <li style="display:block;">
+    <span class="chatroom-status"></span>
+    <%= link_to student[:name], user_path(student[:id]) %>
+  </li>
 <% end%>
+</ul>
 <div id="chatroom-dialogue-list">
 </div>
 
