@@ -1,0 +1,75 @@
+@charset "UTF-8";
+/* CSS Document */
+.roomsbanner {
+	background-size: auto 100%;
+	height: 214px;
+	margin: 0;
+	float:left;
+}
+.mystudent, .blacklist, .group {
+	float: left;
+	font-size: 18px;
+	-o-transition-property: width, height, -o-transform, background, font-size, opacity;
+	-o-transition-duration: 1s, 1s, 1s, 1s, 1s, 1s;
+	-moz-transition-property: width, height, -o-transform, background, font-size, opacity;
+	-moz-transition-duration: 1s, 1s, 1s, 1s, 1s, 1s;
+	transition-property: width, height, transform, background, font-size, opacity;
+	transition-duration: 1s, 1s, 1s, 1s, 1s, 1s;
+}
+.mystudent {
+	margin-top: 100px;
+	margin-left: 140px;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	padding-left: 20px;
+	padding-right: 20px;
+	background:#06acde;
+	border-radius: 50px;
+	-moz-border-radius: 25px;
+}
+.mystudent:hover, .blacklist:hover, .group:hover {
+	-moz-transform: rotate(360deg);
+	-webkit-transform: rotate(360deg);
+	-o-transform: rotate(360deg);
+	transform: rotate(360deg);
+}
+.blacklist {
+	margin-top: 50px;
+	padding-top: 40px;
+	margin-left:-30px;
+	padding-bottom: 40px;
+	padding-left: 25px;
+	padding-right: 25px;
+	background:#94ca4e;
+	border-radius: 50px;
+	-moz-border-radius: 25px;
+}
+.group {
+	margin-top: 80px;
+	margin-left:-20px;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	padding-left: 25px;
+	padding-right: 25px;
+	background:#8c8b8b;
+	border-radius: 50px;
+	-moz-border-radius: 25px;
+}
+.room_container{
+	background:#FFF;
+	border: thin solid #CCC;
+	box-shadow: 5px 5px 5px #CCC;
+	margin-top: 100px;
+margin-left: 40px;
+	font-family: Microsoft Yahei;
+	padding: 80px 60px 80px 60px;
+}
+.row{
+	margin-top:20px;
+}
+.span6 .btn-primary{
+	margin-top:20px;
+}
+.span6 #outline{
+	width:265px;
+}

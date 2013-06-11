@@ -28,14 +28,14 @@
 #search_bar li {
 	float: none;
 }
-#search_bar .choicebox label, #search_bar .choicebox input {
+.choicebox label, #search_bar .choicebox input {
 	float: left;
 }
-#search_bar .choicebox .choice_cell {
+.choicebox .choice_cell {
 	float: left;
 	margin-right: 10px;
 }
-#search_bar .btn_edit {
+#search_bar .btn_search {
 	height: 30px;
 	float: right;
 	color: #FFF;

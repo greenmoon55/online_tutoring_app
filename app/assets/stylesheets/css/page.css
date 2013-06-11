@@ -50,7 +50,6 @@
 }
 .page .btn_edit {
 	width: 100px;
-	height: 30px;
 	float: right;
 	color: #9ed951;
 	margin-top: -10px;
@@ -60,6 +59,7 @@
 	border: 2px solid;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
+	text-align:center;
 }
 .page .btn_edit:hover {
 	color: #FFF;
@@ -179,15 +179,6 @@
 .page .description textarea{
 	width:88%;
 	height:100px;
-}
-
-.page .btn_edit{
-	float:right;
-	background:#9ed951;
-	font-family:Microsoft Yahei;
-	color:#FFF;
-	width:auto;
-	text-shadow:none;
 }
 
 .page .profession{

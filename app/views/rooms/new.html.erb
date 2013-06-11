@@ -1,6 +1,6 @@
 <% provide(:title,"创建聊天室") %>
 <div class="row">
-  <div class="span6">
+  <div class="span6" style="padding-bottom:50px;">
       <%= form_tag(user_rooms_path, method: 'post') do %>
         <tr>
           <td> <%= label_tag "聊天室主题"%></td>
@@ -10,8 +10,9 @@
           <tr><%= check_box_tag 'student[]', student[:id],student[:checked]%>
           <%= label_tag student[:name]%></tr>
         <% end%>
-        <%= submit_tag "创建聊天室", class: "btn btn-primary"%>
+        <%= submit_tag "创建聊天室", class: "btn btn-primary" %>
 
       <% end%>
+	  <div id="clear"></div>
   </div>
 </div>
