@@ -1,57 +1,32 @@
 <% provide(:title, "搜索 #{@content}") %>
 <h2>搜索</h2>
-<h1>导师</h1>
 <div class = "span7 offset2">
   <%= text_field_tag :content, @content,class: "input-large search-query" %>
   <%= submit_tag "搜索", class: "btn" %>
    <ul class="users">
     <% if @users %>
       <%= @users.count %>
-      <%= render partial: 'shared/user', collection: @users%>
+      <%= render partial: 'shared/user', collection: @users %>
     <% end %>
   </ul>
 </div>
 <div id="clear"></div>
 <div class="search_content">
 <div id="search_bar">
-    <%= form_tag(search_contents_path, :method=>'post', :multipart => true) do  %>
+  <%= form_tag(search_contents_path, :method=>'post', :multipart => true) do %>
 	<ul>
-	    <li>科目</li>
-	    <li>
-	      <div class="choicebox">
-		        <% @subjects.each do |subject| %>
-				<div class="choice_cell">
-		          <%= check_box_tag 'subject[]', subject[:id],subject[:checked] %>
-		          <%= label_tag subject[:name] %>
-				  </div>
-		        <% end %>
-	      </div>
-	      <div id="clear"></div>
-	    </li>
+    <li>科目</li>
+    <li>
+      <%= render partial: "multiple_choice", locals: {objects: @subjects, name: "subject"} %>
+    </li>
 		<li>学历</li>
 		<li>
-		      <div class="choicebox">
-			        <% @degrees.each do |degree| %>
-					 <div class="choice_cell">
-			          <%= check_box_tag 'degree[]', degree[:id],degree[:checked] %>
-			          <%= label_tag degree[:name] %>
-					  </div>
-			        <% end %>
-			  </div>
-		 <div id="clear"></div>
+      <%= render partial: "multiple_choice", locals: {objects: @degrees, name: "degree"} %>
 		</li>
 		<li>地区</li>
-		    <li>
-		      <div class="choicebox">
-			        <% @districts.each do |district| %>
-					<div class="choice_cell">
-			          <%= check_box_tag 'district[]', district[:id],district[:checked] %>
-			          <%= label_tag district[:name] %>
-					   </div>
-			        <% end %>
-			  </div>
-			 <div id="clear"></div>
-	        </li>
+		<li>
+      <%= render partial: "multiple_choice", locals: {objects: @districts, name: "district"} %>
+	  </li>
 		<li>性别</li>
 		<li>
 		    <div class="choicebox">
