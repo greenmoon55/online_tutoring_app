@@ -1,64 +1,122 @@
 <% provide(:title, "搜索 #{@content}") %>
-<h1>搜索</h1>
-
-<div class="row">
-  <div class="span8">
+<h2>搜索</h2>
+<h1>导师</h1>
+<div class = "span7 offset2">
+  <%= text_field_tag :content, @content,class: "input-large search-query" %>
+  <%= submit_tag "搜索", class: "btn" %>
+   <ul class="users">
+    <% if @users %>
+      <%= @users.count %>
+      <%= render partial: 'shared/user', collection: @users%>
+    <% end %>
+  </ul>
+</div>
+<div id="clear"></div>
+<div class="search_content">
+<div id="search_bar">
     <%= form_tag(search_contents_path, :method=>'post', :multipart => true) do  %>
-    <div class = "container-fluid">
-    <div class ="row-fluid">
-      <div class="span3">
-      <p>性别</p>
-      <div class="role-select">
+	<ul>
+	    <li>科目</li>
+	    <li>
+	      <div class="choicebox">
+		        <% @subjects.each do |subject| %>
+				<div class="choice_cell">
+		          <%= check_box_tag 'subject[]', subject[:id],subject[:checked] %>
+		          <%= label_tag subject[:name] %>
+				  </div>
+		        <% end %>
+	      </div>
+	      <div id="clear"></div>
+	    </li>
+		<li>学历</li>
+		<li>
+		      <div class="choicebox">
+			        <% @degrees.each do |degree| %>
+					 <div class="choice_cell">
+			          <%= check_box_tag 'degree[]', degree[:id],degree[:checked] %>
+			          <%= label_tag degree[:name] %>
+					  </div>
+			        <% end %>
+			  </div>
+		 <div id="clear"></div>
+		</li>
+		<li>地区</li>
+		    <li>
+		      <div class="choicebox">
+			        <% @districts.each do |district| %>
+					<div class="choice_cell">
+			          <%= check_box_tag 'district[]', district[:id],district[:checked] %>
+			          <%= label_tag district[:name] %>
+					   </div>
+			        <% end %>
+			  </div>
+			 <div id="clear"></div>
+	        </li>
+		<li>性别</li>
+		<li>
+		    <div class="choicebox">
+		      <div class="choice_cell">
         <%= radio_button_tag :gender, 2,@gender_number == 2 %>
-        <%= label_tag :gender_both, "都可" %>
+        <%= label_tag :gender_both, "都可" %></div>
+		<div class="choice_cell">
         <%= radio_button_tag :gender, 1,@gender_number == 1 %>
-        <%= label_tag :gender_male, "男" %> 
+        <%= label_tag :gender_male, "男" %></div>
+		<div class="choice_cell"> 
         <%= radio_button_tag :gender, 0,@gender_number == 0 %>
         <%= label_tag :gender_female, "女" %>
-      </div>
-      <p>身份</p>
-      <div class="role-select">
+		</div>
+	</div>
+			  <div id="clear"></div>
+		 </li>
+      <li>身份</li>
+	  <li>
+	    <div class="choicebox">
+	      <div class="choice_cell">
         <%= radio_button_tag :role, 1,@role_number == 1 %>
         <%= label_tag  "学生" %>
+	</div>
+	<div class="choice_cell">
         <%= radio_button_tag :role, 0,@role_number == 0 %>
         <%= label_tag  "老师" %> 
+	</div>
       </div>
-
-      <p>学位</p>
-      <div class="role-select">
-        <% @degrees.each do |degree| %>
-          <%= check_box_tag 'degree[]', degree[:id],degree[:checked] %>
-          <%= label_tag degree[:name] %>
-        <% end %>
-      </div>
-
-
-      <p>地区</p>
-      <div class="role-select">
-        <% @districts.each do |district| %>
-          <%= check_box_tag 'district[]', district[:id],district[:checked] %>
-          <%= label_tag district[:name] %>
-        <% end %>
-      </div>
-
-      <p>科目</p>
-      <div class="role-select">
-        <% @subjects.each do |subject| %>
-          <%= check_box_tag 'subject[]', subject[:id],subject[:checked] %>
-          <%= label_tag subject[:name] %>
-        <% end %>
-      </div>
-    </div>
-    <div class = "span7 offset2">
-      <%= text_field_tag :content, @content,class: "input-large search-query" %>
-      <%= submit_tag "搜索", class: "btn" %>
-       <ul class="users">
-        <% if @users %>
-          <%= @users.count %>
-          <%= render partial: 'shared/user', collection: @users%>
-        <% end %>
-      </ul>
-    </div>
+	  <div id="clear"></div>
+  </li>
+</ul>
+<%= submit_tag "搜索", class: "btn_edit" %>
+</div>
+<div class="search_result">
+  <div class="info_left">
+  <div class="result_cell">
+	  <img src="/assets/res/head.png">
+	      <table>
+	        <tr>
+	          <td><label>姓名</label></td>
+	          <td><label>用户名</label></td>
+	        </tr>
+	        <tr>
+	          <td><label>性别</label></td>
+	          <td><label>女</label></td>
+	        </tr>
+	        <tr>
+	          <td><label>地区</label></td>
+	          <td><label>杨浦区</label></td>
+	        </tr>
+	        <tr>
+	          <td><label>学历</label></td>
+	          <td><label>博士后</label></td>
+	        </tr>
+	        <tr>
+	          <td><label>擅长科目</label></td>
+	          <td id="course"><label>语文</label></td>
+	        </tr>
+	      </table>
+	      <div id="clear"></div>
+	      </div>
+	    </div>
+	    <div id="clear"/>
+	  </div>
+    
     </div>
     </div>
     <% end %>   
