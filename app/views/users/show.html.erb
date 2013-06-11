@@ -18,12 +18,18 @@
         <% end %>
 		
 		        <!-- 下面id用于聊天，请不要删除-->
-        <td><h1 id="username"><%=@user.name%></h1></td>
-          <% if signed_in? %>
-            <%= render "shared/request_form", :user => @user %>
-          <% end %>
+        <td>
+          <h1 id="username"><%= @user.name %></h1>
+        </td>
+        <% if signed_in? %>
+          <%= render "shared/request_form", :user => @user %>
+        <% end %>
        
-        <td><input class="btn_edit" name="commit" type="submit" value="编辑资料"/></td>
+        <% if signed_in? && current_user?(@user) %>
+          <td>
+            <%= link_to "编辑资料", edit_user_path(@user), class: "btn_edit" %>
+          </td>
+        <% end %>
       </tr>
     </table>
     <div class="info_left">
