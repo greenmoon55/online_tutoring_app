@@ -12,9 +12,6 @@
       case 3:
         addUser(data.user.id, data.user.name, data.user.online);
         break;
-      case 4:
-        onGroupChatMessage(data.message, data.room_id);
-        break;
       case 5:
         alert("对不起，您已经被对方屏蔽。");
         break;
@@ -31,7 +28,10 @@
       url: "http://localhost:3000/refresh", 
       type: "GET",
       dataType: "json",
-      data: {"users": getUidsFromUserList()},
+      data: {
+        "users": getUidsFromUserList(),
+        "chatroomStudents": getStudentsInChatroom()
+      },
       success: function(data){
         updateOnlineStatus(data.uids);  
         //Setup the next poll recursively

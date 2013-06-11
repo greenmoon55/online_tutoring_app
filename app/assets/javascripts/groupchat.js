@@ -110,3 +110,10 @@ function clearAndUpdate() {
 function onGroupChatMessage(message) {
   $("#chatroom-dialogue-list").append(message.content);
 }
+
+// 返回讨论组的学生列表，注意用户ID的类型是字符串
+function getStudentsInChatroom() {
+  return $("#chatroom-student-list li").map(function() {
+    return this.id;
+  }).get(); 
+}

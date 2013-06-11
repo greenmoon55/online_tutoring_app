@@ -10,9 +10,9 @@
 
 <%=link_to "老师:#{@room.user[:name]}",user_path(@room.user[:id])%>
 <div>学生</div>
-<ul>
+<ul id="chatroom-student-list">
 <% @students.each do |student| %>
-  <li style="display:block;">
+  <li id=<%= student.id %>>
     <% if student.online? %>
       <span class="chatroom-status chatroom-online"></span>
     <% else %> 
