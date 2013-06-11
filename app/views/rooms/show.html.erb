@@ -13,7 +13,11 @@
 <ul>
 <% @students.each do |student| %>
   <li style="display:block;">
-    <span class="chatroom-status"></span>
+    <% if student.online? %>
+      <span class="chatroom-status chatroom-online"></span>
+    <% else %> 
+      <span class="chatroom-status chatroom-offline"></span>
+    <% end %>
     <%= link_to student[:name], user_path(student[:id]) %>
   </li>
 <% end%>

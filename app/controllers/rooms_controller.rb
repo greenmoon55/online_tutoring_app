@@ -20,8 +20,7 @@ class RoomsController < ApplicationController
   end
   
   def show
-    @user = User.find(params[:user_id])
-    @room = @user.rooms.find(params[:id])
+    @room = Room.find(params[:id])
     @students = @room.students
   end
 
