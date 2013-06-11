@@ -24,7 +24,6 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @messages = Message.get_conversation(@user.id, current_user.id) if signed_in?
   end
 
   def edit
@@ -61,9 +60,6 @@ class UsersController < ApplicationController
     @user.role = 2 #0老师 1学生 2既是老师也是学生
     @user.save!
     redirect_to @user
-  end
-  
-  def search
   end
 
   def messages
