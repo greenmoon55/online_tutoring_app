@@ -1,0 +1,78 @@
+@charset "UTF-8";
+/* CSS Document */
+
+.container h1, .container h2 {
+	float: left;
+	font: Microsoft Yahei;
+}
+.container h1 {
+	font-size: 50px;
+	color: #75b701;
+	margin: 0;
+	padding: 0;
+	margin-top: 30px;
+}
+.container h2 {
+	font-size: 42px;
+	margin: 0;
+	padding: 0;
+	margin-top: 30px;
+}
+.container .search_content {
+	margin-top: 40px;
+	margin-bottom: 50px;
+	padding:30px;
+	border: thin solid #CCC;
+	font-family: Microsoft Yahei;
+	background-color: #FFF;
+}
+.container #search_bar {
+	float: left;
+	margin-top: 30px;
+	width: 240px;
+	border-right:thin solid #CCC;
+}
+#search_bar li {
+	float: none;
+}
+#search_bar .choicebox label, #search_bar .choicebox input {
+	float: left;
+}
+#search_bar .choicebox .choice_cell {
+	float: left;
+	margin-right: 10px;
+}
+#search_bar .btn_edit {
+	height: 30px;
+	float: right;
+	color: #FFF;
+	margin-top: -10px;
+	margin-right: 35px;
+	background: #9ed951;
+	font-family: Microsoft Yahei;
+	border-color: #9ed951;
+	border: 2px solid;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+
+.search_result .info_left{
+	padding-top:30px;
+	border:none;
+	width:auto;
+}
+.search_result .info_left .result_cell img, .search_result .info_left .result_cell table{
+	float:left;
+}
+.search_result .info_left .result_cell table{
+	width:300px;
+	margin-left:30px;
+	table-layout:fixed;
+}
+.search_result .info_left .result_cell #course label{
+	float:left;
+}
+.container .offset2{
+	margin-left:180px;
+	margin-top:35px;
+}
