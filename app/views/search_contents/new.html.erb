@@ -4,10 +4,7 @@
   <%= text_field_tag :content, @content, class: "input-large search-query" %>
   <%= submit_tag "搜索", class: "btn" %>
    <ul class="users">
-    <% if @users %>
-      <%= @users.count %>
-      <%= render partial: 'shared/user', collection: @users %>
-    <% end %>
+    
   </ul>
 </div>
 <div id="clear"></div>
@@ -64,6 +61,10 @@
 </div>
 <div class="search_result">
   <div class="info_left">
+  <% if @users %>
+    <%= @users.count %>
+    <%= render partial: "user", collection: @users %>
+  <% end %>
   <div class="result_cell">
     <img src="/assets/res/head.png">
         <table>

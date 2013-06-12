@@ -1,0 +1,26 @@
+<div class="result_cell">
+  <%= gravatar_for user, size: 137 %>
+  <table>
+    <tr>
+      <td><label>姓名</label></td>
+      <td><label><%= user.name %></label></td>
+    </tr>
+    <tr>
+      <td><label>性别</label></td>
+      <td><label><%= gender(user) %></label></td>
+    </tr>
+    <tr>
+      <td><label>地区</label></td>
+      <td><label>杨浦区</label></td>
+    </tr>
+    <tr>
+      <td><label>学历</label></td>
+      <td><label>博士后</label></td>
+    </tr>
+    <tr>
+      <td><label>擅长科目</label></td>
+      <td id="course"><label>语文</label></td>
+    </tr>
+  </table>
+  <div id="clear"></div>
+</div>
