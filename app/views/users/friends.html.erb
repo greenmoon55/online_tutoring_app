@@ -1,5 +1,6 @@
 <% provide(:title, @title) %>
 <%= render 'layouts/sub_header' %>
+<div class="room_container">
 <% if @users.any? %>
     <% @users.each do |user| %>
       <div class="span4">
@@ -12,7 +13,9 @@
   </div>
 <% else %>
 <p>无朋友</p>
+</div>
 <% end %>
+
 
 
 
