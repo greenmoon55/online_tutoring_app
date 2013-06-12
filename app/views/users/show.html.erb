@@ -83,6 +83,8 @@
       </ul>
 	  
       <% if @user.is_student? %>
+        <h6>学习状态</h6>
+        <%= student_visible_to_s(@user) %>
         <h6>想要学习的科目</h6>
         <div class="course">
           <ul>
@@ -95,6 +97,8 @@
 	    <% end %>
 	  
       <% if @user.is_teacher? %>
+        <h6>教学状态</h6>
+        <%= teacher_visible_to_s(@user) %>
         <h6>想要讲授的科目</h6>
         <div class="course">
           <ul>
@@ -105,24 +109,12 @@
           </ul>
         </div>
       <% end %>
-	  
-      <h6>视频</h6>
-      <img src="/assets/res/video.png"/>
     </div>
     <div class="info_right">
       <%= gravatar_for(@user, size: 200) %> 
       <h6>自我描述</h6>
       <p><%= @user.description %></p>
-      <h6>评价</h6>
-      <div class="comment"> <a href="#">某人</a>:
-        <p>评价</p>
-      </div>
-      <div class="comment"> <a href="#">某人</a>:
-        <p>评价</p>
-      </div>
-       <a href="#">浏览评价记录</a>
     </div>
-   
     <div id="clear"/>
   </div>
 </div>

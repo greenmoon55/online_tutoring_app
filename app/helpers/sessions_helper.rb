@@ -96,9 +96,13 @@ module SessionsHelper
       return 0
     end
   end
-  # 这个在用吗？
+
   def districts
     @districts ||= District.all.collect {|x| [x.name, x.id]}
+  end
+
+  def degrees
+    @degrees ||= Degree.all.collect {|x| [x.name, x.id]}
   end
 
 end
