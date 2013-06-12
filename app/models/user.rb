@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
                   :student_visible, :teacher_visible, :degree_id,
                   :student_subject_ids, :teacher_subject_ids
   attr_accessor :updating_password
-#这里好乱啊...
+
   has_many :student_relationships
   has_many :student_subjects, through: :student_relationships, source: :subject
   has_many :teacher_relationships

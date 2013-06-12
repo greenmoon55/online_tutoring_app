@@ -9,18 +9,30 @@
       <td><label>性别</label></td>
       <td><label><%= gender(user) %></label></td>
     </tr>
-    <tr>
-      <td><label>地区</label></td>
-      <td><label>杨浦区</label></td>
-    </tr>
-    <tr>
-      <td><label>学历</label></td>
-      <td><label>博士后</label></td>
-    </tr>
-    <tr>
-      <td><label>擅长科目</label></td>
-      <td id="course"><label>语文</label></td>
-    </tr>
+    <% if user.district %>
+      <tr>
+        <td><label>地区</label></td>
+        <td><label><%= user.district.name %></label></td>
+      </tr>
+    <% end %>
+    <% if user.degree %>
+      <tr>
+        <td><label>学历</label></td>
+        <td><label><%= user.degree.name %></label></td>
+      </tr>
+    <% end %>
+    <% unless user.student_subjects.empty? %>
+      <tr>
+        <td><label>想学习的科目</label></td>
+        <td id="course"><label><%= user.student_subjects.map(&:name).to_sentence %></label></td>
+      </tr>
+    <% end %>
+    <% unless user.teacher_subjects.empty? %>
+      <tr>
+        <td><label>想教授的科目</label></td>
+        <td id="course"><label><%= user.teacher_subjects.map(&:name).to_sentence %></label></td>
+      </tr>
+    <% end %>
   </table>
   <div id="clear"></div>
 </div>
