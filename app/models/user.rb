@@ -52,6 +52,8 @@ class User < ActiveRecord::Base
   has_many :blocked_relationships,dependent: :destroy
   has_many :blocked_users, through: :blocked_relationships, source: :blocked_user
   has_many :advertisements,dependent: :destroy
+  #as teacher
+  has_many :comments, foreign_key: "teacher_id", dependent: :destroy
   accepts_nested_attributes_for :student_subjects
 
   before_save { |user| user.email = email.downcase }

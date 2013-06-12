@@ -20,7 +20,8 @@ OnlineTutoringApp::Application.routes.draw do
   resources :requests, only: [:create, :destroy]
   resources :messages, only: :create
   resources :blocked_relationships, only: [:create,:destroy]
-
+  resources :comments, only: [:create, :update, :destroy]
+  
   match '/refresh', to: 'sessions#refresh', via: :get
 
   match '/signup', to: 'users#new'

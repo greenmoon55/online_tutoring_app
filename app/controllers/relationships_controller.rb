@@ -40,4 +40,9 @@ class RelationshipsController < ApplicationController
       redirect_to current_user and return
     end
   end
+  
+  def comment
+    
+  end
+  
 end

@@ -1,4 +1,26 @@
 <% provide(:title, @user.name) %>
+<!-- 仅供测试 -->
+  <%= render "comments/index", comments: @user.comments%>
+  <% if signed_in? %>
+    <%= render "shared/request_form", :user => @user %>
+    <% if !@has_evaluate && @can_evaluate%>
+      <% comment = Comment.new(teacher_id:@user[:id], student_id:current_user[:id]) %>
+      <%= render "comments/new", comment: comment%>    
+    <% end%>
+    <% if @has_evaluate%>
+      <% comment = Comment.find_by_student_id_and_teacher_id(current_user[:id], @user[:id])%>
+        <% if @can_evaluate%>
+          <%= render "comments/update", comment: comment%> 
+        <% end%>
+        <%= render "comments/destroy", comment: comment%>
+    <% end%>
+       
+    <%= render @messages if @messages %>
+    <% unless current_user?(@user) %>
+      <button class="btn" id="chat-with-button">聊天</button>
+    <% end %>
+  <% end %>
+
 <div class="info_container" style="border:none;">
   <div class="page" style="float:none;">
     <table>
