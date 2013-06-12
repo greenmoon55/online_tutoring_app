@@ -47,6 +47,8 @@
       </ul>
 	  
       <% if @user.is_student? %>
+        <h6>学习状态</h6>
+        <%= student_visible_to_s(@user) %>
         <h6>想要学习的科目</h6>
         <div class="course">
           <ul>
@@ -59,6 +61,8 @@
 	    <% end %>
 	  
       <% if @user.is_teacher? %>
+        <h6>教学状态</h6>
+        <%= teacher_visible_to_s(@user) %>
         <h6>想要讲授的科目</h6>
         <div class="course">
           <ul>

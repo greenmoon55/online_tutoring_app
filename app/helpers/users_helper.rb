@@ -17,4 +17,20 @@ module UsersHelper
     return "老师" if user.role == 0
     return "既是老师也是学生" if user.role == 2
   end
+
+  def student_visible_to_s(user)
+    if user.student_visible
+      "想学习" 
+    else
+      "不想学习"
+    end
+  end
+
+  def teacher_visible_to_s(user)
+    if user.teacher_visible
+      "想教学" 
+    else
+      "不想教学"
+    end
+  end
 end
