@@ -1,0 +1,5 @@
+<%= form_tag(comment_path(comment), method:"delete") do%>
+<%= hidden_field_tag :student_id, comment.student_id%>
+<%= hidden_field_tag :teacher_id, comment.teacher_id%>
+<%= submit_tag "删除我的评论", class: "btn btn-primary"%>
+<% end %>

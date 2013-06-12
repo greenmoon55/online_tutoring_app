@@ -1,0 +1,11 @@
+<% if comments.count == 0%>
+  <p>暂无评论</p>
+<% else %>
+  <% comments.each do |comment|%>
+  <li>
+  <%= User.find(comment.student_id)[:name]%>
+  <%= comment.evaluation%>
+  <%= comment.updated_at%>
+  <% end%>
+  </li> 
+<% end%>

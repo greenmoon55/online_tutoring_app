@@ -1,0 +1,6 @@
+<%= form_tag(comments_path, method:"post") do%>
+<%= hidden_field_tag :student_id, comment.student_id %>
+<%= hidden_field_tag :teacher_id, comment.teacher_id %>
+<%= text_field_tag :evaluation,comment.evaluation%>
+<%= submit_tag "评论", class: "btn  btn-primary" %>
+<% end %>

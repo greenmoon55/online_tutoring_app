@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130606091906) do
+ActiveRecord::Schema.define(:version => 20130612103011) do
+
+  create_table "Comments", :force => true do |t|
+    t.integer  "student_id", :null => false
+    t.integer  "teacher_id", :null => false
+    t.string   "evaluation", :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "Comments", ["teacher_id"], :name => "index_comments_on_teacher_id"
 
   create_table "Requests", :force => true do |t|
     t.integer  "kind",                           :null => false
@@ -70,13 +80,10 @@ ActiveRecord::Schema.define(:version => 20130606091906) do
   add_index "messages", ["sender_id", "receiver_id"], :name => "index_messages_on_sender_id_and_receiver_id"
 
   create_table "relationships", :force => true do |t|
-    t.integer  "student_id",                        :null => false
-    t.integer  "teacher_id",                        :null => false
-    t.string   "evaluation"
-    t.boolean  "is_active",       :default => true, :null => false
-    t.datetime "evaluation_time"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.integer  "student_id", :null => false
+    t.integer  "teacher_id", :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "relationships", ["student_id", "teacher_id"], :name => "index_relationships_on_student_id_and_teacher_id", :unique => true
@@ -121,18 +128,22 @@ ActiveRecord::Schema.define(:version => 20130606091906) do
   add_index "teacher_relationships", ["user_id", "subject_id"], :name => "index_teacher_relationships_on_user_id_and_subject_id", :unique => true
 
   create_table "users", :force => true do |t|
-    t.string   "name",                              :null => false
-    t.string   "email",                             :null => false
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
-    t.string   "password_digest",                   :null => false
-    t.integer  "role",            :default => 1,    :null => false
+    t.string   "name",                                  :null => false
+    t.string   "email",                                 :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+    t.string   "password_digest",                       :null => false
+    t.integer  "role",                :default => 1,    :null => false
     t.integer  "gender"
     t.integer  "district_id"
     t.string   "description"
     t.integer  "degree_id"
-    t.boolean  "teacher_visible", :default => true, :null => false
-    t.boolean  "student_visible", :default => true, :null => false
+    t.boolean  "teacher_visible",     :default => true, :null => false
+    t.boolean  "student_visible",     :default => true, :null => false
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

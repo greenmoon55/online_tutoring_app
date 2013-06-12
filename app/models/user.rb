@@ -52,6 +52,8 @@ class User < ActiveRecord::Base
   has_many :blocked_relationships,dependent: :destroy
   has_many :blocked_users, through: :blocked_relationships, source: :blocked_user
   has_many :advertisements,dependent: :destroy
+  #as teacher
+  has_many :comments, foreign_key: "teacher_id", dependent: :destroy
   accepts_nested_attributes_for :student_subjects
 
   before_save { |user| user.email = email.downcase }
@@ -162,16 +164,16 @@ class User < ActiveRecord::Base
 
   def send_accept_request!(other_user, current_student)
     if current_student
-      other_user.create_normal_request！(self.id, 3, "同意了你的请求")
+      other_user.create_normal_request!(self.id, 3, "同意了你的请求")
     else
-      other_user.create_normal_request！(self.id, 4, "同意了你的请求")
+      other_user.create_normal_request!(self.id, 4, "同意了你的请求")
     end
   end
   def send_refuse_request!(other_user, current_student)
     if current_student
-      other_user.create_normal_request！(self.id, 3, "拒绝了你的请求")
+      other_user.create_normal_request!(self.id, 3, "拒绝了你的请求")
     else
-      other_user.create_normal_request！(self.id, 4, "拒绝了你的请求")
+      other_user.create_normal_request!(self.id, 4, "拒绝了你的请求")
     end
   end
 
