@@ -94,6 +94,10 @@
             <div id="clear"/>
           </ul>
         </div>
+        <% unless @user.video_id.blank? %>
+          <h6>视频</h6>
+          <%= raw(video_for @user.video_id) %>
+        <% end %>
       <% end %>
     </div>
     <div class="info_right">

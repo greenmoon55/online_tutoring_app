@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
 #
 # Table name: users
@@ -16,16 +15,19 @@
 #  degree_id       :integer
 #  teacher_visible :boolean          default(TRUE), not null
 #  student_visible :boolean          default(TRUE), not null
+#  video_url       :string(255)
 #
 
+# -*- encoding : utf-8 -*-
 
 #
 class User < ActiveRecord::Base
   has_secure_password
   attr_accessible :email, :name, :password, :password_confirmation,
-                  :gender, :district_id, :description,:role,
+                  :gender, :district_id, :description, :role,
                   :student_visible, :teacher_visible, :degree_id,
-                  :student_subject_ids, :teacher_subject_ids
+                  :student_subject_ids, :teacher_subject_ids,
+                  :video_url
   attr_accessor :updating_password
 
   has_many :student_relationships

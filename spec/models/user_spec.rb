@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # == Schema Information
 #
 # Table name: users
@@ -16,8 +15,10 @@
 #  degree_id       :integer
 #  teacher_visible :boolean          default(TRUE), not null
 #  student_visible :boolean          default(TRUE), not null
+#  video_url       :string(255)
 #
 
+# -*- encoding : utf-8 -*-
 require 'spec_helper'
 
 describe User do 

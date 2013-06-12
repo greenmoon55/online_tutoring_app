@@ -15,6 +15,7 @@
 #  degree_id       :integer
 #  teacher_visible :boolean          default(TRUE), not null
 #  student_visible :boolean          default(TRUE), not null
+#  video_url       :string(255)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
