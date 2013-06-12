@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130612115218) do
+ActiveRecord::Schema.define(:version => 20130612120841) do
 
   create_table "advertisements", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(:version => 20130612115218) do
     t.integer  "degree_id"
     t.boolean  "teacher_visible", :default => true, :null => false
     t.boolean  "student_visible", :default => true, :null => false
+    t.string   "video_url"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
