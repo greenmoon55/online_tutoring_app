@@ -1,62 +1,62 @@
 <% provide(:title, "搜索 #{@content}") %>
 <h3>搜索</h3>
-<div class = "span7 offset2">
-  <%= text_field_tag :content, @content, class: "input-large search-query" %>
-  <%= submit_tag "搜索", class: "btn" %>
-</div>
-<div id="clear"></div>
-<div class="search_content">
-<div id="search_bar">
-  <%= form_tag(search_contents_path, :method=>'post') do %>
-  <ul>
-    <li>身份</li>
-    <li>
-      <div class="choicebox">
-        <div class="choice_cell">
-        <%= radio_button_tag :role, 1, @role_number == 1 %>
-        <%= label_tag :role_1, "学生" %>
+<%= form_tag(search_contents_path, :method => 'post') do %>
+  <div class = "span7 offset2">
+    <%= text_field_tag :content, @content, class: "input-large search-query" %>
+    <%= submit_tag "搜索", class: "btn" %>
+  </div>
+  <div id="clear"></div>
+  <div class="search_content">
+  <div id="search_bar">
+    <ul>
+      <li>身份</li>
+      <li>
+        <div class="choicebox">
+          <div class="choice_cell">
+          <%= radio_button_tag :role, 1, @role_number == 1 %>
+          <%= label_tag :role_1, "学生" %>
+          </div>
+          <div class="choice_cell">
+          <%= radio_button_tag :role, 0, @role_number == 0 %>
+          <%= label_tag :role_0, "老师" %> 
+          </div>
         </div>
-        <div class="choice_cell">
-        <%= radio_button_tag :role, 0, @role_number == 0 %>
-        <%= label_tag :role_0, "老师" %> 
+        <div id="clear"></div>
+      </li>
+      <li>科目</li>
+      <li>
+        <%= render partial: "multiple_choice", locals: {objects: @subjects, name: "subject"} %>
+      </li>
+      <li>学历</li>
+      <li>
+        <%= render partial: "multiple_choice", locals: {objects: @degrees, name: "degree"} %>
+      </li>
+      <li>地区</li>
+      <li>
+        <%= render partial: "multiple_choice", locals: {objects: @districts, name: "district"} %>
+      </li>
+      <li>性别</li>
+      <li>
+        <div class="choicebox">
+          <div class="choice_cell">
+            <%= radio_button_tag :gender, 2, @gender_number == 2 %>
+            <%= label_tag :gender_2, "都可" %>
+          </div>
+          <div class="choice_cell">
+            <%= radio_button_tag :gender, 1, @gender_number == 1 %>
+            <%= label_tag :gender_1, "男" %>
+          </div>
+          <div class="choice_cell"> 
+            <%= radio_button_tag :gender, 0, @gender_number == 0 %>
+            <%= label_tag :gender_0, "女" %>
+          </div>
         </div>
-      </div>
-      <div id="clear"></div>
-    </li>
-    <li>科目</li>
-    <li>
-      <%= render partial: "multiple_choice", locals: {objects: @subjects, name: "subject"} %>
-    </li>
-    <li>学历</li>
-    <li>
-      <%= render partial: "multiple_choice", locals: {objects: @degrees, name: "degree"} %>
-    </li>
-    <li>地区</li>
-    <li>
-      <%= render partial: "multiple_choice", locals: {objects: @districts, name: "district"} %>
-    </li>
-    <li>性别</li>
-    <li>
-      <div class="choicebox">
-        <div class="choice_cell">
-          <%= radio_button_tag :gender, 2, @gender_number == 2 %>
-          <%= label_tag :gender_2, "都可" %>
-        </div>
-        <div class="choice_cell">
-          <%= radio_button_tag :gender, 1, @gender_number == 1 %>
-          <%= label_tag :gender_1, "男" %>
-        </div>
-        <div class="choice_cell"> 
-          <%= radio_button_tag :gender, 0, @gender_number == 0 %>
-          <%= label_tag :gender_0, "女" %>
-        </div>
-      </div>
-      <div id="clear"></div>
-    </li>
-  </ul>
-  <%= submit_tag "搜索", class: "btn_search" %>
-  <% end %>
-</div>
+        <div id="clear"></div>
+      </li>
+    </ul>
+    <%= submit_tag "搜索", class: "btn_search" %>
+  </div>
+<% end %>
 <div class="search_result">
   <div class="info_left">
     <% if @users %>
