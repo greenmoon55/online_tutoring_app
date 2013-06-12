@@ -6,7 +6,16 @@
 	    <%= render'shared/remove_relationship', :user => user %>
 	  <% else %>
 	    <% if !current_user.blocked_users.include?(user)%>
-	  	  <%= render'shared/add_friends', :user => user%>
+	        <a href="#addModal" role="button" class="btn" data-toggle="modal">加为好友</a>
+			<div id="addModal" class="modal hide fade">
+			  <div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			    <h4>亲，写下你想加 <%=@user.name%>为好友的原因吧 ^_^</h4>
+			  </div>
+			  <div class="modal-body">
+				<%= render'shared/add_friends', :user => user%>
+			  </div>
+			</div>
 	  	<% end %>
 	  <% end %>
 	<% end %>
