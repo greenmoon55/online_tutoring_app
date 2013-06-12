@@ -55,77 +55,15 @@
     </li>
   </ul>
   <%= submit_tag "搜索", class: "btn_search" %>
+  <% end %>
 </div>
 <div class="search_result">
   <div class="info_left">
-  <% if @users %>
-    <%= @users.count %>
-    <%= render partial: "user", collection: @users %>
-  <% end %>
-  <div class="result_cell">
-    <img src="/assets/res/head.png">
-        <table>
-          <tr>
-            <td><label>姓名</label></td>
-            <td><label>用户名</label></td>
-          </tr>
-          <tr>
-            <td><label>性别</label></td>
-            <td><label>女</label></td>
-          </tr>
-          <tr>
-            <td><label>地区</label></td>
-            <td><label>杨浦区</label></td>
-          </tr>
-          <tr>
-            <td><label>学历</label></td>
-            <td><label>博士后</label></td>
-          </tr>
-          <tr>
-            <td><label>擅长科目</label></td>
-            <td id="course"><label>语文</label></td>
-          </tr>
-        </table>
-        <div id="clear"></div>
-        </div>
-		
-	    <div class="result_cell">
-	      <img src="/assets/res/head.png">
-	          <table>
-	            <tr>
-	              <td><label>姓名</label></td>
-	              <td><label>用户名</label></td>
-	            </tr>
-	            <tr>
-	              <td><label>性别</label></td>
-	              <td><label>女</label></td>
-	            </tr>
-	            <tr>
-	              <td><label>地区</label></td>
-	              <td><label>杨浦区</label></td>
-	            </tr>
-	            <tr>
-	              <td><label>学历</label></td>
-	              <td><label>博士后</label></td>
-	            </tr>
-	            <tr>
-	              <td><label>擅长科目</label></td>
-	              <td id="course"><label>语文</label></td>
-	            </tr>
-	          </table>
-	          <div id="clear"></div>
-	          </div>
-			  
-      </div>
-      <div id="clear"/>
-    </div>
-    
-    </div>
-    </div>
-    <% end %>   
-       
+    <% if @users %>
+      <%= @users.count %>
+      <%= render partial: "user", collection: @users %>
+    <% end %>
+  </div>
+  <div id="clear"/>
   </div>
 </div>
-
-
-
