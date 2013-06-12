@@ -8,13 +8,15 @@ gem 'rails', '3.2.13'
 gem 'bcrypt-ruby'
 gem 'bootstrap-sass'
 
-
 # messaging
 gem 'private_pub'
 gem 'thin'
 
 # online status
 gem 'redis'
+
+# 后台管理
+gem "typus", :git => "git://github.com/fesplugas/typus.git", :branch => "3-2-stable"
 
 group :development do
   gem 'rspec-rails', "2.11.0"
@@ -45,7 +47,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 2.2.1'
 gem 'jquery-cookie-rails'
 
 # To use ActiveModel has_secure_password

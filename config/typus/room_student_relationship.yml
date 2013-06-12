@@ -1,0 +1,8 @@
+# Use the README file as a reference to customize settings.
+
+RoomStudentRelationship:
+  fields:
+    default: student_id, room_id
+    form: student_id, room_id
+  relationships: 
+  application: Application

@@ -10,17 +10,25 @@
 
 <%=link_to "老师:#{@room.user[:name]}",user_path(@room.user[:id])%>
 <div>学生</div>
-<% @students.each do |student|%>
-  <%=link_to student[:name], user_path(student[:id])%>
+<ul id="chatroom-student-list">
+<% @students.each do |student| %>
+  <li id=<%= student.id %>>
+    <% if student.online? %>
+      <span class="chatroom-status chatroom-online"></span>
+    <% else %> 
+      <span class="chatroom-status chatroom-offline"></span>
+    <% end %>
+    <%= link_to student[:name], user_path(student[:id]) %>
+  </li>
 <% end%>
+</ul>
 <div id="chatroom-dialogue-list">
 </div>
 
 <%= render 'canvas' %>
 
 <div id="chatroom-sendbox">
-  <%= form_for Message.new do |f| %>
-    <%= f.hidden_field :room_id, value: @room.id%>
+  <%= form_for :message, url: room_new_message_path, remote: true do |f| %>
     <%= f.text_area :content %>
     <%= f.submit "发送", id: "chatroom-sendbutton" %>
   <% end %>

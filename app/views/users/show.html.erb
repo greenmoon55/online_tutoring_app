@@ -20,91 +20,85 @@
       <button class="btn" id="chat-with-button">聊天</button>
     <% end %>
   <% end %>
+
 <div class="info_container" style="border:none;">
   <div class="page" style="float:none;">
     <table>
       <tr>
-        <td><label>个人状态：
-		</label>
-		<% if @user.online? %>
-		  <!-- id用于聊天，请不要删除-->
-		  <img id="img_online" src="/assets/res/online.png" width="30" height="30"/>
-		<% else %>
-		  <img src="/assets/res/offline.png" width="30" height="30"/>
-		<% end %>
+        <td><label>在线状态：</label>
+          <% if @user.online? %>
+            <!-- 下面id用于聊天，请不要删除-->
+            <img id="img_online" src="/assets/res/online.png" width="30" height="30"/>
+          <% else %>
+            <img src="/assets/res/offline.png" width="30" height="30"/>
+          <% end %>
+        </td>
+        <% if signed_in? && !current_user?(@user) %>
+          <td>
+            <button class="btn" id="chat-with-button">聊天</button>
+          </td>
+        <% end %>
 		
-		        <!-- id用于聊天，请不要删除-->
-        <td><h1 id="username"><%=@user.name%></h1></td>
+		        <!-- 下面id用于聊天，请不要删除-->
+        <td>
+          <h1 id="username"><%= @user.name %></h1>
+        </td>
+        <% if signed_in? %>
+          <%= render "shared/request_form", :user => @user %>
+        <% end %>
        
-        <td><input class="btn_edit" name="commit" type="submit" value="编辑资料"/></td>
+        <% if signed_in? && current_user?(@user) %>
+          <td>
+            <%= link_to "编辑资料", edit_user_path(@user), class: "btn_edit" %>
+          </td>
+        <% end %>
       </tr>
     </table>
     <div class="info_left">
       <h6>个人信息</h6>
       <ul>
         <li>是否空闲：是</li>
-        <li>性别：
-		<% if @user.gender == 0%>女
-		<% elsif @user.gender == 1%>男
-		<% else %>保密
-		<% end %>
-		</li>
-        <li>地区：
-		<% if @user.district %>
-		<%= @user.district[:name]%>
-		<% end %>
-		</li>
-        <li>学位：
-		<% if @user.degree %>
-		<%= @user.degree[:name]%>
-		<% end %>
-		</li>
+        <li>性别：<%= gender(@user) %> </li>
+        <% if @user.district %>
+          <li>地区：<%= @user.district.name %></li>
+        <% end %>
+        <% if @user.degree %>
+          <li>学历：<%= @user.degree.name %></li>
+        <% end %>
+        <li>身份：<%= role(@user) %> </li>
       </ul>
-      <h6>擅长科目</h6>
 	  
-	  <% if @user.role == 1 || @user.role == 2%>
-	  <h6>学生： 想要学习</h6>
-	  <% subjects=@user.student_subjects%>
-	  <div class="course">
-		<ul>
-		<% subjects.each do |subject|%>
-		<li><%= subject[:name]%></li>
-		<div id="clear"/>
-        </ul>
-      </div>
-	  <%end%>
-	  <%end%>
+      <% if @user.is_student? %>
+        <h6>想要学习的科目</h6>
+        <div class="course">
+          <ul>
+            <% @user.student_subjects.each do |subject| %>
+              <li><%= subject.name %></li>
+            <% end %>
+            <div id="clear"/>
+          </ul>
+        </div>
+	    <% end %>
 	  
-	  <% if @user.role == 0 || @user.role == 2%>
-	  <h6>老师： 想要讲授</h6>
-	  <% subjects=@user.teacher_subjects%>
-	  <div class="course">
-		<ul>
-		<% subjects.each do |subject|%>
-		<li><%= subject[:name]%></li>
-		<div id="clear"/>
-		</ul>
-      </div>
-	  <%end%>
-	  <%end%>
-	  <!--可删除-->
-      <div class="course">
-        <ul>
-          <li>语文</li>
-          <li>数学</li>
-          <li>英语</li>
-          <div id="clear"/>
-        </ul>
-      </div>
+      <% if @user.is_teacher? %>
+        <h6>想要讲授的科目</h6>
+        <div class="course">
+          <ul>
+            <% @user.teacher_subjects.each do |subject| %>
+              <li><%= subject.name %></li>
+            <% end %>
+            <div id="clear"/>
+          </ul>
+        </div>
+      <% end %>
 	  
       <h6>视频</h6>
       <img src="/assets/res/video.png"/>
     </div>
-	</div>
     <div class="info_right">
-    <img src="/assets/res/head.png" width="200" height="200"/>
+      <%= gravatar_for(@user, size: 200) %> 
       <h6>自我描述</h6>
-      <p><%= @user.description%></p>
+      <p><%= @user.description %></p>
       <h6>评价</h6>
       <div class="comment"> <a href="#">某人</a>:
         <p>评价</p>

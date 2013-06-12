@@ -12,9 +12,6 @@
       case 3:
         addUser(data.user.id, data.user.name, data.user.online);
         break;
-      case 4:
-        onGroupChatMessage(data.message, data.room_id);
-        break;
       case 5:
         alert("对不起，您已经被对方屏蔽。");
         break;
@@ -31,9 +28,13 @@
       url: "http://localhost:3000/refresh", 
       type: "GET",
       dataType: "json",
-      data: {"users": getUidsFromUserList()},
+      data: {
+        "users": getUidsFromUserList(),
+        "chatroomStudents": getStudentsInChatroom()
+      },
       success: function(data){
         updateOnlineStatus(data.uids);  
+        updateStudentOnlineStatus(data.chatroomStudents);
         //Setup the next poll recursively
         poll();
       }
@@ -46,6 +47,7 @@
   <script>
     PrivatePub.subscribe("/rooms/<%= @room.id %>", function(data, channel) {
       if (data.type === "clear") context.clear();
+      else if (data.type === "message") onGroupChatMessage(data.message);
       else draw(data);
     });
   </script>

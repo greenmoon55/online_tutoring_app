@@ -1,0 +1,8 @@
+# Use the README file as a reference to customize settings.
+
+User:
+  fields:
+    default: name, email, password_digest, role, gender, district_id, description, degree_id, teacher_visible, student_visible
+    form: name, email, password_digest, role, gender, district_id, description, degree_id, teacher_visible, student_visible
+  relationships: student_relationships, student_subjects, teacher_relationships, teacher_subjects, sent_messages, received_messages, relationships, teachers, room_student_relationships, my_rooms, reverse_relationships, students, rooms, requests, blocked_relationships, blocked_users, advertisements
+  application: Application

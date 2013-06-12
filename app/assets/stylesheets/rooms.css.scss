@@ -6,3 +6,19 @@
   -webkit-user-select: none;
   -moz-user-select: none;
 }
+
+.chatroom-status {
+  width: 7px;
+  height: 7px;
+  display: inline-block;
+  float: left;
+  margin: 10px 5px;
+}
+
+.chatroom-online {
+  background-color: #8FDC00;
+}
+
+.chatroom-offline {
+  background-color: #D4D4D4;
+}

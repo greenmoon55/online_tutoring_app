@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class UniqueUserName < ActiveRecord::Migration
   def up
     add_index :users, :name, unique: true

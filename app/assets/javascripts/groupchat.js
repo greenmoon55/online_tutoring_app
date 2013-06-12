@@ -16,8 +16,11 @@ var context;
 var color = "000000";
 var lineWidth = 1;
 var roomID;
+var currentTeacher;
 
 $(document).ready(function() {
+  var temp = $("#login ul li:first a").html().match(/\(.+\)/);
+  if (temp) currentTeacher = temp[0] === "(教师)";
   var path = window.location.pathname;
   var re = /\d+/g;
   var matches = path.match(re);
@@ -35,7 +38,7 @@ $(document).ready(function() {
   var points = [];
   var canvas = $("#chatroom-canvas");
   canvas.mousedown(function(e) {
-    if (!drawingNow) {
+    if (!drawingNow && currentTeacher) {
       drawingNow = true;
       points = [];
       points.push([e.offsetX, e.offsetY]);
@@ -90,7 +93,6 @@ function draw(data) {
   context.moveTo(points[0][0], points[0][1]);
   console.log(points.length);
   for (var i = 1; i < points.length; i++) {
-    console.log(i);
     context.lineTo(points[i][0], points[i][1]);
     context.stroke();
   }
@@ -105,9 +107,28 @@ function clearAndUpdate() {
   });
 }
 
-function onGroupChatMessage(message, roomID) {
-  console.log("test");
-  if (roomID == $("#message_room_id").val()) {
-    $("#chatroom-dialogue-list").append(message.content);
+function onGroupChatMessage(message) {
+  $("#chatroom-dialogue-list").append(message.content);
+}
+
+// 返回讨论组的学生列表，注意用户ID的类型是字符串
+function getStudentsInChatroom() {
+  return $("#chatroom-student-list li").map(function() {
+    return this.id;
+  }).get(); 
+}
+
+function setStudentOnline(id) {
+  console.log("online" + id);
+  $("#chatroom-student-list li#" + id + " span").removeClass("chatroom-offline")
+    .addClass("chatroom-online");
+}
+
+function updateStudentOnlineStatus(chatroomStudents) {
+  console.log("updateStudentOnlineStatus");
+  $("#chatroom-student-list li .chatroom-status").removeClass("chatroom-online")
+    .addClass("chatroom-offline");
+  for (var i = 0; i < chatroomStudents.length; i++) {
+    setStudentOnline(chatroomStudents[i]);
   }
 }

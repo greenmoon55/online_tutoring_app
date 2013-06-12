@@ -36,6 +36,9 @@ class SessionsController < ApplicationController
     uids = params[:users] || []
     uids.map!(&:to_i)
     uids.keep_if {|uid| User.find(uid).online?} 
-    render :json => {uids: uids}
+    chatroom_students = params[:chatroomStudents] || []
+    chatroom_students.map!(&:to_i)
+    chatroom_students.keep_if {|uid| User.find(uid).online?}
+    render :json => {uids: uids, chatroomStudents: chatroom_students}
   end
 end

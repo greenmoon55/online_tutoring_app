@@ -42,17 +42,16 @@
 }
 ```
 
-4. 群聊消息
+4. 群聊消息，（频道与私聊不同）
 --------
 
 ```json
 {
-  "type": 4,
   "message": {
     "content": "hello world",
     "created_at": "2013-05-29 15:55:18",
     "sender_id": 102,
     "sender_name": "greenmoon55" 
   },
-  "room_id": 5
+  "type": "message"
 }

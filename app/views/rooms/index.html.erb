@@ -1,9 +1,11 @@
 <%= render 'layouts/sub_header' %>
-<% if signed_in? && current_teacher?%>
-<%= link_to "创建聊天室", new_user_room_path(current_user)%>
+<div class="room_container">
+<% if signed_in? && current_teacher? %>
+<%= link_to "创建聊天室", new_user_room_path(current_user) %>
 <% end%>
 <div>
-<% if signed_in? && current_teacher?%>
-<%= render @rooms%>
+<% if signed_in? %>
+<%= render @rooms %>
+</div>
 <% end%>
 </div>

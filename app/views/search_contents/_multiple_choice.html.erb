@@ -1,0 +1,12 @@
+<div class="choicebox">
+    <% objects.each do |object| %>
+<div class="choice_cell">
+    <label>
+      <%= check_box_tag name+'[]', object.id, object[:checked] %>
+      <%= object.name %>
+    </label>
+  </div>
+    <% end %>
+</div>
+<div id="clear"></div>
+

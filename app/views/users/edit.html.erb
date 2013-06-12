@@ -65,14 +65,17 @@
 	
 	 <%# f.select :student_subject_ids, Subject.all.collect {|x| [x.name, x.id]}, {}, :multiple => true %>
       <%= f.label "想学习的科目" %>
-      <div class="role-select">
+	  <div class="choicebox" style="width:50%;font-size:14px;">
       <% Subject.all.each do |subject| %>
+	   <div class="choice_cell"
         <label>
           <%= check_box_tag("user[student_subject_ids][]", subject.id, @user.student_subject_ids.include?(subject.id)) %>
           <%= subject.name %>
         </label>
         <%= hidden_field_tag "user[student_subject_ids][]" %>
+		</div>
       <% end %>
+	  <div id="clear"></div>
       </div>
 	
     </div>

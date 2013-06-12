@@ -1,0 +1,8 @@
+# Use the README file as a reference to customize settings.
+
+Relationship:
+  fields:
+    default: student_id, teacher_id, evaluation, is_active, evaluation_time
+    form: student_id, teacher_id, evaluation, is_active, evaluation_time
+  relationships: 
+  application: Application

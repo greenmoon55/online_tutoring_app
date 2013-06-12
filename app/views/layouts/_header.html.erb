@@ -4,7 +4,7 @@
       <ul>
         <% if signed_in? %>
           <li>
-            <%= link_to gravatar_for(current_user, size: 20) + "#{current_user.name}(#{current_role_to_s})", user_path(current_user) %>
+            <%= link_to gravatar_for(current_user, size: 20) + "#{current_user.name}(#{current_role_to_s})", user_path(current_user), title: "当前身份：" + current_role_to_s %>
           </li>
           <li><button id="chat-popup-button">聊天</button></li>
           <% if current_teacher? %>
@@ -24,7 +24,7 @@
         <li><%= link_to "首页", root_path %> </li>
         <li><%= link_to "搜索", search_path %> </li>
         <li><%= link_to "公告", annoncements_path%></li>
-        <li><%= link_to "用户需求", advertisements_path %> </li>
+        <li><%= link_to "需求", advertisements_path %> </li>
         <% if signed_in? %>
           <li>
             <%= link_to t("common.logout"), signout_path, method: "delete" %>
