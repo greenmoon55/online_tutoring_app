@@ -1,5 +1,6 @@
 <% provide(:title, @title)%>
 <%= render 'layouts/sub_header' %>
+<div class="room_container">
 <%if @blocked_users.any?%>
   <% @blocked_users.each do |user|%>
   <li>
@@ -9,5 +10,6 @@
   <% end %>
 <%else%>
 <p>无黑名单</p>
+</div>
 <%end%>
 
