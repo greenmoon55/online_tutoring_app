@@ -29,11 +29,10 @@
     </div>
     <div class="info_right" style="border:none;">
     
-      <div class="upload-head"><label>上传头像</label>
-       <img src="/assets/res/head.png" width="200" height="200"/>
-        <input id="user_name" name="user[name]" type="text" />
-        <input class="btn_edit" name="commit" type="submit" value="浏览"/>
-         <div id="clear"></div>
+      <div class="upload-head">
+        <%= gravatar_for(@user, size: 200) %>
+        <%= link_to "编辑头像", "http://cn.gravatar.com/" %>
+        <div id="clear"></div>
       </div>
 	  <div class="psw_rng">
 	  <a href="javascript:void(0)" id="chng_psw_cmd">修改密码</a>

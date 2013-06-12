@@ -27,13 +27,6 @@
 	  </div>
 	</div>
 <% end %> 
-  <% if signed_in? %>
-    <%= render "shared/request_form", :user => @user %>
-    <%= render @messages if @messages %>
-    <% unless current_user?(@user) %>
-      <button class="btn" id="chat-with-button">聊天</button>
-    <% end %>
-  <% end %>
 
 <div class="info_container" style="border:none;">
   <div class="page" style="float:none;">
@@ -71,7 +64,6 @@
     <div class="info_left">
       <h6>个人信息</h6>
       <ul>
-        <li>是否空闲：是</li>
         <li>性别：<%= gender(@user) %> </li>
         <% if @user.district %>
           <li>地区：<%= @user.district.name %></li>
@@ -110,7 +102,7 @@
         </div>
         <% unless @user.video_id.blank? %>
           <h6>视频</h6>
-          <%= raw(video_for @user.video_id) %>
+          <%= raw video_for(@user.video_id) %>
         <% end %>
       <% end %>
     </div>
