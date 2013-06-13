@@ -61,7 +61,11 @@ class UsersController < ApplicationController
     if @user.update_attributes(params[:user])
       redirect_to @user, notice: '编辑成功'
     else
-      render 'edit'
+      if current_student?
+        render 'edit'
+      else
+        render 'edit_teacher'
+      end
     end
   end
 
