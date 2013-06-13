@@ -27,12 +27,12 @@
         </tr>
         <tr>
           <td><%= f.label :description %></td>
-          <td><%= f.text_area :description %></td>
+          <td><%= f.text_area :description, {style: "width:auto;height:100px;"}%></td>
         </tr>
         <tr>
           <td><%= f.label "想学习的科目" %></td>
           <td>
-            <div class="choicebox" style="width:50%;font-size:14px;">
+            <div class="choicebox" style="font-size:14px;">
               <% Subject.all.each do |subject| %>
                 <div class="choice_cell">
                   <label>
@@ -53,6 +53,7 @@
   <div class="info_right" style="border:none;">
     <div class="upload-head">
       <%= gravatar_for(@user, size: 200) %>
+      <br/>
       <%= link_to "编辑头像", "http://cn.gravatar.com/" %>
       <div id="clear"></div>
     </div>
@@ -65,8 +66,7 @@
   </div>
 
   <div id="clear"></div>
-	
-	<%= link_to("我也想当老师", full_role_user_path(@user), confirm: :"你确定吗？") unless current_user.full_role? %>
+	  <%= link_to("我也想当老师", full_role_user_path(@user), confirm: :"你确定吗？") unless current_user.full_role? %>
   </div>
 </div>
 <div id="clear"/>

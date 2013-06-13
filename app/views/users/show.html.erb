@@ -109,8 +109,10 @@
       <%= gravatar_for(@user, size: 200) %> 
       <h6>自我描述</h6>
       <p><%= @user.description %></p>
-      <h6>评价</h6>
-      <%= render "comments/index", comments: @user.comments %>
+      <% if @user.is_teacher? %>
+        <h6>评价</h6>
+        <%= render "comments/index", comments: @user.comments %>
+      <% end %>
     </div>
     <div id="clear"/>
   </div>
