@@ -11,7 +11,7 @@
 	margin-left: auto;
 	margin-right: auto;
 	/*width: 670px;*/
-	width: 70%;
+	/*width: 70%;*/
 	padding: 50px 60px 50px 60px;
 	float: left;
 	background: #FFF;
@@ -201,3 +201,6 @@
 	padding-top:5px;
 }
 
+.navibar a {
+  color: #FFF;
+}

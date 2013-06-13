@@ -25,11 +25,11 @@ a img { /* 此选择器将删除某些浏览器中显示在图像周围的默认
 }
 /* ~~ 站点链接的样式必须保持此顺序，包括用于创建悬停效果的选择器组在内。 ~~ */
 a:link {
-	color: #FFF;
+	/*color: #FFF;*/
 	text-decoration: none;
 }
 a:visited {
-	color: #FFF;
+	/*color: #FFF;*/
 	text-decoration: none;
 }
 a:hover, a:active, a:focus { /* 此组选择器将为键盘导航者提供与鼠标使用者相同的悬停体验。 */
