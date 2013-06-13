@@ -62,7 +62,7 @@ header {
   padding-bottom: 5px;
 }
 
-.navibar ul, li:first-child {
+.navibar ul li:first-child {
   padding-left: 0px;
 }
 #clear {
