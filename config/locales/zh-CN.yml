@@ -221,3 +221,6 @@ zh-CN:
         description: "自我介绍"
         student_visible: "现在想学习"
         teacher_visible: "现在想讲授课程"
+  will_paginate:
+    previous_label: 上一页
+    next_label: 下一页

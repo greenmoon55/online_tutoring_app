@@ -30,7 +30,7 @@ OnlineTutoringApp::Application.routes.draw do
   match '/signin', to: 'sessions#new', via: :get
   match '/signin', to: 'sessions#create', via: :post
   match '/signout', to: 'sessions#destroy', via: :delete
-  match '/search', to: 'search_contents#new'
+  match '/search', to: 'search_contents#new', as: :new_search
   match '/search_contents', to: 'search_contents#create', via: :get, as: :search
   #resources :searchs, only: [:new, :create]
   match '/requests/delete_request', to: 'requests#delete_request', via: :post
