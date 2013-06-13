@@ -30,6 +30,10 @@
             <td><%= f.text_area :description, {style: "width:auto;height:100px;"}%></td>
           </tr>
           <tr>
+            <td><%= f.label :video_id %></td>
+            <td><%= f.text_field :video_id %>当前仅支持优酷</td>
+          </tr>
+          <tr>
             <td><%= f.label "想讲授的科目" %></td>
             <td>
               <div class="choicebox" style="font-size:14px;">
