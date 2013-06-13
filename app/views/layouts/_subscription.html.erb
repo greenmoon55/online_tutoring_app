@@ -5,6 +5,8 @@
     switch(data.type) {
       case 1: 
         onNewMessage(data.message);
+        if ($("#chat-box").css("visibility") === "hidden" || $("#chat-box").css("display") === "none") {
+        }
         break;
       case 2:
         removeUser(data.user_id); 

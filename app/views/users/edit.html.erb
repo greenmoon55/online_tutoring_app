@@ -50,26 +50,10 @@
       <%= f.submit t("common.update"), class: "btn btn_edit" %>
       <% end %>
     </div>
-	    
-  <div class="info_right" style="border:none;">
-    <div class="upload-head">
-      <%= gravatar_for(@user, size: 200) %>
-      <br/>
-      <%= link_to "编辑头像", "http://cn.gravatar.com/" %>
-      <div id="clear"></div>
-    </div>
-    <div class="psw_rng">
-      <a href="javascript:void(0)" id="chng_psw_cmd">修改密码</a>
-      <div id="psw_rng" style="display:none;">
-        <%= render "edit_password" %>
-      </div>
-    </div>
-  </div>
-
-  <div id="clear"></div>
-  <%= form_tag(full_role_user_path(@user), method: :post) do %>
-	  <%= submit_tag "我也想当老师", confirm: :"你确定吗？" unless current_user.full_role? %>
-  <% end %>
+    <%= render 'edit_right' %>
+    <%= form_tag(full_role_user_path(@user), method: :post) do %>
+  	  <%= submit_tag "我也想当老师", confirm: :"你确定吗？" unless current_user.full_role? %>
+    <% end %>
   </div>
 </div>
 <div id="clear"/>

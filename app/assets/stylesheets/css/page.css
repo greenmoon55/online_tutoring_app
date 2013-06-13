@@ -49,6 +49,10 @@
 .page label {
 	padding: 15px 0px 20px 0px;
 }
+.page .choice_cell label {
+  padding: 0;
+  font-weight: normal;
+}
 .page .btn_edit {
 	width: 100px;
 	float: right;

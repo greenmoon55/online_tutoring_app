@@ -1,87 +1,59 @@
 <% provide(:title, t("user.edit")) %>
 <div class="info_container">
-  <div id="tag_sec">
-    <ul>
-      <li><a onclick="selectTag('tagContent0',this)" 
-  href="javascript:void(0)">个人信息</a></li>
-      <li>擅长科目</li>
-      <li>教学水平</li>
-      <li>上传文件</li>
-    </ul>
-  </div>
   <div class="page">
-  <%= render 'shared/error_messages', object: @user %>
+    <%= render 'shared/error_messages', object: @user %>
     <div class="info_left" style="border:none;">
-	<%= form_for(@user) do |f| %>
-      <table>
-        <tr>
-          <td><%= f.label :name %></td>
-          <td><%= f.text_field :name %></td>
-        </tr>
-        <tr>
-          <td><%= f.label :gender %></td>
-          <td> <%= f.select :gender, [['男', 1],['女', 0]], include_blank: true %></td>
-        </tr>
-        <tr>
-          <td><label for="user_password">年龄</label></td>
-          <td><input id="user_name" name="user[name]" size="30" type="text" /></td>
-        </tr>
-        <tr>
-          <td><label for="user_password_confirmation">学历</label></td>
-          <td><input id="user_name" name="user[name]" size="30" type="text" /></td>
-        </tr>
-        <tr>
-          <td><label for="user_password_confirmation">职业</label></td>
-          <td><input id="user_name" name="user[name]" size="30" type="text" /></td>
-        </tr>
-		<tr>
-			<td><%= f.label :district_id %></td>
-			<td><%= f.select :district_id, districts, include_blank: true %></td>
-		</tr>
-        <tr>
-          <td><label for="user_password_confirmation">个人状态</label></td>
-          <td><input id="user_name" name="user[name]" size="30" type="text" /></td>
-        </tr>
-		
-      </table>
-    </div>
-    <div class="info_right" style="border:none;">
-    
-      <div class="upload-head"><label>上传头像</label>
-       <img src="/assets/res/head.png" width="200" height="200"/>
-        <input id="user_name" name="user[name]" type="text" />
-        <input class="btn_edit" name="commit" type="submit" value="浏览"/>
-         <div id="clear"></div>
-      </div>
-	  <div class="psw_rng">
-	  <a href="javascript:void(0)" id="chng_psw_cmd">修改密码</a>
-	  <div id="psw_rng" style="display:none;"><%= render "edit_password" %></div>
-	  </div>
-    </div>
-    <div id="clear"/>
-    <div class="description">
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-	
-	 <%# f.select :student_subject_ids, Subject.all.collect {|x| [x.name, x.id]}, {}, :multiple => true %>
-      <%= f.label "想教学的科目" %>
-     <div class="choicebox" style="width:50%;font-size:14px;">
-      <% Subject.all.each do |subject| %>
-        <div class="choice_cell"
-        <label>
-          <%= check_box_tag("user[teacher_subject_ids][]", subject.id, @user.teacher_subject_ids.include?(subject.id)) %>
-          <%= subject.name %>
-        </label>
-        <%= hidden_field_tag "user[teacher_subject_ids][]" %>
-	</div>
+	    <%= form_for(@user) do |f| %>
+        <table>
+          <tr>
+            <td><%= f.label :name %></td>
+            <td><%= f.text_field :name %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :gender %></td>
+            <td> <%= f.select :gender, [['男', 1],['女', 0]], include_blank: true %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :degree_id %></td>
+            <td><%= f.select :degree_id, degrees, include_blank: true %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :district_id %></td>
+            <td><%= f.select :district_id, districts, include_blank: true %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :teacher_visible %></td>
+            <td><%= f.check_box :teacher_visible %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :description %></td>
+            <td><%= f.text_area :description, {style: "width:auto;height:100px;"}%></td>
+          </tr>
+          <tr>
+            <td><%= f.label "想讲授的科目" %></td>
+            <td>
+              <div class="choicebox" style="font-size:14px;">
+                <% Subject.all.each do |subject| %>
+                  <div class="choice_cell">
+                    <label>
+                      <%= check_box_tag("user[teacher_subject_ids][]", subject.id, @user.teacher_subject_ids.include?(subject.id)) %>
+                      <%= subject.name %>
+                    </label>
+                    <%= hidden_field_tag "user[teacher_subject_ids][]" %>
+                  </div>
+                <% end %>
+              </div>
+              <div id="clear"/>
+            </td>
+          </tr>
+        </table>
+        <%= f.submit t("common.update"), class: "btn btn_edit" %>
       <% end %>
-	  <div id="clear"></div>
-  </div>
-	
     </div>
-	<%= f.submit t("common.update"), class: "btn btn_edit" %>
-	<% end %>
-	<%= link_to("我也想当学生", full_role_user_path(@user), confirm: :"你确定吗？") unless current_user.full_role? %>
+    <%= render 'edit_right' %>
+    <%= form_tag(full_role_user_path(@user), method: :post) do %>
+  	  <%= submit_tag "我也想当学生", confirm: :"你确定吗？" unless current_user.full_role? %>
+    <% end %>
   </div>
 </div>
 <div id="clear"/>
