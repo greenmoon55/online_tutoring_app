@@ -1,6 +1,5 @@
 <% provide(:title, @user.name) %>
 <!-- 仅供测试 -->
-<%= render "comments/index", comments: @user.comments%>
 <% if signed_in? %>
   <% if @has_evaluate %>
     <% comment = Comment.find_by_student_id_and_teacher_id(current_user[:id], @user[:id])%>
@@ -110,6 +109,8 @@
       <%= gravatar_for(@user, size: 200) %> 
       <h6>自我描述</h6>
       <p><%= @user.description %></p>
+      <h6>评价</h6>
+      <%= render "comments/index", comments: @user.comments %>
     </div>
     <div id="clear"/>
   </div>
