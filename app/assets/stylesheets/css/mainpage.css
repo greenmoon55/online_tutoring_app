@@ -56,8 +56,14 @@ header {
 .navibar ul, li {
 	list-style: none;
 	float: left;
-	padding: 10px;
+	padding-left: 10px;
+  padding-top: 5px;
 	padding-right: 0px;
+  padding-bottom: 5px;
+}
+
+.navibar ul, li:first-child {
+  padding-left: 0px;
 }
 #clear {
 	clear: both;
