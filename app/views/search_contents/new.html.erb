@@ -60,7 +60,7 @@
 <div class="search_result">
   <div class="info_left">
     <% if @users %>
-      <%= @users.count %>
+      共有 <%= @users.count %> 条结果
       <%= render partial: "user", collection: @users %>
     <% end %>
   </div>
