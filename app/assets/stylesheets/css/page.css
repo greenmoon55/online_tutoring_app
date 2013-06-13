@@ -66,11 +66,16 @@
 	background-color: #9ed951;
 }
 .info_left, .info_right {
-	width: 46%;
 	float: left;
 	border-top: 2px solid #CCC;
-	padding-left: 30px;
+	/*padding-left: 30px;*/
 	font-size: 13px;
+}
+.info_left {
+	width: 64%;
+}
+.info_right {
+	width: 30%;
 }
 .info_right img {
 	padding-top: 30px;
