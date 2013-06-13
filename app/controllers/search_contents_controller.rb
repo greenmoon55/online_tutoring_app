@@ -78,7 +78,7 @@ class SearchContentsController < ApplicationController
     end
     
     condition += " and name LIKE ?"
-    @users = User.find(:all,:conditions => [condition,true,"%#{@content}%"])
+    @users = User.paginate(:conditions => [condition,true,"%#{@content}%"], :page => params[:page], :per_page => 5)
     if subject_need_care 
       if @role_number == 0
         @users.delete_if{|user|self.help_function?(user.teacher_relationships,@subject_selected)}  

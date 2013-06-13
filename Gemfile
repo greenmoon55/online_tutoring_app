@@ -18,6 +18,8 @@ gem 'redis'
 # 后台管理
 gem "typus", :git => "git://github.com/fesplugas/typus.git", :branch => "3-2-stable"
 
+gem "will_paginate", "~> 3.0.4"
+
 group :development do
   gem 'rspec-rails', "2.11.0"
   gem 'faker', '1.0.1'
