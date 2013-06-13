@@ -1,9 +1,9 @@
 <% provide(:title, t("user.edit")) %>
 <div class="info_container">
   <div class="page">
-  <%= render 'shared/error_messages', object: @user %>
+    <%= render 'shared/error_messages', object: @user %>
     <div class="info_left" style="border:none;">
-	<%= form_for(@user) do |f| %>
+	    <%= form_for(@user) do |f| %>
       <table>
         <tr>
           <td><%= f.label :name %></td>
@@ -25,43 +25,47 @@
           <td><%= f.label :student_visible %></td>
           <td><%= f.check_box :student_visible %></td>
         </tr>
+        <tr>
+          <td><%= f.label :description %></td>
+          <td><%= f.text_area :description %></td>
+        </tr>
+        <tr>
+          <td><%= f.label "想学习的科目" %></td>
+          <td>
+            <div class="choicebox" style="width:50%;font-size:14px;">
+              <% Subject.all.each do |subject| %>
+                <div class="choice_cell">
+                  <label>
+                    <%= check_box_tag("user[student_subject_ids][]", subject.id, @user.student_subject_ids.include?(subject.id)) %>
+                    <%= subject.name %>
+                  </label>
+                <%= hidden_field_tag "user[student_subject_ids][]" %>
+                </div>
+              <% end %>
+            </div>
+            <div id="clear"/>
+          </td>
+        </tr>
       </table>
+      <%= f.submit t("common.update"), class: "btn btn_edit" %>
     </div>
-    <div class="info_right" style="border:none;">
-    
-      <div class="upload-head">
-        <%= gravatar_for(@user, size: 200) %>
-        <%= link_to "编辑头像", "http://cn.gravatar.com/" %>
-        <div id="clear"></div>
-      </div>
-	  <div class="psw_rng">
-	  <a href="javascript:void(0)" id="chng_psw_cmd">修改密码</a>
-	  <div id="psw_rng" style="display:none;"><%= render "edit_password" %></div>
-	  </div>
-    </div>
-    <div id="clear"/>
-    <div class="description">
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-	
-	 <%# f.select :student_subject_ids, Subject.all.collect {|x| [x.name, x.id]}, {}, :multiple => true %>
-      <%= f.label "想学习的科目" %>
-	  <div class="choicebox" style="width:50%;font-size:14px;">
-      <% Subject.all.each do |subject| %>
-	   <div class="choice_cell"
-        <label>
-          <%= check_box_tag("user[student_subject_ids][]", subject.id, @user.student_subject_ids.include?(subject.id)) %>
-          <%= subject.name %>
-        </label>
-        <%= hidden_field_tag "user[student_subject_ids][]" %>
-		</div>
-      <% end %>
-	  <div id="clear"></div>
-      </div>
-	
-    </div>
-	<%= f.submit t("common.update"), class: "btn btn_edit" %>
 	<% end %>
+  <div class="info_right" style="border:none;">
+    <div class="upload-head">
+      <%= gravatar_for(@user, size: 200) %>
+      <%= link_to "编辑头像", "http://cn.gravatar.com/" %>
+      <div id="clear"></div>
+    </div>
+    <div class="psw_rng">
+      <a href="javascript:void(0)" id="chng_psw_cmd">修改密码</a>
+      <div id="psw_rng" style="display:none;">
+        <%= render "edit_password" %>
+      </div>
+    </div>
+  </div>
+
+  <div id="clear"></div>
+	
 	<%= link_to("我也想当老师", full_role_user_path(@user), confirm: :"你确定吗？") unless current_user.full_role? %>
   </div>
 </div>

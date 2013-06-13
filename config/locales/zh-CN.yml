@@ -219,5 +219,5 @@ zh-CN:
         district_id: "区域"
         degree_id: "学历"
         description: "自我介绍"
-        student_visible: "作为学生可见"
-        teacher_visible: "作为教师可见"
+        student_visible: "现在想学习"
+        teacher_visible: "现在想讲授课程"
