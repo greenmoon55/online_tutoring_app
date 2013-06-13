@@ -48,8 +48,9 @@
         </tr>
       </table>
       <%= f.submit t("common.update"), class: "btn btn_edit" %>
+      <% end %>
     </div>
-	<% end %>
+	    
   <div class="info_right" style="border:none;">
     <div class="upload-head">
       <%= gravatar_for(@user, size: 200) %>
@@ -66,7 +67,9 @@
   </div>
 
   <div id="clear"></div>
-	  <%= link_to("我也想当老师", full_role_user_path(@user), confirm: :"你确定吗？") unless current_user.full_role? %>
+  <%= form_tag(full_role_user_path(@user), method: :post) do %>
+	  <%= submit_tag "我也想当老师", confirm: :"你确定吗？" unless current_user.full_role? %>
+  <% end %>
   </div>
 </div>
 <div id="clear"/>
