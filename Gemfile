@@ -50,6 +50,7 @@ group :assets do
 end
 
 gem 'jquery-rails', '~> 2.2.1'
+gem "jquery-ui-rails", "~> 4.0.3"
 gem 'jquery-cookie-rails'
 
 # To use ActiveModel has_secure_password

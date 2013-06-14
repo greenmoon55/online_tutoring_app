@@ -16,6 +16,7 @@ jQuery.fn.visibilityToggle = function() {
 };
 $(document).ready(function() {
   $("#chat-popup-button").click(function() {
+    $(this).removeClass("new-message");
     if (!chatOpened) {
       $("#chat-box").show();
       getUserList();
@@ -332,4 +333,5 @@ function getOnlineStatus(uids) {
 
 function flicker() {
   $(".chat-unread .chat-username").fadeOut().fadeIn();
+  $(".navibar .new-message").effect("shake", {direction: "up", distance: 2, times: 2});
 }

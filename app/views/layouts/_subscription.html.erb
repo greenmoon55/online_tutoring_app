@@ -6,6 +6,7 @@
       case 1: 
         onNewMessage(data.message);
         if ($("#chat-box").css("visibility") === "hidden" || $("#chat-box").css("display") === "none") {
+          $("#chat-popup-button").addClass("new-message");
         }
         break;
       case 2:

@@ -221,3 +221,8 @@
 .navibar a:hover {
   color: #FFF;
 }
+
+.navibar .new-message {
+  color: #00ff00;
+  font-weight: bold;
+}
