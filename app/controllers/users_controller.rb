@@ -107,7 +107,6 @@ class UsersController < ApplicationController
   end
 
   def blocked_users
-    @title = "黑名单列表"
     @user = User.find(params[:id])
     @blocked_users = @user.blocked_users
   end
