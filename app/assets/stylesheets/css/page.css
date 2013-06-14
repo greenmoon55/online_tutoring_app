@@ -215,5 +215,9 @@
 }
 
 .navibar a {
+  color: #BBB;
+}
+
+.navibar a:hover {
   color: #FFF;
 }
