@@ -1,4 +1,1 @@
-<%= form_tag(relationship_path(user.id), method:'delete', :multipart => true) do%>
-<%= hidden_field_tag :user_id,user.id%>
-<%= submit_tag "解除关系", class: "btn btn-primary"%>
-<% end %>
+<%= button_to '解除关系', user, method: :delete, data: { confirm: '你确定吗？' }, class: "btn btn-warning" %>

@@ -85,10 +85,10 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
     if current_student?
       @title = "我的导师"
-      @users = user.teachers
+      @relationships = user.relationships
     else
       @title = "我的学生"
-      @users = user.students
+      @relationships = user.reverse_relationships
     end
   end
 
