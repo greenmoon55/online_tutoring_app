@@ -92,4 +92,13 @@
 .blocked-user {
   margin-bottom: 10px;
   display: inline-block;
+  width: auto;
+}
+
+.page.new-chatroom{
+  min-height: 0;
+  margin: 0 50px;
+}
+.page.new-chatroom label{
+  padding: 0;
 }

@@ -1,8 +1,8 @@
 <div class="blocked-user">
-  <div class="span3">
+  <div class="span5">
     <div class="room-img">
       <%= gravatar_for(room.user, size: 80) %>
     </div>
-    <%= link_to room[:outline], user_room_path(room.user,room[:id])%>
-    <%= link_to room.user.name, room.user %>
+    <%= link_to room.outline, user_room_path(room.user, room.id)%>
+    <p>导师：<%= link_to room.user.name, room.user %></p>
 </div>
