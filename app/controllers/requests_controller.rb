@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class RequestsController < ApplicationController
-  before_filter :require_signin , only:[:create,:destroy,:delete_request]
+  before_filter :require_signin, only: [:create, :destroy, :delete_request]
   def create
     @content = params[:content]
     @receiver = User.find(params[:receiver_id])
@@ -34,7 +34,6 @@ class RequestsController < ApplicationController
       #send a request
     end
   end
-
 
   def destroy
     sender_id = params[:sender_id]

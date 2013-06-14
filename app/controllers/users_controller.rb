@@ -24,7 +24,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @messages = Message.get_conversation(@user.id, current_user.id) if signed_in?  
+    return unless signed_in?
     if Comment.find_by_student_id_and_teacher_id(current_user[:id], @user[:id])
       @has_evaluate = true
     else 

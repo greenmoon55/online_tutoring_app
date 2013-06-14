@@ -6,12 +6,12 @@
           <li>
             <%= link_to gravatar_for(current_user, size: 20) + "#{current_user.name}(#{current_role_to_s})", user_path(current_user), title: "当前身份：" + current_role_to_s %>
           </li>
-          <li><a id="chat-popup-button">聊天</a></li>
           <% if current_teacher? %>
             <li><%= link_to "教学", friends_user_path(current_user) %> </li>
           <% elsif current_student? %>
             <li><%= link_to "学习", friends_user_path(current_user) %> </li>
           <% end %>
+          <li><a id="chat-popup-button">聊天</a></li>
           <li><%= link_to "通知", requests_user_path(current_user) %> </li>
         <% else %>
           <li><%= link_to t("common.login"), signup_path, id: "link", class: "signin" %></li>

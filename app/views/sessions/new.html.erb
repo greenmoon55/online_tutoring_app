@@ -9,10 +9,12 @@
 
   <fieldset>
     <div class="role-select">
-      <%= radio_button_tag :role, "teacher" %>
-      <%= label_tag :role_teacher, "教师" %>
-      <%= radio_button_tag :role, "student", true %>
-      <%= label_tag :role_student, "学生" %>
+      <ul>
+        <li><%= radio_button_tag :role, "teacher" %></li>
+        <li><%= label_tag :role_teacher, "教师" %></li>
+        <li><%= radio_button_tag :role, "student", true %></li>
+        <li><%= label_tag :role_student, "学生" %></li>
+      </ul>
     </div>
   </fieldset>
  
