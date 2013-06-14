@@ -88,3 +88,8 @@
   height: 80px;
   margin: 5px 10px;
 }
+
+.blocked-user {
+  margin-bottom: 10px;
+  display: inline-block;
+}

@@ -1,3 +1,8 @@
-<li>
-  <%= link_to room[:outline], user_room_path(room.user,room[:id])%>
-</li>
+<div class="blocked-user">
+  <div class="span3">
+    <div class="room-img">
+      <%= gravatar_for(room.user, size: 80) %>
+    </div>
+    <%= link_to room[:outline], user_room_path(room.user,room[:id])%>
+    <%= link_to room.user.name, room.user %>
+</div>
