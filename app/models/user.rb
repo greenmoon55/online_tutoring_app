@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
 #
 # Table name: users
@@ -18,9 +19,6 @@
 #  video_url       :string(255)
 #
 
-# -*- encoding : utf-8 -*-
-
-#
 class User < ActiveRecord::Base
   has_secure_password
   attr_accessible :email, :name, :password, :password_confirmation,

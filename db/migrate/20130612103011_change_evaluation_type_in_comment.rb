@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ChangeEvaluationTypeInComment < ActiveRecord::Migration
   def up
     change_column :Comments, :evaluation, :string
