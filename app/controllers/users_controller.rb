@@ -30,10 +30,7 @@ class UsersController < ApplicationController
     else 
       @has_evaluate = false
     end
-    @can_evaluate = false
-    if @user.is_teacher? && current_student? && @user.students.include?(current_user)
-      @can_evaluate = true
-    end
+    @can_evaluate = (@user.is_teacher? && current_student? && @user.students.include?(current_user))
   end
 
   def edit
