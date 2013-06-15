@@ -78,29 +78,17 @@ class SearchContentsController < ApplicationController
     end
     
     condition += " and (name LIKE ? or description LIKE ?) "
+
     if subject_need_care
       if @role_number == 0
-        teacher_subject_ids = "select subject_id from teacher_relationships where teacher_relationships.user_id = :user_id"
-        condition += "and ((#{teacher_subject_ids}) and (#{@subject_selected.join(', ')})) IS NOT NULL"
+        teacher_ids = "select users.id from users, teacher_relationships where users.id = teacher_relationships.user_id and teacher_relationships.subject_id IN (#{@subject_selected.join(', ')})"
+        condition += "and id IN (#{teacher_ids}) "
       else
-        student_subject_ids = "select subject_id from student_relationships where student_relationships.user_id = :user_id"
-        condition += "and ((#{teacher_subject_ids}) and (#{@subject_selected.join(', ')})) IS NOT NULL"
-      end
-
-    end
-    #@users = User.find(:all,:conditions => [condition,true,"%#{@content}%","%#{@content}%"])
-    #@users = User.paginate(:conditions => [condition,true,"%#{@content}%","%#{@content}%"], :page => params[:page], :per_page => 5)
-    @users = User.where(condition,true,"%#{@content}%","%#{@content}%").paginate(:page => params[:page], :per_page => 5)
-
-=begin
-    if subject_need_care 
-      if @role_number == 0
-        @users.delete_if{|user|self.help_function?(user.teacher_relationships,@subject_selected)}  
-      else
-        @users.delete_if{|user|self.help_function?(user.student_relationships,@subject_selected)}  
+        student_ids = "select users.id from users, student_relationships where users.id = student_relationships.user_id and student_relationships.subject_id IN (#{@subject_selected.join(', ')})"
+        condition += "and id IN (#{student_ids}) "
       end
     end
-=end 
+    @users = User.paginate(:conditions => [condition,true,"%#{@content}%","%#{@content}%"], :page => params[:page], :per_page => 5)
     render 'new'
   end
   
@@ -124,15 +112,6 @@ class SearchContentsController < ApplicationController
     self.get_subject
   end
 
-
-  def help_function?(array1 ,array2)
-    array2.each do |element|
-      if array1.find_by_subject_id(element)
-        return false
-      end
-    end
-    return true
-  end
 
   #获取所有degree，并且增加一属性 checked 表示在view中是否被选择，以下类似
   def get_degree     
