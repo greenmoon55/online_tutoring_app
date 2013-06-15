@@ -5,6 +5,6 @@
 
 <%= render 'form' %>
 <% if current_admin?%>
-<%= render 'delete_annoncement',annoncement: @annoncement%>
+  <%= link_to '删除', @annoncement, method: :delete, data: { confirm: '你确定吗？' } %>
 <% end%>
 

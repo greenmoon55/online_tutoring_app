@@ -1,23 +1,20 @@
 <% provide(:title, @title) %>
 <%= render 'layouts/sub_header' %>
 <div class="room_container">
-<% if @users.any? %>
-    <% @users.each do |user| %>
-      <div class="span4">
-        <li>
-          <%= user.name %>
-          <%= render 'shared/remove_relationship', user: user %>
-        </li>
+  <% if @relationships.any? %>
+    <% @relationships.each do |r| %>
+      <% user = current_student? ? r.teacher : r.student %>
+      <div class="span5">
+        <div class="room-img">
+          <%= gravatar_for(user, size: 80) %>
+        </div>
+        <p><%= link_to user.name, user %></p>
+        <p>开始时间：<%= r.created_at.localtime.to_s(:db) %></p>
+        <p><%= render 'shared/remove_relationship', user: user %></p>
       </div>
     <% end %>
-  </div>
-<% else %>
-<p>无朋友</p>
+  <% else %>
+  <p>无朋友</p>
+  <% end %>
 </div>
-<% end %>
-
-
-
-
-
 

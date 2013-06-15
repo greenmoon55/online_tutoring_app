@@ -12,8 +12,9 @@
 	margin-right: auto;
 	/*width: 670px;*/
 	/*width: 70%;*/
+  min-height: 555px;
 	padding: 50px 60px 50px 60px;
-	float: left;
+	/*float: left;*/
 	background: #FFF;
 	border: thin solid #CCC;
 	box-shadow: 5px 5px 5px #CCC;
@@ -48,6 +49,10 @@
 .page label {
 	padding: 15px 0px 20px 0px;
 }
+.page .choice_cell label {
+  padding: 0;
+  font-weight: normal;
+}
 .page .btn_edit {
 	width: 100px;
 	float: right;
@@ -71,10 +76,8 @@
 	/*padding-left: 30px;*/
 	font-size: 13px;
 }
-.info_left {
-	width: 64%;
-}
 .info_right {
+  padding-left: 10px;
 	width: 30%;
 }
 .info_right img {
@@ -85,7 +88,9 @@
 	padding-top: 0px;
 }
 .info_left {
+	width: 64%;
 	padding-left: 20px;
+  padding-right: 5px;
 	border-right: 2px solid #CCC;
 }
 
@@ -148,12 +153,15 @@
 	table-layout:auto;
 	border-right: 50px;
 }
+.info_container .info_left table td:first-child {
+  width: 20%;
+}
 .info_left .role-select label, .info_left .role-select input{
 	padding:0px 20px 0px 0px;
 	float:left;
 }
 .page .upload-head{
-	padding-left:50px;
+	/*padding-left:50px;*/
 	padding-bottom:20px;
 }
 .page .upload-head label{
@@ -207,5 +215,18 @@
 }
 
 .navibar a {
+  color: #BBB;
+}
+
+.navibar a:hover {
   color: #FFF;
+}
+
+.navibar .new-message {
+  color: #00ff00;
+  font-weight: bold;
+}
+
+.navibar li:hover {
+  cursor: pointer;
 }

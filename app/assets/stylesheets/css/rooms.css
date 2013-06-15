@@ -4,7 +4,11 @@
 	background-size: auto 100%;
 	height: 214px;
 	margin: 0;
+  margin-top: -30px;
 	float:left;
+}
+.roomsbanner a{
+  color: #fff;
 }
 .mystudent, .blacklist, .group {
 	float: left;
@@ -59,15 +63,14 @@
 	border: thin solid #CCC;
 	box-shadow: 5px 5px 5px #CCC;
 	margin-top: -80px;
-margin-left: 40px;
+  margin-left: 40px;
 	font-family: Microsoft Yahei;
-	padding: 80px 60px 80px 60px;
+	padding: 80px 20px;
+  overflow: auto;
 }
 .room_container a:link{
-	color:#000;
 }
 .room_container a:visited{
-	color:#000;
 }
 .row{
 	margin-top:20px;
@@ -77,4 +80,36 @@ margin-left: 40px;
 }
 .span6 #outline{
 	width:265px;
+}
+
+.room-img {
+  float: left;
+  width: 80px;
+  height: 80px;
+  margin: 5px 10px;
+}
+
+.blocked-user {
+  margin-bottom: 10px;
+  display: inline-block;
+  width: auto;
+}
+
+.background {
+	padding: 50px 60px 50px 60px;
+	background: #FFF;
+	border: thin solid #CCC;
+	box-shadow: 5px 5px 5px #CCC;
+  overflow: auto;
+}
+
+.background.new-chatroom{
+  min-height: 0;
+  margin: 0 50px;
+}
+.background.new-chatroom label{
+  padding: 0;
+}
+.background.new-chatroom li{
+  float: none;
 }

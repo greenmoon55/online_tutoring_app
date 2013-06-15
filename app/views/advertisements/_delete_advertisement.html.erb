@@ -1,4 +1,1 @@
-<%= form_tag(advertisement_path(advertisement.id), method:'delete', :multipart => true) do%>
-<%= hidden_field_tag :advertisement_id,advertisement.id%>
-<%= submit_tag "删除", class: "btn btn-primary"%>
-<% end %>
+<%= link_to '删除', advertisement, method: :delete, data: { confirm: '你确定吗?' } %>

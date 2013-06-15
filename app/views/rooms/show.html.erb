@@ -1,35 +1,39 @@
-<%=@room[:outline] %>
-<% if @room.user == current_user && current_teacher?%>
-<%= link_to "添加或者删除学生", edit_user_room_path(current_user,@room)%>
-<%= render 'delete_room', room: @room%>
-<% end%>
+<div class="background">
+  <h1><%= @room[:outline] %></h1>
+  <% if @room.user == current_user && current_teacher?%>
+    <%= link_to "添加或者移除学生", edit_user_room_path(current_user, @room)%>
+    <%= render 'delete_room', room: @room%>
+  <% end%>
 
-<% if current_student? && current_user.my_rooms.include?(@room)%>
-<%= render 'quit_room', room: @room%>
-<% end%>
-
-<%=link_to "老师:#{@room.user[:name]}",user_path(@room.user[:id])%>
-<div>学生</div>
-<ul id="chatroom-student-list">
-<% @students.each do |student| %>
-  <li id=<%= student.id %>>
-    <% if student.online? %>
-      <span class="chatroom-status chatroom-online"></span>
-    <% else %> 
-      <span class="chatroom-status chatroom-offline"></span>
-    <% end %>
-    <%= link_to student[:name], user_path(student[:id]) %>
-  </li>
-<% end%>
-</ul>
-<div id="chatroom-dialogue-list">
-</div>
-
-<%= render 'canvas' %>
-
-<div id="chatroom-sendbox">
-  <%= form_for :message, url: room_new_message_path, remote: true do |f| %>
-    <%= f.text_area :content %>
-    <%= f.submit "发送", id: "chatroom-sendbutton" %>
+  <% if current_student? && current_user.my_rooms.include?(@room)%>
+    <%= render 'quit_room', room: @room%>
   <% end %>
+  <%= render 'canvas' %>
+  <div id="chatroom-userlist">
+    导师
+    <%=link_to "#{@room.user.name}", user_path(@room.user.id)%>
+    <div>学生</div>
+    <ul id="chatroom-student-list">
+    <% @students.each do |student| %>
+      <li id=<%= student.id %>>
+        <% if student.online? %>
+          <span class="chatroom-status chatroom-online"></span>
+        <% else %> 
+          <span class="chatroom-status chatroom-offline"></span>
+        <% end %>
+        <%= link_to student[:name], user_path(student[:id]) %>
+      </li>
+    <% end%>
+    </ul>
+  </div>
+  <div id="chatroom-dialogue-list">
+  </div>
+
+
+  <div id="chatroom-sendbox">
+    <%= form_for :message, url: room_new_message_path, remote: true do |f| %>
+      <%= f.text_area :content, rows: 4 %>
+      <%= f.submit "发送", id: "chatroom-sendbutton" %>
+    <% end %>
+  </div>
 </div>

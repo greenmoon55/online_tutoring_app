@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class RenameTables < ActiveRecord::Migration
   def change
     rename_table :Requests, :temp

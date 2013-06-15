@@ -16,4 +16,5 @@
 //= require bootstrap-modal
 //= require jquery.cookie
 //= require private_pub
+//= require jquery.ui.all
 //= require_tree .

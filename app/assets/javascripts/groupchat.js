@@ -108,7 +108,15 @@ function clearAndUpdate() {
 }
 
 function onGroupChatMessage(message) {
-  $("#chatroom-dialogue-list").append(message.content);
+  var header = document.createElement("div");
+  $(header).addClass("chatroom-message-header");
+  $(header).append(message.sender_name + " " + message.created_at);
+  var content = document.createElement("div");
+  $(content).append(message.content);
+  var messageDiv = document.createElement("div");
+  $(messageDiv).addClass("chatroom-message");
+  $(messageDiv).append(header, content);
+  $("#chatroom-dialogue-list").append(messageDiv);
 }
 
 // 返回讨论组的学生列表，注意用户ID的类型是字符串

@@ -24,16 +24,13 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @messages = Message.get_conversation(@user.id, current_user.id) if signed_in?  
+    return unless signed_in?
     if Comment.find_by_student_id_and_teacher_id(current_user[:id], @user[:id])
       @has_evaluate = true
     else 
       @has_evaluate = false
     end
-    @can_evaluate = false
-    if @user.is_teacher? && current_student? && @user.students.include?(current_user)
-      @can_evaluate = true
-    end
+    @can_evaluate = (@user.is_teacher? && current_student? && @user.students.include?(current_user))
   end
 
   def edit
@@ -61,7 +58,11 @@ class UsersController < ApplicationController
     if @user.update_attributes(params[:user])
       redirect_to @user, notice: '编辑成功'
     else
-      render 'edit'
+      if current_student?
+        render 'edit'
+      else
+        render 'edit_teacher'
+      end
     end
   end
 
@@ -81,10 +82,10 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
     if current_student?
       @title = "我的导师"
-      @users = user.teachers
+      @relationships = user.relationships
     else
       @title = "我的学生"
-      @users = user.students
+      @relationships = user.reverse_relationships
     end
   end
 
@@ -103,7 +104,6 @@ class UsersController < ApplicationController
   end
 
   def blocked_users
-    @title = "黑名单列表"
     @user = User.find(params[:id])
     @blocked_users = @user.blocked_users
   end

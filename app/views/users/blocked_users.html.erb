@@ -1,15 +1,13 @@
-<% provide(:title, @title)%>
+<% provide(:title, "被屏蔽的用户") %>
 <%= render 'layouts/sub_header' %>
 <div class="room_container">
-<%if @blocked_users.any?%>
-  <% @blocked_users.each do |user|%>
-  <li>
-  <%= link_to user[:name],user %>
-  <%= render 'shared/unblocked_form',user:user%>
-  </li>
+  <p>被屏蔽的用户不能给您发消息</p>
+  <% if @blocked_users.any? %>
+    <% @blocked_users.each do |user| %>
+      <%= render 'shared/unblocked_form', user: user %>
+    <% end %>
+  <% else %>
+    <p>无黑名单</p>
   <% end %>
-<%else%>
-<p>无黑名单</p>
 </div>
-<%end%>
 

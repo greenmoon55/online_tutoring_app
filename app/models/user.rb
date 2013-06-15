@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # == Schema Information
 #
 # Table name: users
@@ -18,16 +19,13 @@
 #  video_url       :string(255)
 #
 
-# -*- encoding : utf-8 -*-
-
-#
 class User < ActiveRecord::Base
   has_secure_password
   attr_accessible :email, :name, :password, :password_confirmation,
                   :gender, :district_id, :description, :role,
                   :student_visible, :teacher_visible, :degree_id,
                   :student_subject_ids, :teacher_subject_ids,
-                  :video_url
+                  :video_id
   attr_accessor :updating_password
 
   has_many :student_relationships
@@ -71,6 +69,20 @@ class User < ActiveRecord::Base
             if: :should_validate_password?
   validates :password_confirmation, presence: true,
             if: :should_validate_password?
+  validate :correct_video_format
+
+  VALID_VIDEO_URL_REGEX = /\A(http:\/\/)?v\.youku\.com\/v_show\/id_(\w{13}).+\.html/
+  VALID_VIDEO_ID_REGEX = /\A\w{13}\z/
+
+  def correct_video_format
+    return if self.video_id.blank?
+    return if VALID_VIDEO_ID_REGEX =~ self.video_id
+    if VALID_VIDEO_URL_REGEX =~ self.video_id
+      self.video_id = $2
+    else
+      errors.add(:video_id, "格式不正确")
+    end
+  end
 
   def self.find_by_email_and_role(email, role)
     return nil unless [0, 1].include?(role)
