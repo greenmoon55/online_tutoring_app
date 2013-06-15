@@ -77,15 +77,30 @@ class SearchContentsController < ApplicationController
       condition += " and student_visible = ? "
     end
     
-    condition += " and name LIKE ?"
-    @users = User.paginate(:conditions => [condition,true,"%#{@content}%"], :page => params[:page], :per_page => 5)
+    condition += " and (name LIKE ? or description LIKE ?) "
+    if subject_need_care
+      if @role_number == 0
+        teacher_subject_ids = "select subject_id from teacher_relationships where teacher_relationships.user_id = :user_id"
+        condition += "and ((#{teacher_subject_ids}) and (#{@subject_selected.join(', ')})) IS NOT NULL"
+      else
+        student_subject_ids = "select subject_id from student_relationships where student_relationships.user_id = :user_id"
+        condition += "and ((#{teacher_subject_ids}) and (#{@subject_selected.join(', ')})) IS NOT NULL"
+      end
+
+    end
+    #@users = User.find(:all,:conditions => [condition,true,"%#{@content}%","%#{@content}%"])
+    #@users = User.paginate(:conditions => [condition,true,"%#{@content}%","%#{@content}%"], :page => params[:page], :per_page => 5)
+    @users = User.where(condition,true,"%#{@content}%","%#{@content}%").paginate(:page => params[:page], :per_page => 5)
+
+=begin
     if subject_need_care 
       if @role_number == 0
         @users.delete_if{|user|self.help_function?(user.teacher_relationships,@subject_selected)}  
       else
         @users.delete_if{|user|self.help_function?(user.student_relationships,@subject_selected)}  
       end
-    end 
+    end
+=end 
     render 'new'
   end
   
@@ -116,7 +131,7 @@ class SearchContentsController < ApplicationController
         return false
       end
     end
-   return true
+    return true
   end
 
   #获取所有degree，并且增加一属性 checked 表示在view中是否被选择，以下类似
