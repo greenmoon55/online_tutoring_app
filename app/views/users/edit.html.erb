@@ -51,7 +51,7 @@
       <% end %>
     </div>
     <%= render 'edit_right' %>
-    <%= form_tag(full_role_user_path(@user), method: :post) do %>
+    <%= form_tag(full_role_user_path(@user), class:"act_another",method: :post) do %>
   	  <%= submit_tag "我也想当老师", confirm: :"你确定吗？" unless current_user.full_role? %>
     <% end %>
   </div>

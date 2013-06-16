@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<LINK href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+<LINK href="css/login.css" rel="stylesheet" type="text/css">
+<LINK href="css/mainpage.css" rel="stylesheet" type="text/css">
+<LINK href="css/page.css" rel="stylesheet" type="text/css">
+<LINK href="css/register.css" rel="stylesheet" type="text/css">
+<LINK href="css/search.css" rel="stylesheet" type="text/css">
+<title>Search</title>
+</head>
+<header>
+  <div class="navibar">
+    <div id="login">
+      <ul>
+        <li><a href="/users/1"><img alt="bjrara" class="avatar img-rounded" src="https://secure.gravatar.com/avatar/49ac532615a1bd9f90f1a73562f6fcee?s=20">bjrara(学生)</a></li>
+        <li><a href="/users/1/edit">编辑个人资料</a></li>
+        <li><a href="/signout" data-method="delete" rel="nofollow">退出</a></li>
+        <li><a href="/users/1/friends"><span class="translation_missing" title="translation missing: zh-CN.user.friends">Friends</span></a></li>
+        <li><a href="/users/1/requests"><span class="translation_missing" title="translation missing: zh-CN.user.requests">Requests</span></a></li>
+        <li><a href="/users/1/blocked_users"><span class="translation_missing" title="translation missing: zh-CN.user.blocked_users">Blocked Users</span></a></li>
+        <li><a href="/advertisements">用户需求</a></li>
+        <li><a href="/users/1/my_rooms">聊天室</a></li>
+      </ul>
+    </div>
+    <div id="navi">
+      <ul>
+        <li><a href="/">首页</a></li>
+        <li><a href="/search">搜索</a></li>
+        <!-- 两种搜索放在一起 -->
+        <li><a href="/annoncements">公告</a></li>
+        <li><a href="#">帮助</a></li>
+        <li><a href="#">联系客服</a></li>
+      </ul>
+    </div>
+    <div id="clear"></div>
+  </div>
+</header>
+<body>
+<div class="container">
+<h3>所有需求</h3>
+<div id="clear"></div>
+<div class="info_container" style="border:none;">
+<div class="page" style="float:none;">
+  <div class="info_left" style="border:none;">
+    <h6>学生发出的需求</h6>
+    <table>
+      <tr>
+        <td><a href="#">example2</a></td>
+        <td><label>我的需求</label></td>
+      </tr>
+      <tr>
+      <td><a href="#">example2</a></td>
+      <td><label>我的需求</label></td>
+      </tr>
+    </table>
+    <h6>老师发出的需求</h6>
+    <table>
+      <tr>
+        <td><a href="#">example1</a></td>
+        <td><label>我的需求我的需求我的需求我的需求我的需求我的需求我的需求我的需求我的需求我的需求</label></td>
+      </tr>
+      <tr>
+      <td><a href="#">example1</a></td>
+      <td><label>我的需求</label></td>
+      </tr>
+    </table>
+  </div>
+  <div class="info_right" style="border-top:none;border-left:2px solid #CCC">
+  <h6>发布需求</h6>
+  <textarea></textarea>
+  <input type="button" class="btn_profile" value="提交"></input>
+  </div>
+</div>
+</body>
+</html>

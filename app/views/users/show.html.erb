@@ -48,12 +48,12 @@
        
         <% if signed_in? && current_user?(@user) %>
           <td>
-            <%= link_to "编辑资料", edit_user_path(@user), class: "btn_edit" %>
+            <%= link_to "编辑资料", edit_user_path(@user), class: "btn_profile" %>
           </td>
         <% end %>
       </tr>
     </table>
-    <div class="info_left">
+    <div class="info_left" style="border-right:none;">
       <h6>个人信息</h6>
       <ul>
         <li>性别：<%= gender(@user) %> </li>
@@ -68,7 +68,7 @@
 	  
       <% if @user.is_student? %>
         <h6>学习状态</h6>
-        <%= student_visible_to_s(@user) %>
+        <p><%= student_visible_to_s(@user) %></p>
         <h6>想要学习的科目</h6>
         <div class="course">
           <ul>
@@ -82,7 +82,7 @@
 	  
       <% if @user.is_teacher? %>
         <h6>教学状态</h6>
-        <%= teacher_visible_to_s(@user) %>
+        <p><%= teacher_visible_to_s(@user) %></p>
         <h6>想要讲授的科目</h6>
         <div class="course">
           <ul>
@@ -92,23 +92,27 @@
             <div id="clear"/>
           </ul>
         </div>
+		
+        <h6>自我描述</h6>
+        <p><%= @user.description %></p>
+        <% if @user.is_teacher? %>
+          <h6>评价</h6>
+            <% if @can_evaluate %>
+              <a href="#myModal" role="button" class="btn" data-toggle="modal">我的评价</a>
+            <% end%>
+          <%= render "comments/index", comments: @user.comments %>
+        <% end %>
+		
         <% unless @user.video_id.blank? %>
           <h6>视频</h6>
           <%= raw video_for(@user.video_id) %>
         <% end %>
       <% end %>
+	  
     </div>
     <div class="info_right">
       <%= gravatar_for(@user, size: 200) %> 
-      <h6>自我描述</h6>
-      <p><%= @user.description %></p>
-      <% if @user.is_teacher? %>
-        <h6>评价</h6>
-          <% if @can_evaluate %>
-            <a href="#myModal" role="button" class="btn" data-toggle="modal">我的评价</a>
-          <% end%>
-        <%= render "comments/index", comments: @user.comments %>
-      <% end %>
+     
     </div>
     <div id="clear"/>
   </div>
