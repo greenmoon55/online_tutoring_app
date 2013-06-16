@@ -22,6 +22,10 @@
 
 <div class="info_container" style="border:none;">
   <div class="page" style="float:none;">
+      <% if signed_in? && !current_user?(@user) %>
+       
+          <button class="btn" id="chat-with-button">聊天</button>
+      <% end %>
     <table>
       <tr>
         <td><label>在线状态：</label>
@@ -31,12 +35,9 @@
           <% else %>
             <img src="/assets/res/offline.png" width="30" height="30"/>
           <% end %>
+          
         </td>
-        <% if signed_in? && !current_user?(@user) %>
-          <td>
-            <button class="btn" id="chat-with-button">聊天</button>
-          </td>
-        <% end %>
+        
 		
 		        <!-- 下面id用于聊天，请不要删除-->
         <td>

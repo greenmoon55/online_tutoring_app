@@ -5,12 +5,13 @@
 	<% if @add_requests.count!= 0||@other_requests.count != 0%>
 	  <% if @add_requests%>
 	    <% @add_requests.each do |request|%>
-	    <li>
+	    <li style="float:none; margin-top:10px;">
 	    <%=link_to User.find(request.sender_id).name, user_path(User.find(request.sender_id))%>   
-	    理由：<%= request.content%>
+	    申请加您好友：<%= request.content%>
 	    <%= render 'shared/agree_form', user: User.find(request.sender_id) %>
 	    <%= render 'shared/refuse_form', user: User.find(request.sender_id)%>
 	    <%= render 'shared/delete_request', request: request%>
+		<div id="clear"></div>
 	    </li>
 	    <% end%>
 	  <% end%>

@@ -65,6 +65,10 @@
 	-moz-border-radius: 5px;
 	text-align:center;
 }
+.page .btn{
+	float:left;
+	margin-right:5px;
+}
 .page .btn_profile {
 	width: 100px;
 	color: #9ed951;
@@ -79,7 +83,16 @@
 	float:right;
 	margin-right:12px;
 }
-
+.row .btn-primary{
+	float:left;
+	margin:5px;
+	margin-left:0px;
+}
+.page .btn-warning{
+	float:left;
+	padding-top:5px;
+	margin-right:5px;
+}
 .page .act_another{
 	color: #9ed951;
 	background: #FFF;
@@ -271,3 +284,16 @@
 .navibar li:hover {
   cursor: pointer;
 }
+
+.row{
+	padding:10px;
+	background:#FFF;
+	height:100%;
+	margin-left: 10px;
+}
+
+.row li{
+	border-bottom:thin solid #CCC;
+	width:98%;
+}
+
