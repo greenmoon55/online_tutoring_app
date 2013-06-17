@@ -9,6 +9,7 @@
 	margin-right: auto;
 	padding-top:50px;
 	padding-left:170px;
+	padding-bottom:50px;
 	float: none;
 	background: #FFF;
 	border:thin solid #CCC;
@@ -30,4 +31,9 @@
 	float:right;
 	margin-right:180px;
 	margin-bottom:20px;
+}
+.span6 .timestamp{
+	font-size: 13px;
+	padding-top: 6px;
+	color: #999;
 }

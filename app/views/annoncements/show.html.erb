@@ -1,14 +1,21 @@
+<div class="row" style="background:none;">
+  <div class="span6">
 <p>
-  <b><%= @annoncement.title %></b>
-  <%= @annoncement.created_at.localtime.to_s(:db) %>
+  <b style="float:left;font-size:20px;margin-right:10px;"><%= @annoncement.title %></b>
+  <label class="timestamp"><%= @annoncement.created_at.localtime.to_s(:db) %></label>
 </p>
 
 <p>
-  <%= @annoncement.content %>
+  <b>公告信息: </b><%= @annoncement.content %>
 </p>
+<div style="float:right;margin-right:180px;">
 <% if current_admin? %>
+
   <%= link_to '编辑', edit_annoncement_path(@annoncement) %>
   <%= link_to '删除', @annoncement, method: :delete, data: { confirm: '你确定吗？' } %>
 <% end %>
-</br>
 <%= link_to '所有公告', annoncements_path %>
+</div>
+<div id="clear"></div
+</div>
+</div>

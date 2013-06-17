@@ -19,12 +19,12 @@
 
 <% if signed_in? && @advertisement.user == current_user && @advertisement.role == current_user_role_number%>
 <div style="float:right;margin-right:180px;">
+	<%= link_to '编辑', edit_advertisement_path(@advertisement),method: "get"%> 
 <%= render 'delete_advertisement', advertisement: @advertisement %> 
 <% end%>
 <%= link_to '需求列表', advertisements_path %>
+
 </div>
-<div id="clear"></div>
-<%= button_to '编辑', edit_advertisement_path(@advertisement),method: "get", class: "btn btn-primary" %> 
 <div id="clear"></div>
 </div>
 </div>

@@ -6,7 +6,6 @@
 	 
 <h6>学生发出的需求</h6>
 <% @student_advertisements.each do |advertisement| %>
-</style>
 <table>
       <tr>
         <td><%= link_to advertisement.user[:name] , advertisement.user%></td>
@@ -18,7 +17,6 @@
       </tr>
     </table>
 <% end %>
-<table>
 <h6>老师发出的需求</h6>
 <% @teacher_advertisements.each do |advertisement| %>
 <table>
