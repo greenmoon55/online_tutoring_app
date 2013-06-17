@@ -305,3 +305,11 @@
 	color:#999;
 	font-weight:normal;
 }
+#comment_dia{
+	float:left;
+}
+#comment_del{
+	float:left;
+	margin-top:-20px;
+	margin-left:10px;
+}

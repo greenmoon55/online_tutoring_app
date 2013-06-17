@@ -197,6 +197,11 @@ header {
 	background: #98c245;
 	margin-bottom:15px;
 }
+.comment a{
+	float:left;
+	margin-right:10px;
+	margin-left:15px;
+}
 
 .teacher{
 	font-family:Microsoft Yahei;

@@ -1,6 +1,11 @@
-<h1>编辑需求内容</h1>
-<%= link_to '退出编辑', @advertisement %> 
-<%= link_to '所有需求信息', advertisements_path %>
+<h3>编辑需求内容</h3>
+<div id="clear"></div>
+<div class="info_container" style="border:none;">
+<div class="page" style="float:none;min-height: auto;">
+	<div class="edit_ad">
 <%= render 'form' %>
+<img src="/assets/res/back.png" width="30px" style="padding-right:5px;"><%= link_to '所有需求', advertisements_path %>
+<%= link_to '退出编辑', @advertisement %> 
+</div>
 
 
