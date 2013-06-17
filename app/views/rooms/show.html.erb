@@ -1,13 +1,13 @@
 <div class="background">
-  <h1><%= @room[:outline] %></h1>
+  <h1 style="float:left;padding-left:0px;padding-bottom:10px;"><%= @room[:outline] %></h1>
   <% if @room.user == current_user && current_teacher?%>
-    <%= link_to "添加或者移除学生", edit_user_room_path(current_user, @room)%>
     <%= render 'delete_room', room: @room%>
   <% end%>
 
   <% if current_student? && current_user.my_rooms.include?(@room)%>
     <%= render 'quit_room', room: @room%>
   <% end %>
+  <div id="clear"></div>
   <%= render 'canvas' %>
   <div id="chatroom-userlist">
 	  <div class="rolelist">
@@ -24,7 +24,13 @@
         <% end %>
         <%= link_to student[:name], user_path(student[:id]) %>
       </li>
+	  
     <% end%>
+  <li>
+	  <% if @room.user == current_user && current_teacher?%>
+	    <%= link_to "添加或者移除学生", edit_user_room_path(current_user, @room)%>
+	  <% end%>
+  </li>
     </ul>
 </div>
   </div>

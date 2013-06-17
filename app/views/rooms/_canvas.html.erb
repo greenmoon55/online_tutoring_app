@@ -10,5 +10,17 @@
     <button class="btn_color" style="background:url(/assets/res/thick.png); background-size: 100%;" onclick="lineWidth=8"></button>
   </div>
 <% end %>
+<% if current_student?%>
+  <div style="margin-bottom:10px;">
+    <button class="btn_color" style="background:url(/assets/res/trash.png); background-size: 100%;"></button>
+    <button class="btn_color" style="background:url(/assets/res/red.png); background-size: 100%;"></button>
+    <button class="btn_color" style="background:url(/assets/res/green.png); background-size: 100%;"></button>
+    <button class="btn_color" style="background:url(/assets/res/blue.png); background-size: 100%;"></button>
+    <button class="btn_color" style="background:url(/assets/res/black.png); background-size: 100%;"></button>
+    <button class="btn_color" style="background:url(/assets/res/thin.png); background-size: 100%;"></button>
+    <button class="btn_color" style="background:url(/assets/res/medium.png); background-size: 100%;"></button>
+    <button class="btn_color" style="background:url(/assets/res/thick.png); background-size: 100%;"></button>
+  </div>
+<% end %>
 <canvas id="chatroom-canvas" draggable="false" width="836" height="400">
 </canvas>

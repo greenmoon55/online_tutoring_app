@@ -1,4 +1,6 @@
 <%= form_tag(rooms_delete_by_student_path, method: 'post') do %>
 <%= hidden_field_tag :id, room.id %>
+<div style="float:right;">
 <%= submit_tag "退出讨论组", class: "btn btn-warning" %>
+</div>
 <% end%>
