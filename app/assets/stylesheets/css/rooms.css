@@ -152,3 +152,25 @@
 #chatroom-sendbutton{
 	float:right;
 }
+.row .span5{
+	margin-left: auto;
+	margin-right: auto;
+	padding-top:50px;
+	padding-bottom:50px;
+	padding-left:170px;
+	float: none;
+	background: #FFF;
+	border:thin solid #CCC;
+	border-radius: 10px;
+	-moz-border-radius: 10px; /* Old Firefox */
+	box-shadow: 5px 5px 5px #CCC;
+}
+.row .span5 label{
+	padding:0;
+	padding-top:2px;
+}
+.row .span5 .btn-primary{
+	float:right;
+	margin-top: 30px;
+	margin-right: 160px;
+}

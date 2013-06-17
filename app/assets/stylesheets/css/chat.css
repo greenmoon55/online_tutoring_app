@@ -10,13 +10,13 @@
 #chat-header {
 	height: 20px;
 	border-bottom: 1px solid #afafaf;
-	background-color: #CCC;
+	background-color: #6c83b8;
 }
 #chat-left {
 	height: 367px;
 	width: 109px;
 	border-right: 1px solid #afafaf;
-	background-color: #eaeaea;
+	background-color: #e4e7f1;
 	float: left;
 }
 #chat-left li {
@@ -83,6 +83,7 @@
 #chat-sendbutton {
 	float: right;
 	margin-right: 3px;
+	margin-bottom:3px;
   /*
 	border-style: none;
 	background-color: #5bc0de;

@@ -28,8 +28,7 @@
 }
 .page table img, .page table label {
 	float: left;
-	font-size: 15px;
-	font-weight: bold;
+	font-size: 13px;
 }
 .page h1 {
 	text-align: center;
@@ -102,7 +101,7 @@
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	text-align:center;
-	margin-left:20px;width:120px;margin-top:-10px;
+	margin-left:20px;width:120px;margin-top:10px;
 }
 .page .act_another:hover {
 	color: #FFF;

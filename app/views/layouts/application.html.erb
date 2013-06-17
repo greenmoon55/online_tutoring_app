@@ -67,7 +67,7 @@
             <%= form_for Message.new do |f| %>
               <%= f.hidden_field :receiver_id %>
               <%= f.text_area :content %>
-              <%= f.submit "发送", id: "chat-sendbutton" %>
+              <%= f.submit "发送", class:"btn", id: "chat-sendbutton" %>
             <% end %>
           </div>
         </div>

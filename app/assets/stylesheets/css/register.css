@@ -22,7 +22,7 @@
 .span6 .role-select{
 	margin-top:15px;
 }
-.span6 .role-select input, .span6 .role-select label{
+.role-select input, .role-select label{
 	float:left;
 	padding:0px 20px 20px 5px;
 }
