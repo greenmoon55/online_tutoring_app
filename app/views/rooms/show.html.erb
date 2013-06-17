@@ -10,9 +10,10 @@
   <% end %>
   <%= render 'canvas' %>
   <div id="chatroom-userlist">
-    导师
+	  <div class="rolelist">
+	  <img src="/assets/res/teachericon.png" width="25px">
     <%=link_to "#{@room.user.name}", user_path(@room.user.id)%>
-    <div>学生</div>
+	<div class="roleline"></div>
     <ul id="chatroom-student-list">
     <% @students.each do |student| %>
       <li id=<%= student.id %>>
@@ -25,15 +26,15 @@
       </li>
     <% end%>
     </ul>
+</div>
   </div>
   <div id="chatroom-dialogue-list">
   </div>
-
-
+  
   <div id="chatroom-sendbox">
     <%= form_for :message, url: room_new_message_path, remote: true do |f| %>
       <%= f.text_area :content, rows: 4 %>
-      <%= f.submit "发送", id: "chatroom-sendbutton" %>
+      <%= f.submit "发送",class:"btn",id: "chatroom-sendbutton" %>
     <% end %>
   </div>
 </div>

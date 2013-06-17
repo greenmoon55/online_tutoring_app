@@ -29,6 +29,7 @@
   overflow: auto;
   float: left;
   margin: 10px;
+  margin-left:0;
   margin-right: 0;
   min-height: 500px;
   li {
@@ -40,9 +41,10 @@
   margin-top: 10px;
   float: right;
   width: 80%;
-  height: 400px;
+  height: 200px;
   border: thin solid #CCC;
   overflow-y: scroll;
+  background-color:#f7f7f7;
 }
 
 .chatroom-message-header {
@@ -58,6 +60,8 @@
   width: 78%;
   float: right;
   #message_content{
-    width: 90%;
+    width: 100%;
+	margin-left: -9px;
+	padding-right: 11px;
   }
 }

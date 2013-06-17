@@ -131,5 +131,24 @@
 	height: 30px;
 }
 
-.whiteboard{
+.rolelist{
+	border:#CCC;
+	background-color:#f2f4f8;
+	font-size:13px;
+	padding-left: 5px;
+	height:300px;
+}
+
+.rolelist .roleline{
+	height:5px;
+	background-color:#e4e7f1;
+	border-top:#999;
+	border-bottom:#999;
+	margin-left:-5px;
+}
+.rolelist #chatroom-student-list a{
+	margin-left:3px;
+}
+#chatroom-sendbutton{
+	float:right;
 }
