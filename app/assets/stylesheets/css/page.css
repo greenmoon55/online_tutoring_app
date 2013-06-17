@@ -303,5 +303,6 @@
 
 .edit_ad a{
 	margin-top:15px;
-	color:#CCC;
+	color:#999;
+	font-weight:normal;
 }

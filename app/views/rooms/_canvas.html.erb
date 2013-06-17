@@ -1,13 +1,13 @@
 <% if current_teacher? %>
-  <div>
-    <button onclick="clearAndUpdate()">clear</button>
-    <button onclick="color='ff0000'">red</button>
-    <button onclick="color='00ff00'">green</button>
-    <button onclick="color='0000ff'">blue</button>
-    <button onclick="color='000000'">black</button>
-    <button onclick="lineWidth=1">thin</button>
-    <button onclick="lineWidth=4">medium</button>
-    <button onclick="lineWidth=8">thick</button>
+  <div style="margin-bottom:10px;">
+    <button class="btn_color" style="background:url(/assets/res/trash.png); background-size: 100%;" onclick="clearAndUpdate()"></button>
+    <button class="btn_color" style="background:url(/assets/res/red.png); background-size: 100%;" onclick="color='ff0000'"></button>
+    <button class="btn_color" style="background:url(/assets/res/green.png); background-size: 100%;" onclick="color='00ff00'"></button>
+    <button class="btn_color" style="background:url(/assets/res/blue.png); background-size: 100%;" onclick="color='0000ff'"></button>
+    <button class="btn_color" style="background:url(/assets/res/black.png); background-size: 100%;" onclick="color='000000'"></button>
+    <button class="btn_color" style="background:url(/assets/res/thin.png); background-size: 100%;" onclick="lineWidth=1"></button>
+    <button class="btn_color" style="background:url(/assets/res/medium.png); background-size: 100%;" onclick="lineWidth=4"></button>
+    <button class="btn_color" style="background:url(/assets/res/thick.png); background-size: 100%;" onclick="lineWidth=8"></button>
   </div>
 <% end %>
 <canvas id="chatroom-canvas" draggable="false" width="836" height="400">

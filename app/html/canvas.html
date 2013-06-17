@@ -1,56 +1,23 @@
-<html><head>
+<html>
+<head>
+<title>良师在线</title>
 <meta charset="UTF-8">
-  <title>良师在线</title>
-  <link href="/assets/application.css?body=1" media="all" rel="stylesheet" type="text/css">
-<link href="/assets/advertisements.css?body=1" media="all" rel="stylesheet" type="text/css">
-<link href="/assets/annoncements.css?body=1" media="all" rel="stylesheet" type="text/css">
-<link href="/assets/blocked_relationships.css?body=1" media="all" rel="stylesheet" type="text/css">
-<link href="/assets/bootstrap/css/bootstrap-responsive.css?body=1" media="all" rel="stylesheet" type="text/css">
-<link href="/assets/bootstrap/css/bootstrap-responsive.min.css?body=1" media="all" rel="stylesheet" type="text/css">
-<link href="/assets/bootstrap/css/bootstrap.css?body=1" media="all" rel="stylesheet" type="text/css">
-<link href="/assets/bootstrap/css/bootstrap.min.css?body=1" media="all" rel="stylesheet" type="text/css">
-<link href="/assets/css/chat.css?body=1" media="all" rel="stylesheet" type="text/css">
-<link href="/assets/css/greenmoon55.css?body=1" media="all" rel="stylesheet" type="text/css">
-<link href="/assets/css/login.css?body=1" media="all" rel="stylesheet" type="text/css">
-<link href="/assets/css/mainpage.css?body=1" media="all" rel="stylesheet" type="text/css">
-<link href="/assets/css/page.css?body=1" media="all" rel="stylesheet" type="text/css">
-<link href="/assets/css/register.css?body=1" media="all" rel="stylesheet" type="text/css">
-<link href="/assets/css/rooms.css?body=1" media="all" rel="stylesheet" type="text/css">
-<link href="/assets/css/search.css?body=1" media="all" rel="stylesheet" type="text/css">
-<link href="/assets/requests.css?body=1" media="all" rel="stylesheet" type="text/css">
-<link href="/assets/rooms.css?body=1" media="all" rel="stylesheet" type="text/css">
-<link href="/assets/scaffolds.css?body=1" media="all" rel="stylesheet" type="text/css">
-  <script src="/assets/jquery.js?body=1" type="text/javascript"></script><style type="text/css"></style>
-<script src="/assets/jquery_ujs.js?body=1" type="text/javascript"></script>
-<script src="/assets/jquery.cookie.js?body=1" type="text/javascript"></script>
-<script src="/assets/private_pub.js?body=1" type="text/javascript"></script>
-<script src="/assets/advertisements.js?body=1" type="text/javascript"></script>
-<script src="/assets/annoncements.js?body=1" type="text/javascript"></script>
-<script src="/assets/blocked_relationships.js?body=1" type="text/javascript"></script>
-<script src="/assets/chat.js?body=1" type="text/javascript"></script>
-<script src="/assets/groupchat.js?body=1" type="text/javascript"></script>
-<script src="/assets/js/jquery.easing.1.3.js?body=1" type="text/javascript"></script>
-<script src="/assets/js/login.js?body=1" type="text/javascript"></script>
-<script src="/assets/relationships.js?body=1" type="text/javascript"></script>
-<script src="/assets/requests.js?body=1" type="text/javascript"></script>
-<script src="/assets/rooms.js?body=1" type="text/javascript"></script>
-<script src="/assets/search_contents.js?body=1" type="text/javascript"></script>
-<script src="/assets/sessions.js?body=1" type="text/javascript"></script>
-<script src="/assets/static_pages.js?body=1" type="text/javascript"></script>
-<script src="/assets/users.js?body=1" type="text/javascript"></script>
-<script src="/assets/application.js?body=1" type="text/javascript"></script>
+<LINK href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+<LINK href="css/login.css" rel="stylesheet" type="text/css">
+<LINK href="css/mainpage.css" rel="stylesheet" type="text/css">
+<LINK href="css/page.css" rel="stylesheet" type="text/css">
+<LINK href="css/register.css" rel="stylesheet" type="text/css">
+<LINK href="css/rooms.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-  <header>
+<header>
   <div class="navibar">
     <div id="login">
       <ul>
-          <li>
-            <a href="/users/101"><img alt="example1" class="avatar img-rounded" src="https://secure.gravatar.com/avatar/f3e820cc128ffde207328176830dff87?s=20">example1(教师)</a>
-          </li>
-          <li><button id="chat-popup-button">聊天</button></li>
-            <li><a href="/users/101/friends">教学</a> </li>
-          <li><a href="/users/101/requests">通知</a> </li>
+        <li> <a href="/users/101" title="当前身份：教师"><img alt="example1" class="avatar img-rounded" src="https://secure.gravatar.com/avatar/f3e820cc128ffde207328176830dff87?s=20">example1(教师)</a> </li>
+        <li><a href="/users/101/friends">教学</a> </li>
+        <li><a id="chat-popup-button">聊天</a></li>
+        <li><a href="/users/101/requests">通知</a> </li>
       </ul>
     </div>
     <div id="navi">
@@ -59,175 +26,93 @@
         <li><a href="/search">搜索</a> </li>
         <li><a href="/annoncements">公告</a></li>
         <li><a href="/advertisements">需求</a> </li>
+        <li> <a href="/signout" data-method="delete" rel="nofollow">登出</a> </li>
+      </ul>
+    </div>
+    <div id="clear"> </div>
+  </div>
+</header>
+<form accept-charset="UTF-8" action="/signin" method="post">
+  <div style="margin:0;padding:0;display:inline">
+    <input name="utf8" type="hidden" value="✓">
+    <input name="authenticity_token" type="hidden" value="aLrUV+5qTrDKVexSgy0zeevaI4dOWEG9jYWQOgeTA/g=">
+  </div>
+  <ul class="drop">
+    <li>
+      <label for="email">Email</label>
+    </li>
+    <li>
+      <input id="email" name="email" type="text">
+    </li>
+    <li>
+      <label for="password">密码</label>
+    </li>
+    <li>
+      <input id="password" name="password" type="password">
+    </li>
+    <fieldset>
+      <div class="role-select">
+        <ul>
           <li>
-            <a href="/signout" data-method="delete" rel="nofollow">登出</a>
+            <input id="role_teacher" name="role" type="radio" value="teacher">
           </li>
-      </ul>
-    </div>
-    <div id="clear">
-  </div>
-</div></header>
-
-<form accept-charset="UTF-8" action="/signin" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="X7a1ozpqUZMHN0mar6M36pMkst1xq2ZqZcN9inRNiHI="></div>
-<ul class="drop">
-  <li><label for="email">Email</label></li>
-  <li><input id="email" name="email" type="text"></li>
-  <li><label for="password">密码</label></li>
-  <li><input id="password" name="password" type="password"></li>
-  <fieldset>
-    <div class="role-select">
-      <ul>
-        <li><input id="role_teacher" name="role" type="radio" value="teacher"></li>
-        <li><label for="role_teacher">教师</label></li>
-        <li><input checked="checked" id="role_student" name="role" type="radio" value="student"></li>
-        <li><label for="role_student">学生</label></li>
-      </ul>
-    </div>
-  </fieldset>
-   <input class="btn btn-primary btn-info" name="commit" type="submit" value="登录">
-</ul></form>
-
-  <div class="container">
-    hss
-<a href="/users/101/rooms/3/edit">添加或者删除学生</a>
-<form accept-charset="UTF-8" action="/users/101/rooms/3" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="delete"><input name="authenticity_token" type="hidden" value="X7a1ozpqUZMHN0mar6M36pMkst1xq2ZqZcN9inRNiHI="></div>
-<input id="id" name="id" type="hidden" value="3">
-<input class="btn btn-primary" name="commit" type="submit" value="删除聊天室">
-</form>
-
-
-<a href="/users/101">老师:example1</a>
-<div>学生</div>
-<ul id="chatroom-student-list">
-</ul>
-<div id="chatroom-dialogue-list">
-</div>
-
-  <div>
-    <button onclick="clearAndUpdate()">clear</button>
-    <button onclick="color='ff0000'">red</button>
-    <button onclick="color='00ff00'">green</button>
-    <button onclick="color='0000ff'">blue</button>
-    <button onclick="color='000000'">black</button>
-    <button onclick="lineWidth=1">thin</button>
-    <button onclick="lineWidth=4">medium</button>
-    <button onclick="lineWidth=8">thick</button>
-  </div>
-<canvas id="chatroom-canvas" draggable="false" width="500" height="500">
-</canvas>
-
-
-<div id="chatroom-sendbox">
-  <form accept-charset="UTF-8" action="/rooms/3/messages" data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="X7a1ozpqUZMHN0mar6M36pMkst1xq2ZqZcN9inRNiHI="></div>
-    <textarea cols="40" id="message_content" name="message[content]" rows="20"></textarea>
-    <input id="chatroom-sendbutton" name="commit" type="submit" value="发送">
-</form></div>
-
-  </div>
-
-    <script type="text/javascript">PrivatePub.sign({"server":"http://localhost:9292/faye","timestamp":1371014268394,"channel":"/messages/101","signature":"d8aea40bc5e58249c48ded5e487770ac35687685"});</script>
-<script>
-  PrivatePub.subscribe("/messages/101", function(data, channel) {
-    // 消息类型详见文档
-    switch(data.type) {
-      case 1: 
-        onNewMessage(data.message);
-        break;
-      case 2:
-        removeUser(data.user_id); 
-        break;
-      case 3:
-        addUser(data.user.id, data.user.name, data.user.online);
-        break;
-      case 5:
-        alert("对不起，您已经被对方屏蔽。");
-        break;
-    }
-    console.log(data);
-  });
-  function poll(){
-    setTimeout(function(){
-      refresh();
-    }, 30000);
-  }  
-  function refresh() {
-    $.ajax({ 
-      url: "http://localhost:3000/refresh", 
-      type: "GET",
-      dataType: "json",
-      data: {
-        "users": getUidsFromUserList(),
-        "chatroomStudents": getStudentsInChatroom()
-      },
-      success: function(data){
-        updateOnlineStatus(data.uids);  
-        updateStudentOnlineStatus(data.chatroomStudents);
-        //Setup the next poll recursively
-        poll();
-      }
-    });
-  }
-  refresh();
-</script>
-  <script type="text/javascript">PrivatePub.sign({"server":"http://localhost:9292/faye","timestamp":1371014268394,"channel":"/rooms/3","signature":"ca5110afea4d6a280990ba785337a909d3249c78"});</script>
-  <script>
-    PrivatePub.subscribe("/rooms/3", function(data, channel) {
-      if (data.type === "clear") context.clear();
-      else if (data.type === "message") onGroupChatMessage(data.message);
-      else draw(data);
-    });
-  </script>
-
-    <div id="chat-box">
-      <div id="chat-header">
-        <a id="chat-close"><i class="icon-remove"></i></a>
-      </div> 
-      <div id="chat-wrap">
-        <div id="chat-left">
-          <ul>
-            <!--
-            <li class="chat-active" title="username">
-              <span class="chat-status chat-online"> </span>
-              <span class="chat-username">greenmoon55</span>
-              <a class="chat-user-close"><i class="icon-remove"></i></a>
-            </li>
-            <li>
-              <span class="chat-status chat-offline"> </span>
-              <span class="chat-username">greenmoon55</span>
-              <a class="chat-user-close"><i class="icon-remove"></i></a>
-            </li>
-            -->
-          </ul>
-        </div>
-        <div id="chat-right">
-          <div id="chat-dialogue-list">
-            <!--
-            <div class="chat-message chat-with-101">
-              <div class="chat-message-header">
-                <a href="#">greenmoon55</a>2:23
-              </div>
-              <div class="chat-message-content">
-                你好吗？
-              </div>
-            </div>
-			
-            <div class="chat-message chat-with-101">
-              <div class="chat-message-header">
-                <a href="#">greenmoon55</a>2:23
-              </div>
-              <div class="chat-message-content">
-                你好吗？
-              </div>
-            </div>
-            -->
-          </div>
-          <div id="chat-sendbox">
-            <form accept-charset="UTF-8" action="/messages" class="new_message" id="new_message" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"><input name="authenticity_token" type="hidden" value="X7a1ozpqUZMHN0mar6M36pMkst1xq2ZqZcN9inRNiHI="></div>
-              <input id="message_receiver_id" name="message[receiver_id]" type="hidden">
-              <textarea cols="40" id="message_content" name="message[content]" rows="20"></textarea>
-              <input id="chat-sendbutton" name="commit" type="submit" value="发送">
-</form>          </div>
-        </div>
+          <li>
+            <label for="role_teacher">教师</label>
+          </li>
+          <li>
+            <input checked="checked" id="role_student" name="role" type="radio" value="student">
+          </li>
+          <li>
+            <label for="role_student">学生</label>
+          </li>
+        </ul>
       </div>
+    </fieldset>
+    <input class="btn btn-primary btn-info" name="commit" type="submit" value="登录">
+  </ul>
+</form>
+<div class="container">
+  <div class="background">
+    <h1>hss</h1>
+    <a href="/users/101/rooms/3/edit" class="btn btn-primary">编辑聊天室</a>
+    <form accept-charset="UTF-8" action="/users/101/rooms/3" method="post">
+      <div style="margin:0;padding:0;display:inline">
+        <input name="utf8" type="hidden" value="✓">
+        <input name="_method" type="hidden" value="delete">
+        <input name="authenticity_token" type="hidden" value="aLrUV+5qTrDKVexSgy0zeevaI4dOWEG9jYWQOgeTA/g=">
+      </div>
+      <input id="id" name="id" type="hidden" value="3">
+      <input class="btn btn-primary" name="commit" type="submit" value="删除聊天室">
+    </form>
+    <div class="whiteboard">
+    <div>
+      <button class="btn_color" style="background:url(../../../Desktop/trash.png); background-size: 100%;" onclick="clearAndUpdate()"></button>
+      <button class="btn_color" style="background:url(../../../Desktop/red.png); background-size: 100%;" onclick="color='ff0000'"></button>
+      <button class="btn_color" style="background:url(../../../Desktop/green.png); background-size: 100%;" onclick="color='00ff00'"></button>
+      <button class="btn_color" style="background:url(../../../Desktop/blue.png); background-size: 100%;" onclick="color='0000ff'"></button>
+      <button class="btn_color" style="background:url(../../../Desktop/black.png); background-size: 100%;" onclick="color='000000'"></button>
+      <button class="btn_color" style="background:url(../../../Desktop/thin.png); background-size: 100%;" onclick="lineWidth=1"></button>
+      <button class="btn_color" style="background:url(../../../Desktop/medium.png); background-size: 100%;" onclick="lineWidth=4"></button>
+      <button class="btn_color" style="background:url(../../../Desktop/thick.png); background-size: 100%;" onclick="lineWidth=8"></button>
     </div>
+    <canvas id="chatroom-canvas" draggable="false" width="836" height="400"> </canvas>
+    </div>
+    <div id="chatroom-userlist"> 导师 <a href="/users/101">example1</a>
+      <div>学生</div>
+      <ul id="chatroom-student-list">
+      </ul>
+    </div>
+    <div id="chatroom-dialogue-list"> </div>
+    <div id="chatroom-sendbox">
+      <form accept-charset="UTF-8" action="/rooms/3/messages" data-remote="true" method="post">
+        <div style="margin:0;padding:0;display:inline">
+          <input name="utf8" type="hidden" value="✓">
+          <input name="authenticity_token" type="hidden" value="aLrUV+5qTrDKVexSgy0zeevaI4dOWEG9jYWQOgeTA/g=">
+        </div>
+        <textarea cols="40" id="message_content" name="message[content]" rows="4"></textarea>
+        <input id="chatroom-sendbutton" name="commit" type="submit" value="发送">
+      </form>
+    </div>
+  </div>
+</div>
 </html>
