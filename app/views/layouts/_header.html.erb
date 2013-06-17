@@ -1,4 +1,3 @@
-
 <header>
   <div class="navibar">
     <div id="login">
@@ -36,7 +35,11 @@
     <div id="clear"/>
   </div>
 </header>
-
+<style>
+form{
+	margin:0px;
+}
+</style>
 <%= form_tag signin_path do%>
 <ul class="drop">
   <li><%= label_tag :email %></li>
