@@ -5,31 +5,34 @@
   <div class="info_left" style="border:none;">
 	 
 <h6>学生发出的需求</h6>
+<table class="ad_paginated" style="table-layout:fixed;" >
 <% @student_advertisements.each do |advertisement| %>
-<table>
       <tr>
         <td><%= link_to advertisement.user[:name] , advertisement.user%></td>
-        <td style="width:350px"><label><%= advertisement.content %></label></td>
+        <td style="width:350px;padding-right:10px;"><%= advertisement.content %></td>
 		<% if signed_in? && advertisement.user == current_user && advertisement.role == current_user_role_number%>
 	    <td><%= link_to '编辑', edit_advertisement_path(advertisement) %> </td>
 	    <td><%= render 'delete_advertisement', advertisement: advertisement %> </td>
 		<%end%>
       </tr>
-    </table>
+    
 <% end %>
-<h6>老师发出的需求</h6>
+</table>
+<h6 style="padding-top:0px;">老师发出的需求</h6>
+<table class="ad_paginated" style="table-layout:fixed;" >
 <% @teacher_advertisements.each do |advertisement| %>
-<table>
+
       <tr>
         <td><%= link_to advertisement.user[:name], advertisement.user %></td>
-        <td style="width:350px;"><label><%= advertisement.content %></label></td>
+        <td style="width:350px;padding-right:10px;"><label><%= advertisement.content %></label></td>
 	    <% if signed_in? && advertisement.user == current_user && advertisement.role == current_user_role_number%>
 	      <td><%= link_to '编辑', edit_advertisement_path(advertisement) %> </td>
 	      <td><%= render 'delete_advertisement', advertisement: advertisement %> </td>
 	    <%end%>
   </tr>
-</table>
+
 <% end %>
+</table>
 </div>
 <div class="info_right" style="border:none;">
 	  <div style="float:right">

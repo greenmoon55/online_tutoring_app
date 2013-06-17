@@ -3,20 +3,18 @@
 <div class="info_container" style="border:none;">
 <div class="page" style="float:none;">
   <div class="info_left" style="border:none;">
-	  
-
+<table class="paginated" style="table-layout:fixed;">
 <% @annoncements.each do |annoncement| %>
-<table>
   <tr>
 	  <td><%= link_to annoncement.title, annoncement %></td>
-    <td><%= annoncement.created_at.localtime.to_s(:db) %></td>
-    <td><p><%= annoncement.content %></p></td>
+    <td width="150px"><%= annoncement.created_at.localtime.to_s(:db) %></td>
+    <td width="200px" height="30px"><%= annoncement.content %></td>
     <% if current_admin? %>
-      <td><%= link_to '编辑', edit_annoncement_path(annoncement) %></td>
+      <td><%= link_to '编辑', edit_annoncement_path(annoncement) %></td>	
       <td><%= link_to '删除', annoncement, method: :delete, data: { confirm: '你确定吗？' } %></td>
     <% end %>
-</table>
 <% end %>
+</table>
 
 </div>
 <div class="info_right" style="border:none;">
@@ -24,4 +22,5 @@
 <% if current_admin? %>
 <%= link_to '创建新公告', new_annoncement_path %>
 <% end%>
+<div id="clear"></div>
 </div>

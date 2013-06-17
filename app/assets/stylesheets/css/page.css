@@ -208,6 +208,7 @@
 }
 .info_container .info_left table td:first-child {
   width: 20%;
+  padding-right: 10px;
 }
 .info_left .role-select label, .info_left .role-select input{
 	padding:0px 20px 0px 0px;
@@ -312,4 +313,35 @@
 	float:left;
 	margin-top:-20px;
 	margin-left:10px;
+}
+
+div.pager {
+    text-align: right;
+    margin: 1em 0;
+}
+
+div.pager span {
+    display: inline-block;
+    width: 1.8em;
+    height: 1.8em;
+    line-height: 1.8;
+    text-align: center;
+    cursor: pointer;
+    background: #000;
+    color: #fff;
+    margin-right: 0.5em;
+}
+
+div.pager span.active {
+    background: #75b701;
+}
+table td{
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+	-icab-text-overflow: ellipsis;
+	-khtml-text-overflow: ellipsis;
+	-moz-text-overflow: ellipsis;
+	-webkit-text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 }

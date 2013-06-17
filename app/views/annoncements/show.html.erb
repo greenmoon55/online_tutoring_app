@@ -1,11 +1,11 @@
 <div class="row" style="background:none;">
   <div class="span6">
 <p>
-  <b style="float:left;font-size:20px;margin-right:10px;"><%= @annoncement.title %></b>
+  <b style="float:left;font-size:20px;margin-right:170px;"><%= @annoncement.title %></b>
   <label class="timestamp"><%= @annoncement.created_at.localtime.to_s(:db) %></label>
 </p>
 
-<p>
+<p style="margin-right:170px;">
   <b>公告信息: </b><%= @annoncement.content %>
 </p>
 <div style="float:right;margin-right:180px;">
