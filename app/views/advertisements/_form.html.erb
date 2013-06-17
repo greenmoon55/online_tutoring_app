@@ -1,7 +1,6 @@
 <%= form_for(@advertisement) do |f| %>
-<div class="info_right" style="border-top:none;border-left:2px solid #CCC">
-  <h6>发布需求</h6>
+
     <%= f.text_area :content, rows: 10 %>
+	<div id="clear"></div>
     <%= f.submit "提交" , class: "btn_profile"%>
-</div>
 <% end %>

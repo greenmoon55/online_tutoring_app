@@ -297,3 +297,11 @@
 	width:98%;
 }
 
+.page .edit_ad textarea{
+	width:100%;
+}
+
+.edit_ad a{
+	margin-top:15px;
+	color:#CCC;
+}
