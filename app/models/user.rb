@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
                   :gender, :district_id, :description, :role,
                   :student_visible, :teacher_visible, :degree_id,
                   :student_subject_ids, :teacher_subject_ids,
+                  :comments_count,
                   :video_id
   attr_accessor :updating_password
 
@@ -54,6 +55,9 @@ class User < ActiveRecord::Base
   has_many :advertisements,dependent: :destroy
   #as teacher
   has_many :comments, foreign_key: "teacher_id", dependent: :destroy
+  
+  scope :teacher_order, select("users.id, count(comments.id) as comments_count").joins(:comments).order("comments_count DESC")
+  
   accepts_nested_attributes_for :student_subjects
 
   before_save { |user| user.email = email.downcase }
