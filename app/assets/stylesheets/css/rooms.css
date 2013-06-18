@@ -87,6 +87,7 @@
 }
 .row {
 	margin-top: 20px;
+	min-height:400px;
 }
 .span6 .btn-primary {
 	margin-top: 20px;
