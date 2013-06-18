@@ -11,10 +11,11 @@
 <% else %>
 
 <% end%>
-<p  style="margin-right:170px;">
+<div style="padding-top:30px;">
+<div class="show_content">
   <b>需求:</b>
   <%= @advertisement.content %>
-</p>
+</div>
 
 
 <% if signed_in? && @advertisement.user == current_user && @advertisement.role == current_user_role_number%>
