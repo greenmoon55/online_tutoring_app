@@ -151,6 +151,7 @@ header {
 	font-weight: bold;
 	padding-left: 15px;
 	margin-bottom: 1px;
+	margin-top:5px;
 }
 .bulletin #time {
 	color: #98bf42;
@@ -165,6 +166,7 @@ header {
 	padding-top: 10px;
 	width: 570px;
 	margin-bottom:30px;
+	white-space:normal;
 }
 .bulletin a {
 	color: #98bf42;
@@ -172,6 +174,9 @@ header {
 	font-weight: bold;
 	float: right;
 	margin-bottom:10px;
+}
+.title{
+	border-top:thin solid #999;
 }
 .intro, .intro img, .intro #single, .intro h6 {
 	float: left;
