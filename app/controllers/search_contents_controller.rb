@@ -72,40 +72,42 @@ class SearchContentsController < ApplicationController
       condition += " and district_id IN (#{@district_selected.join(', ')})"
     end
     if @role_number == 0
-      condition += " and teacher_visible = ? "
+      #condition += " and teacher_visible = ? "
+      condition += " and teacher_visible = :visible "
     else 
-      condition += " and student_visible = ? "
+      #condition += " and student_visible = ? "
+      condition += " and student_visible = :visible "
     end
     
-    condition += " and (name LIKE ? or description LIKE ?) "
+    #condition += " and (name LIKE ? or description LIKE ?) "
+    condition += " and (name LIKE :justcontent or description LIKE :justcontent) "
 
     if subject_need_care
       if @role_number == 0
         teacher_ids = "select users.id from users, teacher_relationships where users.id = teacher_relationships.user_id and teacher_relationships.subject_id IN (#{@subject_selected.join(', ')})"
-        condition += "and id IN (#{teacher_ids}) "
+        condition += "and users.id IN (#{teacher_ids}) "
       else
         student_ids = "select users.id from users, student_relationships where users.id = student_relationships.user_id and student_relationships.subject_id IN (#{@subject_selected.join(', ')})"
-        condition += "and id IN (#{student_ids}) "
+        condition += "and users.id IN (#{student_ids}) "
       end
-    end
-    if @role_number == 0
     end
     #comments_count = "count (*) from select user desc" .order("(select  users.id, count(users.id) from users, comments where users.id = comments.teacher_id) desc")
     #order_condition = " (select count(teacher_id) as teacher_count from comments, users where comments.teacher_id = users.id group by teacher_id) desc"
-    @users = User.paginate(:conditions => [condition,true,"%#{@content}%","%#{@content}%"], :page => params[:page], :per_page => 5).order( order_condition)
-    #sql = "select users.*, count(teacher_id) as teachers_count from users, comments where users.id = comments.teacher_id group by users.id "
-    #sql2 = " union select distinct users.*,0 as teachers_count from users "
-    #sql3 = " expect select distinct users.*,0 as teachers_count from users, comments where users.id = comments.teacher_id order by teachers_count desc"
-    #sql = "select users.* from users order by select "
-    #sql = "select users.* from "
-    #@users = User.paginate_by_sql(sql+sql2, :page => params[:page], :per_page => 5)
+    #@users = User.paginate(:conditions => [condition,true,"%#{@content}%","%#{@content}%"], :page => params[:page], :per_page => 5).order( order_condition)
+    sql = "select users.*, count(teacher_id) as teachers_count from users, comments where users.id = comments.teacher_id and " + condition + " group by users.id "
+    sql2 = " union select  users.*,0 as teachers_count from users where " + condition 
+    sql3 = " except select users.*,0 as teachers_count from users, comments where users.id = comments.teacher_id order by teachers_count desc"
+    if @role_number == 0 
+      @users = User.paginate_by_sql([sql+sql2+sql3, visible: true, justcontent: "%#{@content}%"], :page => params[:page], :per_page => 5)
+    else
+      @users = User.paginate(:conditions => [condition,visible: true, justcontent: "%#{@content}%"], :page => params[:page], :per_page => 5)
+    end
     render 'new'
   end
   
   def index
     redirect_to search_path
   end
-
 
   def new
     @content = nil
