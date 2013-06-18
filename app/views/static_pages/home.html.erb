@@ -28,21 +28,20 @@
   </div>
   <div class="intro"> <img src="/assets/res/selfintro.png"/>
     <table>
+      <% @advertisements.each do |ad| %>
+        <tr>
+          <td style="white-space: normal;">
+            <div id="single">
+              <h2>来自:</h2>
+              <h2><%= ad.user.name %></h2>
+              <div id="clear"/>
+              <p><%= ad.content %></p>
+            </div>
+          </td>
+        </tr>
+      <% end %>
       <tr>
-        <td style="white-space: normal;"><div id="single">
-            <h2>来自:</h2>
-            <h2>阿诚</h2>
-            <div id="clear"/>
-            <p>我现在在大学二年级。马上就线性代数考试了，我想找一个能帮助我的解决问题的老师，每周末进行辅导...</p>
-          </div>
-      </tr>
-      <tr>
-        <td style="white-space: normal;"><div id="single">
-            <h2>来自:</h2>
-            <h2>阿诚</h2>
-            <div id="clear"/>
-            <p>我现在在大学二年级。马上就线性代数考试了，我想找一个能帮助我的解决问题的老师，每周末进行辅导...</p>
-          </div>
+        <td><%= link_to "查看更多", advertisements_path %></td>
       </tr>
     </table>
   </div>
