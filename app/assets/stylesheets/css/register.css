@@ -16,6 +16,7 @@
 	border-radius: 10px;
 	-moz-border-radius: 10px; /* Old Firefox */
 	box-shadow: 5px 5px 5px #CCC;
+	text-align: justify;
 }
 .span6 label{
 	padding:15px 0px 20px 0px;	
