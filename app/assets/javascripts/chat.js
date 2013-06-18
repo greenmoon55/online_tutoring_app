@@ -15,6 +15,7 @@ jQuery.fn.visibilityToggle = function() {
   });
 };
 $(document).ready(function() {
+  userListInit();
   $("#chat-popup-button").click(function() {
     $(this).removeClass("new-message");
     if (!chatOpened) {
@@ -97,6 +98,20 @@ function getUidsFromUserList() {
     uids.push(parseInt(userList[i].id, 10)); 
   }
   return uids;
+}
+
+function userListInit() {
+  if ($.cookie("userList")) {
+    var i;
+    userList = JSON.parse($.cookie("userList"));
+  }
+}
+
+function userInList(id) {
+  for (var i = 0; i < userList.length; i++) {
+    if (userList[i].id == id) return true;
+  } 
+  return false;
 }
 
 // 从 cookie 获取用户列表
@@ -296,6 +311,13 @@ function onChatMessage(message) {
 }
 
 function onNewMessage(message) {
+  if (!chatOpened) {
+    if (!userInList) {
+      userList.push({id: message.user_id, name: message.sender_name});
+      saveCookie();
+    }
+    return;
+  }
   onChatMessage(message);
   if (currentUid === message.user_id) {
     scrollDownDialogueList();
@@ -335,3 +357,6 @@ function flicker() {
   $(".chat-unread .chat-username").fadeOut().fadeIn();
   $(".navibar .new-message").effect("shake", {direction: "up", distance: 2, times: 2});
 }
+$(document).ajaxError(function() {
+  alert("对不起，无法连接服务器，请刷新后重试");
+});

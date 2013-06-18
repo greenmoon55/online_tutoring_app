@@ -10,7 +10,7 @@ class RequestsController < ApplicationController
     end
 
     if current_user.have_been_friends?(@receiver,current_student?)
-      flash[:error] = "已经成为朋友啦"
+      flash[:error] = "已经建立了教学关系"
       redirect_to @receiver and return
       #have been friends
     end
@@ -48,7 +48,7 @@ class RequestsController < ApplicationController
     end
     current_user.delete_add_request!(@sender,current_student?)
     #delete successfully
-    flash[:success] = "你拒绝了#{@sender.name}的好友请求"
+    flash[:success] = "你拒绝了#{@sender.name}的请求"
     redirect_to requests_user_path(current_user) and return 
   end
 

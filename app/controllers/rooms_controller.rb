@@ -26,6 +26,10 @@ class RoomsController < ApplicationController
 
   def update
     @room = @user.rooms.find(params[:id])
+    if params[:outline].blank?
+      flash[:error] = "标题内容不能为空"
+      redirect_to edit_user_room_path(current_user,params[:id]) and return 
+    end
     @room.update_attributes(outline: params[:outline])
     @student_selected = []
     if params[:student]
@@ -59,6 +63,10 @@ class RoomsController < ApplicationController
   end
 
   def create
+    if params[:outline].blank?
+      flash[:error] = "标题内容不能为空"
+      redirect_to new_user_room_path(current_user) and return 
+    end
     @room = @user.rooms.create!(outline: params[:outline])
     @student_selected = []
     if params[:student]
@@ -111,7 +119,7 @@ class RoomsController < ApplicationController
   def correct_user
     @user = User.find(params[:user_id])
     unless current_user?(@user)
-      redirect_to root_path, notice: "非法操作"
+      redirect_to root_path
     end
   end
   
@@ -161,7 +169,7 @@ class RoomsController < ApplicationController
   def message
     message = {
       message: {
-        content: params[:message][:content],
+        content: ERB::Util.html_escape(params[:message][:content]),
         created_at: Time.now.to_s(:db),
         sender_id: current_user.id,
         sender_name: current_user.name

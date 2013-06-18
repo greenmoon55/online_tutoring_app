@@ -56,7 +56,7 @@ class UsersController < ApplicationController
       params[:user].delete :password_confirmation
     end
     if @user.update_attributes(params[:user])
-      redirect_to @user, notice: '编辑成功'
+      redirect_to @user
     else
       if current_student?
         render 'edit'
