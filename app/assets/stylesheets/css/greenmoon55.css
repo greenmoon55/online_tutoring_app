@@ -1,3 +1,7 @@
 .clearfix:after {
   clear: both;
 }
+
+.modal-body textarea#evaluation {
+  width: 400px;
+}
