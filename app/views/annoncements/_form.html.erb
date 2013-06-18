@@ -1,12 +1,10 @@
 <%= form_for(@annoncement) do |f| %>
 <table style="table-layout:auto;">
-	<tr>
-		<td><%= f.label :title , "标题"%></td>
-		<td><%= f.text_field :title %></td>
-	</tr>
-</table>
+	<%= f.label :title , "标题"%>
+		<%= f.text_field :title %>
+
 	<%= f.label :content, "内容" %><%= f.text_area :content, rows: 10%>
   <div class="actions">
-    <%= f.submit "提交", class:"btn"%>
+    <%= f.submit "提交", class:"btn_profile"%>
   </div>
 <% end %>

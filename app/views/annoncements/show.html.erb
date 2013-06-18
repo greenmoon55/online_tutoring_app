@@ -1,14 +1,15 @@
 <div class="row" style="background:none;">
   <div class="span6">
 <p>
-  <b style="float:left;font-size:20px;margin-right:170px;"><%= @annoncement.title %></b>
+  <b style="font-size:20px;margin-right:170px;"><%= @annoncement.title %></b>
   <label class="timestamp"><%= @annoncement.created_at.localtime.to_s(:db) %></label>
+ 
 </p>
 
-<p style="margin-right:170px;">
+<div class="show_content">
   <b>公告信息: </b><%= @annoncement.content %>
-</p>
-<div style="float:right;margin-right:180px;">
+</div>
+<div style="float:right;margin-right:170px;">
 <% if current_admin? %>
 
   <%= link_to '编辑', edit_annoncement_path(@annoncement) %>

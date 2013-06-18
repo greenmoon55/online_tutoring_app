@@ -305,6 +305,7 @@
 	margin-top:15px;
 	color:#999;
 	font-weight:normal;
+	margin-right: 5px;
 }
 #comment_dia{
 	float:left;
@@ -344,4 +345,13 @@ table td{
 	-webkit-text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
+}
+.show_content{
+	margin-top:-20px;
+	margin-right:170px;
+	font-size:13px;
+	text-align: justify;
+}
+.row p{
+	padding-left:0px;
 }
