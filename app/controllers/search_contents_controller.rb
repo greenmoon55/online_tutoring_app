@@ -88,6 +88,10 @@ class SearchContentsController < ApplicationController
         condition += "and id IN (#{student_ids}) "
       end
     end
+    if @role_number = 0
+    #  condition += " group by user order by (count(*) from users, comments where users.id = comments.teacher_id)"
+    end
+    
     @users = User.paginate(:conditions => [condition,true,"%#{@content}%","%#{@content}%"], :page => params[:page], :per_page => 5)
     render 'new'
   end
