@@ -53,10 +53,10 @@
           </tr>
         </table>
         <%= f.submit t("common.update"), class: "btn btn_edit" %>
+	    <% end %>
 		<div id="clear"></div>
 	    <%= form_tag(full_role_user_path(@user), method: :post) do %>
 	  	  <%= submit_tag "我也想当学生",  class: "btn btn_edit", confirm: :"你确定吗？"unless current_user.full_role? %>
-	    <% end %>
       <% end %>
     </div>
     <%= render 'edit_right' %>
