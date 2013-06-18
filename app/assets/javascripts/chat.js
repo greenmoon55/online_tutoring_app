@@ -335,3 +335,6 @@ function flicker() {
   $(".chat-unread .chat-username").fadeOut().fadeIn();
   $(".navibar .new-message").effect("shake", {direction: "up", distance: 2, times: 2});
 }
+$(document).ajaxError(function() {
+  alert("对不起，无法连接服务器，请刷新后重试");
+});
