@@ -89,6 +89,21 @@ module SessionsHelper
     cookies.delete(:userList)
   end
 
+  def has_new_request?
+    if current_student?
+      @add_requests = current_user.requests.find_all_by_kind_and_read(2, false)
+      @other_requests = current_user.requests.find_all_by_kind_and_read(4, false)
+    else
+      @add_requests = current_user.requests.find_all_by_kind_and_read(1, false)
+      @other_requests = current_user.requests.find_all_by_kind_and_read(3, false)
+    end
+    if @add_requests.count == 0 && @other_requests.count == 0
+      return false
+    else
+      return true
+    end
+  end
+  
   def current_user_role_number
     if current_student?
       return 1
