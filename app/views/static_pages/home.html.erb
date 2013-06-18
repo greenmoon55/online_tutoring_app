@@ -6,17 +6,12 @@
     <div id="clear"></div>
   </div>
   <div class="search">
-    <form>
-      <input type="text" name="search">
-      <input type="button" class="button_search">   
-    </form>
     <%= form_tag(search_path, :method => 'get') do %>
-    <%= text_field_tag :content, @content, class: "input-large search-query" %>
-    <%= hidden_field_tag :gender, 2%>
-    <%= hidden_field_tag :role, 0%>
-    <%= submit_tag "搜索", class: "btn" %>
+      <%= text_field_tag :content, @content %>
+      <%= hidden_field_tag :gender, 2 %>
+      <%= hidden_field_tag :role, 0 %>
+      <%= submit_tag "", class: "button_search" %>
     <% end%>
-
   </div>
   <div class="bulletin">
     <h1>公告栏</h1>
@@ -53,14 +48,10 @@
   </div>
   <div id="clear"></div>
   <div class="teacher">
-  <h2>热门讲师</h2>
-
+    <h2>热门讲师</h2>
     <% @top_teachers.each do |teacher| %>
-      <p> <%= teacher.name %> </p>
+      <%= link_to gravatar_for(teacher, size: 137), teacher %>
     <% end %>
-
-  <img src="/assets/res/head.png" width="137" height="137"/>
-  <img src="/assets/res/head.png" width="137" height="137"/>
   </div>
 </div>
 </div>
