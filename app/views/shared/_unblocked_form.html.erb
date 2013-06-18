@@ -2,7 +2,7 @@
   <div class="span3">
     <%= form_tag(blocked_relationship_path(user.id), method:'delete') do %>
       <%= hidden_field_tag :blocked_user_id,user.id%>
-	  <div style="margin-top:-20px;margin-left:-20px;">
+	  <div style="margin-left:-20px;">
       <%= submit_tag "移出黒名单", class: "btn"%>
     <% end %>
   </div>
