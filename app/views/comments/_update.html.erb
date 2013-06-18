@@ -1,7 +1,7 @@
-<%= form_tag(comment_path(comment.id), method:"put") do%>
+<%= form_tag(comment_path(comment.id), method:"put") do %>
   <%= hidden_field_tag :student_id, comment.student_id %>
   <%= hidden_field_tag :teacher_id, comment.teacher_id %>
   <%= text_area_tag :evaluation, comment.evaluation %>
   <div id="clear"></div>
-  <%= submit_tag "评论", class: "btn btn-primary", id:"comment_dia"%>
+  <%= submit_tag "修改评价", class: "btn btn-primary", id:"comment_dia" %>
 <% end %>
