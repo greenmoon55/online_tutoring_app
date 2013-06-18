@@ -119,7 +119,7 @@ class RoomsController < ApplicationController
   def correct_user
     @user = User.find(params[:user_id])
     unless current_user?(@user)
-      redirect_to root_path, notice: "非法操作"
+      redirect_to root_path
     end
   end
   

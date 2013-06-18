@@ -58,7 +58,7 @@ class AdvertisementsController < ApplicationController
       @user = Advertisement.find(params[:advertisement_id]).user
     end
     unless current_user?(@user)
-      redirect_to root_path, notice: "非法操作"
+      redirect_to root_path
     end
   end
 end

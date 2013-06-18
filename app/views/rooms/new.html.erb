@@ -4,7 +4,7 @@
     <%= form_tag(user_rooms_path, method: 'post') do %>
       <%= label_tag :outline, "讨论组主题" %>
       <%= text_field_tag :outline, @outline%>
-      <%= label_tag :information, "讨论组的简单介绍以及讲课时间等基本情况" %>
+      <%= label_tag :information, "讨论组的简单介绍以及讲课时间等基本情况（会发给学生）" %>
       <%= text_field_tag :information%>
       </br>
       允许进入的学生
