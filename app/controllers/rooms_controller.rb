@@ -51,7 +51,7 @@ class RoomsController < ApplicationController
         if @user.students.include?(User.find(student_id))
           # 提醒被老师 加入聊天室的学生
           @room.room_student_relationships.create!(student_id: student_id)  
-          User.find(student_id).create_normal_request!(@user[:id], 4, "将你加入到了 " + @room[:outline] + " 聊天室中")
+          User.find(student_id).create_normal_request!(@user[:id], 4, "将你加入到了 " + @room[:outline] + " 聊天室中"+ "聊天室的简单介绍如下： #{params[:information]}")
         end
       end
     end
@@ -68,7 +68,7 @@ class RoomsController < ApplicationController
         if @user.students.include?(student)
           # 提醒被老师 加入聊天室的学生
           @room.room_student_relationships.create!(student_id: single_student_id) 
-          student.create_normal_request!(@user[:id], 4, "将你加入到了 #{@room[:outline]} 聊天室中")
+          student.create_normal_request!(@user[:id], 4, "将你加入到了 #{@room[:outline]} 聊天室中, 聊天室的简单介绍如下： #{params[:information]}")
         end
       end
     end
