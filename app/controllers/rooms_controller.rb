@@ -161,7 +161,7 @@ class RoomsController < ApplicationController
   def message
     message = {
       message: {
-        content: params[:message][:content],
+        content: ERB::Util.html_escape(params[:message][:content]),
         created_at: Time.now.to_s(:db),
         sender_id: current_user.id,
         sender_name: current_user.name

@@ -227,3 +227,7 @@ footer {
 header, section, footer, aside, article, figure {
 	display: block;
 }
+
+.intro a {
+  color: #98bf42;
+}
