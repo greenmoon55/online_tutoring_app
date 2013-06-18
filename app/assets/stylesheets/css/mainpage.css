@@ -165,6 +165,16 @@ header {
 	width: 570px;
 	margin-bottom:30px;
 	white-space:normal;
+	max-height:200px;
+	text-align:justify;
+	overflow:hidden;
+}
+#single p{
+	max-height:200px;
+	text-align:justify;
+	overflow:hidden;
+	font-weight:normal;
+	font-size:16px;
 }
 .bulletin a {
 	color: #98bf42;
