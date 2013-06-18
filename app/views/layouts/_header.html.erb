@@ -12,7 +12,7 @@
             <li><%= link_to "学习", friends_user_path(current_user) %> </li>
           <% end %>
           <li><a id="chat-popup-button">聊天</a></li>
-          <li><%= link_to "通知", requests_user_path(current_user) %> </li>
+          <li><div id="notif_pop"><img src="/assets/res/notif.png" width="15px"></div><%= link_to "通知", requests_user_path(current_user),id:"notif_tlt"%> </li>
         <% else %>
           <li><%= link_to t("common.login"), signup_path, id: "link", class: "signin" %></li>
           <li><%= link_to t("common.register"), signup_path %></li>
@@ -40,7 +40,8 @@ form{
 	margin:0px;
 }
 </style>
-<%= form_tag signin_path do%>
+<%= form_tag signin_path do %>
+<div class="signin">
 <ul class="drop">
   <li><%= label_tag :email %></li>
   <li><%= text_field_tag :email, params[:email] %></li>
@@ -59,3 +60,4 @@ form{
   <%= submit_tag t("common.login"), class: "btn btn-primary btn-info" %>
 <% end %>
 </ul>
+</div>

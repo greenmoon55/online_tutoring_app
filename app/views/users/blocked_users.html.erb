@@ -4,10 +4,10 @@
   <p>被屏蔽的用户不能给您发消息</p>
   <% if @blocked_users.any? %>
     <% @blocked_users.each do |user| %>
-      <%= render 'shared/unblocked_form', user: user %>
+      <%= render 'unblocked_form', user: user %>
     <% end %>
   <% else %>
-    <p>无黑名单</p>
+    <p>您还没有屏蔽其他用户</p>
   <% end %>
 </div>
 

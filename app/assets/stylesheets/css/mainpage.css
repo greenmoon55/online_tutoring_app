@@ -16,7 +16,7 @@ ul, ol, dl { /* 由于浏览器之间的差异，最佳做法是在列表中将�
 	margin: 0px;
 }
 h1, h2, h3, h4, h5, h6, p {
-	margin-top: 0px;	 /* 删除上边距可以解决边距会超出其包含的块的问题。剩余的下边距可以使块与后面的任何元素保持一定距离。 */
+	margin-top: 10px;	 /* 删除上边距可以解决边距会超出其包含的块的问题。剩余的下边距可以使块与后面的任何元素保持一定距离。 */
 	padding-right: 15px;
 	padding-left: 15px;
 	font-weight: normal; /* 向块内的元素侧边（而不是块元素自身）添加填充可避免使用任何方框模型数学。此外，也可将具有侧边填充的嵌套块用作替代方法。 */
@@ -70,7 +70,7 @@ header {
 	clear: both;
 }
 /* ~~ 此固定宽度容器包含所有其它块 ~~ */
-.theme, .container, .register {
+.theme, .container, .register, .signin {
 	width: 960px;
 	margin: 0px auto; /* 侧边的自动值与宽度结合使用，可以将布局居中对齐 */
 }
@@ -212,6 +212,11 @@ header {
 .teacher img{
 	padding-left: 15px;
 }
+
+#notif_pop{
+	float:right;margin-top:-10px;
+}
+
 footer {
 	padding: 15px 0;
 	background-color: #a1a1a1;

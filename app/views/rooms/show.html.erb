@@ -22,16 +22,14 @@
         <% else %> 
           <span class="chatroom-status chatroom-offline"></span>
         <% end %>
-        <%= link_to student[:name], user_path(student[:id]) %>
+        <%= link_to student.name, user_path(student.id) %>
       </li>
 	  
     <% end%>
-  <li>
+    </ul>
 	  <% if @room.user == current_user && current_teacher?%>
 	    <%= link_to "添加或者移除学生", edit_user_room_path(current_user, @room)%>
 	  <% end%>
-  </li>
-    </ul>
 </div>
   </div>
   <div id="chatroom-dialogue-list">
