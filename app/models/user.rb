@@ -25,7 +25,6 @@ class User < ActiveRecord::Base
                   :gender, :district_id, :description, :role,
                   :student_visible, :teacher_visible, :degree_id,
                   :student_subject_ids, :teacher_subject_ids,
-                  :comments_count,
                   :video_id
   attr_accessor :updating_password
 
