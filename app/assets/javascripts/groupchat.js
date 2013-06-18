@@ -72,7 +72,6 @@ $(document).ready(function() {
     $.ajax({
       url: "http://localhost:3000/rooms/" + roomID + "/new_line",
       type: "POST",
-      dataType: "json",
       data: {
         "points": points,
         "color": color,
