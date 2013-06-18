@@ -65,7 +65,7 @@
 	margin-left: 40px;
 	font-family: Microsoft Yahei;
 	padding: 80px 20px;
-	overflow: auto;
+	min-height:200px;
 }
 .room_container .create_room {
 	margin: -10px 25px 25px 0px;
@@ -111,6 +111,7 @@
 	border: thin solid #CCC;
 	box-shadow: 5px 5px 5px #CCC;
 	overflow: auto;
+	margin-top: 30px;
 }
 .background.new-chatroom {
 	min-height: 0;

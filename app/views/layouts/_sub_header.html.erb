@@ -1,5 +1,5 @@
 <div class="clearfix">
-  <div class="roomsbanner">
+  <ul class="roomsbanner">
     <% if current_student? %>
       <li class="mystudent"><%= link_to "我的导师", friends_user_path(current_user) %> </li>
     <% elsif current_teacher? %>
@@ -11,7 +11,7 @@
     <% else %>
       <li class="group"><%= link_to "讨论组", my_rooms_user_path(current_user) %></li>
     <% end%>
- </div>
+ </ul>
 </div>
 <div class="clearfix"></div>
 

@@ -4,7 +4,7 @@
       <%= form_tag(user_room_path(current_user,@room[:id]), method: 'put') do %>
 	  <%= label_tag "聊天室主题"%>
 	  <%= text_field_tag :outline, @outline%>
-      <%= label_tag :information, "讨论组的简单介绍以及讲课时间等基本情况（会发给学生）" %>
+      <%= label_tag :information, "讨论组的简单介绍以及讲课时间等基本情况（会发给学生）",style:"width:230px;"%>
       <%= text_field_tag :information%>
 	  <div id="clear"></div>
 	  <table>
