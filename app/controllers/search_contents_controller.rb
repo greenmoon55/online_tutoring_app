@@ -91,7 +91,14 @@ class SearchContentsController < ApplicationController
     if @role_number == 0
     end
     #comments_count = "count (*) from select user desc" .order("(select  users.id, count(users.id) from users, comments where users.id = comments.teacher_id) desc")
-    @users = User.paginate(:conditions => [condition,true,"%#{@content}%","%#{@content}%"], :page => params[:page], :per_page => 5)
+    #order_condition = " (select count(teacher_id) as teacher_count from comments, users where comments.teacher_id = users.id group by teacher_id) desc"
+    @users = User.paginate(:conditions => [condition,true,"%#{@content}%","%#{@content}%"], :page => params[:page], :per_page => 5).order( order_condition)
+    #sql = "select users.*, count(teacher_id) as teachers_count from users, comments where users.id = comments.teacher_id group by users.id "
+    #sql2 = " union select distinct users.*,0 as teachers_count from users "
+    #sql3 = " expect select distinct users.*,0 as teachers_count from users, comments where users.id = comments.teacher_id order by teachers_count desc"
+    #sql = "select users.* from users order by select "
+    #sql = "select users.* from "
+    #@users = User.paginate_by_sql(sql+sql2, :page => params[:page], :per_page => 5)
     render 'new'
   end
   
