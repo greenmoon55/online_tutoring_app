@@ -70,7 +70,7 @@ header {
 	clear: both;
 }
 /* ~~ 此固定宽度容器包含所有其它块 ~~ */
-.theme, .container, .register {
+.theme, .container, .register, .signin {
 	width: 960px;
 	margin: 0px auto; /* 侧边的自动值与宽度结合使用，可以将布局居中对齐 */
 }

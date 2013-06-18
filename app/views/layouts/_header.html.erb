@@ -41,6 +41,7 @@ form{
 }
 </style>
 <%= form_tag signin_path do %>
+<div class="signin">
 <ul class="drop">
   <li><%= label_tag :email %></li>
   <li><%= text_field_tag :email, params[:email] %></li>
@@ -59,3 +60,4 @@ form{
   <%= submit_tag t("common.login"), class: "btn btn-primary btn-info" %>
 <% end %>
 </ul>
+</div>
