@@ -1,6 +1,6 @@
 @charset "utf-8";
 /* CSS Document */
-<!--
+
 body {
 	font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
 	background-color: #42413C;
@@ -151,13 +151,12 @@ header {
 	font-weight: bold;
 	padding-left: 15px;
 	margin-bottom: 1px;
-	margin-top:5px;
 }
 .bulletin #time {
 	color: #98bf42;
 	font-family: Arial, Helvetica, sans-serif;
 	font-weight: normal;
-	margin-bottom:15px;
+	margin:0;
 }
 .bulletin img {
 	padding-left: 15px;
@@ -177,6 +176,7 @@ header {
 }
 .title{
 	border-top:thin solid #999;
+	padding-top:15px;
 }
 .intro, .intro img, .intro #single, .intro h6 {
 	float: left;
@@ -202,6 +202,7 @@ header {
 	-moz-border-radius: 15px;
 	background: #98c245;
 	margin-bottom:15px;
+	width: 270px;
 }
 .comment a{
 	float:left;
