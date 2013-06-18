@@ -15,20 +15,17 @@
   <div class="bulletin">
     <h1>公告栏</h1>
     <table>
-      <tr>
-        <td class="title"><a href="#">[国学精品课程]孟子的历史形象及经学意义</a>
-          <p id="time">2013-01-09</p>
-          <img src="/assets/res/sample.png" width="570"></img>
-          <p>孟子是经学史上的亚圣，其历史形象，随着时代的变迁而产生不同的变化。本讲着重梳理这一变化产生的原因及其内在机理，并对孟子之经学意义予以揭示。</p></td>
-      </tr>
-      <tr>
-        <td class="title"><a href="#">[国学精品课程]孟子的历史形象及经学意义</a>
-          <p id="time">2013-01-09</p>
-          <img src="/assets/res/sample.png" width="570"></img>
-          <p>孟子是经学史上的亚圣，其历史形象，随着时代的变迁而产生不同的变化。本讲着重梳理这一变化产生的原因及其内在机理，并对孟子之经学意义予以揭示。</p></td>
-      </tr>
+      <% @annoncements.each do |annoncement| %>
+        <tr>
+          <td class="title"><%= link_to annoncement.title, annoncement %>
+            <p id="time"><%= annoncement.created_at.localtime.to_s(:db) %></p>
+            <p><%= annoncement.content %></p>
+          </td>
+        </tr>
+      <% end %>
     </table>
-    <a href="#">查看更多</a> </div>
+    <%= link_to "查看更多", annoncements_path %>
+  </div>
   <div class="intro"> <img src="/assets/res/selfintro.png"/>
     <table>
       <tr>
