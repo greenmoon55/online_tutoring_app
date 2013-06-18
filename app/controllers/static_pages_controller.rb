@@ -3,7 +3,7 @@ class StaticPagesController < ApplicationController
   def home
     @annoncements = Annoncement.order("created_at DESC").limit(3)
     @advertisements = Advertisement.order("created_at DESC").limit(2)
-    @top_teachers = User.find_by_sql("SELECT * FROM users JOIN comments ON users.id = comments.teacher_id group by users.id order by count(*) DESC")
+    @top_teachers = User.find_by_sql("SELECT * FROM users JOIN comments ON users.id = comments.teacher_id group by users.id order by count(*) DESC limit 5")
   end
 
   def about
