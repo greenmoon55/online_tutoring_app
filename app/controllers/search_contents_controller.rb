@@ -119,7 +119,7 @@ class SearchContentsController < ApplicationController
     @degree_selected = []
     @district_selected = []
     @subject_selected = []
-    self.get_degree   
+    self.get_degree
     self.get_district 
     self.get_subject
   end
