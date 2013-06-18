@@ -48,6 +48,9 @@
   <div id="clear"></div>
   <div class="teacher">
   <h2>热门讲师</h2>
+    <% @top_teachers.each do |teacher| %>
+      <p> <%= teacher.name %> </p>
+    <% end %>
   <img src="/assets/res/head.png" width="137" height="137"/>
   <img src="/assets/res/head.png" width="137" height="137"/>
   </div>
