@@ -31,3 +31,13 @@ online_tutoring_app
 -------
 
 见 doc/message_format.md
+
+Redis 的作用
+-------
+
+sorted set: key: online-users, score: timestamp, member: uid
+
+按 score 排序
+
+ZADD O(log(N))
+ZCARD get score by member O(1) 获取用户最后刷新时间
